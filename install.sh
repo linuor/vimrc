@@ -19,6 +19,10 @@ done
 echo "Create symbol links ..."
 ln -sf $PWD $VIMHOME
 ln -sf $PWD/vimrc $VIMFILE
+echo "Create temp direcotry ..."
+mkdir $PWD/temp
+mkdir $PWD/temp/backup
+mkdir $PWD/temp/swap
 echo "Clone from https://github.com/gmarik/Vundle.vim.git ..."
 mkdir bundle
 git clone https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim

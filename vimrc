@@ -18,7 +18,7 @@ call vundle#begin()
 	Plugin 'vim-scripts/matchit.zip'            " extended % matching for HTML, LaTeX, and many other languages
 	Plugin 'terryma/vim-multiple-cursors'       " Sublime Text style multiple selections for Vim
 	Plugin 'sukima/xmledit'                     " XML/HTML tags will be completed automatically
-	Plugin 'wincent/Command-T'                  " open and navigate between files with cmd-t
+	Plugin 'kien/ctrlp.vim'                     " Fuzzy file, buffer, mru, tag, etc finder.
 	Plugin 'ervandew/supertab'                  " Perform all your vim insert mode completions with Tab
     Plugin 'davidhalter/vim-snipmate'           " TextMate-style snippets for Vim
 	Plugin 'honza/vim-snippets'                 " vim-snipmate default snippets (Previously snipmate-snippets) 
@@ -33,17 +33,6 @@ call vundle#begin()
 	Plugin 'MarcWeber/vim-addon-mw-utils'       " interpret a file by function and cache file automatically 
 	Plugin 'scrooloose/nerdcommenter'           " plugin for intensely orgasmic commenting 
 	Plugin 'bling/vim-airline'                  " status/tabline for vim
-    "Plugin 'vim-scripts/grep.vim'
-	"Plugin 'vim-scripts/bufexplorer.zip'
-	"Plugin 'kien/ctrlp.vim'
-	"Plugin 'vim-scripts/mru.vim'
-	"Plugin 'vim-scripts/taglist.vim'
-	"Plugin 'vim-scripts/DoxygenToolkit.vim'
-	"Plugin 'junegunn/goyo.vim'
-	"Plugin 'amix/vim-zenroom2'
-	"Plugin 'vim-scripts/VOoM'
-	"Plugin 'vim-scripts/DrawIt'
-    "Plugin 'vim-scripts/RST-Tables-CJK'
 call vundle#end()
 
 
@@ -60,6 +49,17 @@ filetype indent on
 " Set to auto read when a file is changed from the outside
 set autoread
 
+if has('clipboard')
+    if has('unnamedplus')  " When possible use + register for copy-paste
+        set clipboard=unnamed,unnamedplus
+        map <leader>y "+y
+        map <leader>p "+p
+    else         " On mac and Windows, use * register for copy-paste
+        set clipboard=unnamed
+        map <leader>y "*y
+        map <leader>p "*p
+    endif
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -148,14 +148,19 @@ set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
+scriptencoding utf-8
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Turn backup off, since most stuff is in SVN, git et.c anyway...
-set nobackup
-set nowb
-set noswapfile
+" Move backup and swap to other dir, since most stuff is in SVN, git anyway...
+set backup
+set wb
+set swapfile
+
+" Install.sh will create back and swap direcotries
+set backupdir=~/.vim/temp/backup    " where to put backup file
+set directory=~/.vim/temp/swap      " where to put swap file
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -177,7 +182,7 @@ set tw=500
 
 set ai "Auto indent
 set si "Smart indent
-set wrap "Wrap lines
+set nowrap "NOT Wrap lines
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -212,14 +217,14 @@ map <leader>] :cn<CR>
 map <leader>[ :cp<CR>
 
 " --- move around splits {
-" move to and maximize the below split
-map <C-J> <C-W>j<C-W>_
-" move to and maximize the above split
-map <C-K> <C-W>k<C-W>_
-" move to and maximize the left split
-nmap <c-h> <c-w>h<c-w><bar>
-" move to and maximize the right split
-nmap <c-l> <c-w>l<c-w><bar>
+" move to below split
+map <C-J> <C-W>j
+" move to above split
+map <C-K> <C-W>k
+" move to left split
+nmap <c-h> <c-w>h
+" move to right split
+nmap <c-l> <c-w>l
 set wmw=0 " set the min width of a window to 0 so we can maximize others
 set wmh=0 " set the min height of a window to 0 so we can maximize others
 " }
@@ -324,9 +329,6 @@ if !has("gui_running")
     nmap OC l
     nmap OD h
 endif
-
-" --- Command-T
-let g:CommandTMaxHeight = 15
 
 " --- SuperTab
 let g:SuperTabDefaultCompletionType = "context"
