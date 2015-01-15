@@ -329,7 +329,7 @@ let g:multi_cursor_quit_key='<Esc>'
 " --- CtrlP
 let g:ctrlp_working_path_mode='ra'
 let g:ctrlp_map='<c-t>'
-let g:ctrlp_cmd='CtrlP'
+let g:ctrlp_cmd='CtrlPBuffer'
 let g:ctrlp_custom_ignore={
     \ 'dir':  '\.git$\|\.hg$\|\.svn$',
     \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
