@@ -317,7 +317,8 @@ autocmd BufNewFile,BufRead *.sass set ft=sass.css
 " => Plugin Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " --- YankRing
-nnoremap <silent> <F12> :YRShow<CR>
+nnoremap <silent> <leader>y :YRShow<CR>
+let g:yankring_history_dir='~/.vim/temp' 
 
 " --- vim-multiple-cursors
 let g:multi_cursor_use_default_mapping=0
