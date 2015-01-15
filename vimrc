@@ -13,26 +13,27 @@ call vundle#begin()
 	Plugin 'gmarik/Vundle.vim'                  " Plugin manage
     Plugin 'tomtom/tlib_vim'                    " Some utility functions for VIM
 	Plugin 'scrooloose/nerdtree'                " Tree explorer
-	Plugin 'vim-scripts/AutoClose'              " Inserts matching bracket, paren, brace or quote 
+	Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote 
 	Plugin 'tpope/vim-surround'                 " Modify surroundings
 	Plugin 'vim-scripts/matchit.zip'            " extended % matching for HTML, LaTeX, and many other languages
+	Plugin 'vim-scripts/YankRing.vim'           " Maintains a history of previous yanks, changes and deletes
 	Plugin 'terryma/vim-multiple-cursors'       " Sublime Text style multiple selections for Vim
 	Plugin 'sukima/xmledit'                     " XML/HTML tags will be completed automatically
 	Plugin 'kien/ctrlp.vim'                     " Fuzzy file, buffer, mru, tag, etc finder.
 	Plugin 'ervandew/supertab'                  " Perform all your vim insert mode completions with Tab
-    Plugin 'davidhalter/vim-snipmate'           " TextMate-style snippets for Vim
-	Plugin 'honza/vim-snippets'                 " vim-snipmate default snippets (Previously snipmate-snippets) 
-	Plugin 'vim-scripts/YankRing.vim'           " Maintains a history of previous yanks, changes and deletes
+    Plugin 'drmingdrmer/xptemplate'             " Code snippets engine for Vim, with snippets library. 
 	Plugin 'vim-scripts/OmniCppComplete'        " C/C++ omni-completion with ctags database
 	Plugin 'Lokaltog/vim-easymotion'            " An easy way to jump to a word
 	Plugin 'majutsushi/tagbar'                  " browsing the tags of source files ordered by classes
 	Plugin 'vim-scripts/indent-motion'          " Vim motions to the start and end of the current indentation-delimited block
 	Plugin 'mattn/emmet-vim'                    " expanding abbreviation like zen-coding.
 	Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
-	Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
 	Plugin 'MarcWeber/vim-addon-mw-utils'       " interpret a file by function and cache file automatically 
 	Plugin 'scrooloose/nerdcommenter'           " plugin for intensely orgasmic commenting 
 	Plugin 'bling/vim-airline'                  " status/tabline for vim
+    Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
+    Plugin 'tpope/vim-fugitive'                 " a Git wrapper
+	Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
 call vundle#end()
 
 
@@ -40,7 +41,7 @@ call vundle#end()
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Sets how many lines of history VIM has to remember
-set history=700
+set history=1000
 
 " Enable filetype plugins
 filetype plugin on
@@ -52,14 +53,19 @@ set autoread
 if has('clipboard')
     if has('unnamedplus')  " When possible use + register for copy-paste
         set clipboard=unnamed,unnamedplus
-        map <leader>y "+y
-        map <leader>p "+p
     else         " On mac and Windows, use * register for copy-paste
         set clipboard=unnamed
-        map <leader>y "*y
-        map <leader>p "*p
     endif
 endif
+
+" Automatically enable mouse usage
+set mouse=a
+" Hide the mouse cursor while typing
+set mousehide
+
+" Auto enable the .vimrc after modified
+autocmd! bufwritepost .vimrc source ~/.vimrc
+
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => VIM user interface
@@ -71,13 +77,17 @@ set wildmenu
 set wildignore=*.o,*~,*.pyc
 
 " Always show current position
-set ruler
+if has('cmdline_info')
+    set ruler                   " Show the ruler
+    set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
+    set showcmd                 " Show partial commands in status line and
+endif
 
 " Show line number
 set number relativenumber
 
 "Highligh coloum 80
-set cc=80
+set cc=79
 
 " Height of the command bar
 set cmdheight=2
@@ -115,6 +125,20 @@ set showmode
 
 " How many tenths of a second to blink when matching brackets
 set mat=2
+
+" Highlight current line
+set cursorline
+" SignColumn should match background
+highlight clear SignColumn
+" Current line number row will have same background color in relative mode
+highlight clear LineNr
+
+" Prevents inserting two spaces after punctuation on a join (J)
+set nojoinspaces
+" Puts new vsplit windows to the right of the current
+set splitright
+" Puts new split windows to the bottom of the current
+set splitbelow
 
 " No annoying sound on errors
 set noerrorbells
@@ -158,10 +182,16 @@ set backup
 set wb
 set swapfile
 
-" Install.sh will create back and swap direcotries
+if has('persistent_undo')
+    set undofile                " So is persistent undo ...
+    set undolevels=1000         " Maximum number of changes that can be undone
+    set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+endif
+
+" Install.sh will create all the direcotries
 set backupdir=~/.vim/temp/backup    " where to put backup file
 set directory=~/.vim/temp/swap      " where to put swap file
-
+set undodir=~/.vim/temp/undo        " where to put backup file
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab and indent related
@@ -188,22 +218,11 @@ set nowrap "NOT Wrap lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" always show airline
 set laststatus=2
-set statusline=\ %{HasPaste()}%<%-15.25(%f%)%m%r%h\ %w\ \
-set statusline+=\ \ \ [%{&ff}/%Y]
-set statusline+=\ \ \ %<%20.30(%{hostname()}:%{CurDir()}%)\
-set statusline+=%=%-10.(%l,%c%V%)\ %p%%/%L
-function! CurDir()
-    let curdir = substitute(getcwd(), $HOME, "~", "")
-    return curdir
-endfunction
-function! HasPaste()
-    if &paste
-        return '[PASTE]'
-    else
-        return ''
-    endif
-endfunction
+let g:airline_detect_iminsert=1
+let g:airline#extensions#hunks#enabled=0
+let g:airline#extensions#branch#enabled=1
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -229,26 +248,16 @@ set wmw=0 " set the min width of a window to 0 so we can maximize others
 set wmh=0 " set the min height of a window to 0 so we can maximize others
 " }
 
-" move around tabs. conflict with the original screen top/bottom
-" comment them out if you want the original H/L
-" go to prev tab
-""map <S-H> gT
-" go to next tab
-""map <S-L> gt
-
 " new tab
 map <C-t><C-t> :tabnew<CR>
 " close tab
 map <C-t><C-w> :tabclose<CR>
 
-" ,/ turn off search highlighting
-""nmap <leader>/ :nohl<CR>
-
 " Bash like keys for the command line
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 cnoremap <C-K> <C-U>
-" \p toggles paste mode
+" \pp toggles paste mode
 nmap <leader>pp :set paste!<BAR>set paste?<CR>
 
 " allow multiple indentation/deindentation in visual mode
@@ -282,15 +291,6 @@ inoremap <C-u>5 <esc>yypVr^A
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Ctrl-[ jump out of the tag stack (undo Ctrl-])
 map <C-[> <ESC>:po<CR>
-" \g generates the header guard
-map <leader>g :call IncludeGuard()<CR>
-fun! IncludeGuard()
-    let basename = substitute(bufname(""), '.*/', '', '')
-    let guard = '_' . substitute(toupper(basename), '\.', '_', "H")
-    call append(0, "#ifndef " . guard)
-    call append(1, "#define " . guard)
-    call append( line("$"), "#endif // for #ifndef " . guard)
-endfun
 
 " Enable omni completion. (Ctrl-X Ctrl-O)
 autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
@@ -316,27 +316,51 @@ autocmd BufNewFile,BufRead *.sass set ft=sass.css
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" --- AutoClose - Inserts matching bracket, paren, brace or quote
-" fixed the arrow key problems caused by AutoClose
-if !has("gui_running")
-    set term=linux
-    imap OA <ESC>ki
-    imap OB <ESC>ji
-    imap OC <ESC>li
-    imap OD <ESC>hi
-    nmap OA k
-    nmap OB j
-    nmap OC l
-    nmap OD h
+" --- YankRing
+nnoremap <silent> <F12> :YRShow<CR>
+
+" --- vim-multiple-cursors
+let g:multi_cursor_use_default_mapping=0
+let g:multi_cursor_next_key='<C-n>'
+let g:multi_cursor_prev_key='<C-p>'
+let g:multi_cursor_skip_key='<C-x>'
+let g:multi_cursor_quit_key='<Esc>'
+
+" --- CtrlP
+let g:ctrlp_working_path_mode='ra'
+let g:ctrlp_map='<c-t>'
+let g:ctrlp_cmd='CtrlP'
+let g:ctrlp_custom_ignore={
+    \ 'dir':  '\.git$\|\.hg$\|\.svn$',
+    \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+
+" On Windows use "dir" as fallback command.
+if has('win16') || has('win32') || has('win64')
+    let s:ctrlp_fallback='dir %s /-n /b /s /a-d'
+elseif executable('ag')
+    let s:ctrlp_fallback='ag %s --nocolor -l -g ""'
+elseif executable('ack-grep')
+    let s:ctrlp_fallback='ack-grep %s --nocolor -f'
+elseif executable('ack')
+    let s:ctrlp_fallback='ack %s --nocolor -f'
+else
+    let s:ctrlp_fallback='find %s -type f'
 endif
+let g:ctrlp_user_command={
+    \ 'types': {
+        \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
+        \ 2: ['.hg', 'hg --cwd %s locate -I .'],
+    \ },
+    \ 'fallback': s:ctrlp_fallback
+\ }
 
 " --- SuperTab
-let g:SuperTabDefaultCompletionType = "context"
-let g:SuperTabCompletionContexts = ['s:ContextText', 's:ContextDiscover']
-let g:SuperTabContextDiscoverDiscovery = ["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
+let g:SuperTabDefaultCompletionType="context"
+let g:SuperTabCompletionContexts=['s:ContextText', 's:ContextDiscover']
+let g:SuperTabContextDiscoverDiscovery=["&completefunc:<c-x><c-u>", "&omnifunc:<c-x><c-o>"]
 
 " --- EasyMotion
-"let g:EasyMotion_leader_key = '<Leader>m' " default is <Leader>w
+"let g:EasyMotion_leader_key='<Leader>m' " default is <Leader>w
 hi link EasyMotionTarget ErrorMsg
 hi link EasyMotionShade Comment
 
@@ -346,22 +370,19 @@ map <leader>nb :NERDTreeFromBookmark
 map <leader>nf :NERDTreeFind<cr> 
 
 " --- TagBar
-" toggle TagBar with F7
-nnoremap <silent> <F7> :TagbarToggle<CR>
+" toggle TagBar 
+nnoremap <silent> <leader>tt :TagbarToggle<CR>
 " set focus to TagBar when opening it
-let g:tagbar_autofocus = 1
+let g:tagbar_autofocus=1
 
 " --- PowerLine
-" let g:Powerline_symbols = 'fancy' " require fontpatcher
-
-" --- SnipMate
-let g:snipMateAllowMatchingDot = 0
+" let g:Powerline_symbols='fancy' " require fontpatcher
 
 " --- coffee-script
 au BufWritePost *.coffee silent CoffeeMake! -b | cwindow | redraw! " recompile coffee scripts on write
 
 " --- vim-gitgutter
-let g:gitgutter_enabled = 1
+let g:gitgutter_enabled=1
 
 " set ejs filetype to html
 au BufNewFile,BufRead *.ejs set filetype=html

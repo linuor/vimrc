@@ -1,12 +1,12 @@
 #!/bin/sh
+
 VIMHOME=~/.vim
 VIMFILE=~/.vimrc
 PWD=$(cd $(dirname $0); pwd)
 
 echo "Installing hightman/vimrc from: $PWD ..."
-
 # backup exists file/dir
-echo "Checking to backup old configurations ..."
+echo "Backup old configurations ..."
 for f in $VIMHOME $VIMFILE; do
     if [ -e "$f" ]; then
         if [ -e "${f}_bak" ]; then
@@ -23,6 +23,7 @@ echo "Create temp direcotry ..."
 mkdir $PWD/temp
 mkdir $PWD/temp/backup
 mkdir $PWD/temp/swap
+mkdir $PWD/temp/undo
 echo "Clone from https://github.com/gmarik/Vundle.vim.git ..."
 mkdir bundle
 git clone https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim
