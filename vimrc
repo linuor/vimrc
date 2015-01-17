@@ -33,14 +33,8 @@ call vundle#begin()
     Plugin 'bling/vim-airline'                  " status/tabline for vim
     Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
     Plugin 'tpope/vim-fugitive'                 " a Git wrapper
-    Plugin 'Shougo/vimproc.vim'                 " Interactive command execution in Vim. Used by phpcomplete-extended
-    Plugin 'm2mdas/phpcomplete-extended'        " A fast, extensible, context aware autocomplete plugin for PHP composer projects with code inspection features
     Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
-    "Plugin 'shawncplus/phpcomplete.vim'         " Improved PHP omnicompletion
-    "Plugin 'phpcomplete.vim'         " Improved PHP omnicompletion
-    Plugin 'arnaud-lb/vim-php-namespace'        " php namespace support
     Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)
-    Plugin 'vim-scripts/PDV--phpDocumentor-for-Vim' " phpDocumentor doc blocks for PHP4 & 5
 call vundle#end()
 
 
@@ -317,7 +311,6 @@ autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
 autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
 autocmd FileType c setlocal omnifunc=ccomplete#Complete
 autocmd FileType java setlocal omnifunc=javacomplete#Complete
-autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " use syntax complete if nothing else available
 if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
@@ -417,8 +410,6 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 
-" --- phpcomplete.vim
-let g:phpcomplete_index_composer_command='php /home/linuor/projects/composer.phar'
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Use functions
