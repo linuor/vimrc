@@ -379,6 +379,19 @@ let g:gitgutter_enabled=1
 " set ejs filetype to html
 au BufNewFile,BufRead *.ejs set filetype=html
 
+" --- AutoClose
+" fixed the arrow key problems caused by AutoClose
+if !has("gui_running")	
+   imap OA <ESC>ki
+   imap OB <ESC>ji
+   imap OC <ESC>li
+   imap OD <ESC>hi
+
+   nmap OA k
+   nmap OB j
+   nmap OC l
+   nmap OD h
+endif
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Use functions
