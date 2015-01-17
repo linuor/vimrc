@@ -33,7 +33,14 @@ call vundle#begin()
     Plugin 'bling/vim-airline'                  " status/tabline for vim
     Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
     Plugin 'tpope/vim-fugitive'                 " a Git wrapper
+    Plugin 'Shougo/vimproc.vim'                 " Interactive command execution in Vim. Used by phpcomplete-extended
+    Plugin 'm2mdas/phpcomplete-extended'        " A fast, extensible, context aware autocomplete plugin for PHP composer projects with code inspection features
     Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
+    "Plugin 'shawncplus/phpcomplete.vim'         " Improved PHP omnicompletion
+    "Plugin 'phpcomplete.vim'         " Improved PHP omnicompletion
+    Plugin 'arnaud-lb/vim-php-namespace'        " php namespace support
+    Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)
+    Plugin 'vim-scripts/PDV--phpDocumentor-for-Vim' " phpDocumentor doc blocks for PHP4 & 5
 call vundle#end()
 
 
@@ -62,9 +69,6 @@ endif
 set mouse=a
 " Hide the mouse cursor while typing
 set mousehide
-
-" Auto enable the .vimrc after modified
-autocmd! bufwritepost .vimrc source ~/.vimrc
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -220,9 +224,22 @@ set nowrap "NOT Wrap lines
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " always show airline
 set laststatus=2
-let g:airline_detect_iminsert=1
+let g:airline#extensions#tagbar#enabled = 1
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_idx_mode = 1
+nmap <leader>1 <Plug>AirlineSelectTab1
+nmap <leader>2 <Plug>AirlineSelectTab2
+nmap <leader>3 <Plug>AirlineSelectTab3
+nmap <leader>4 <Plug>AirlineSelectTab4
+nmap <leader>5 <Plug>AirlineSelectTab5
+nmap <leader>6 <Plug>AirlineSelectTab6
+nmap <leader>7 <Plug>AirlineSelectTab7
+nmap <leader>8 <Plug>AirlineSelectTab8
+nmap <leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
+let g:airline#extensions#syntastic#enabled=1
+
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -297,9 +314,10 @@ autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
 autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
 autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
 autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-autocmd FileType css set omnifunc=csscomplete#CompleteCSS
-autocmd FileType c set omnifunc=ccomplete#Complete
-autocmd FileType java set omnifunc=javacomplete#Complete
+autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
+autocmd FileType c setlocal omnifunc=ccomplete#Complete
+autocmd FileType java setlocal omnifunc=javacomplete#Complete
+autocmd FileType php setlocal omnifunc=phpcomplete_extended#CompletePHP
 " use syntax complete if nothing else available
 if has("autocmd") && exists("+omnifunc")
     autocmd Filetype *
@@ -381,7 +399,7 @@ au BufNewFile,BufRead *.ejs set filetype=html
 
 " --- AutoClose
 " fixed the arrow key problems caused by AutoClose
-if !has("gui_running")	
+if !has("gui_running")
    imap OA <ESC>ki
    imap OB <ESC>ji
    imap OC <ESC>li
@@ -393,10 +411,18 @@ if !has("gui_running")
    nmap OD h
 endif
 
+" --- Synatastic
+let g:syntastic_always_populate_loc_list=1
+let g:syntastic_auto_loc_list=1
+let g:syntastic_check_on_open=1
+let g:syntastic_check_on_wq=0
+
+" --- phpcomplete.vim
+let g:phpcomplete_index_composer_command='php /home/linuor/projects/composer.phar'
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Use functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-
 " Zoom / Restore window.
 function! s:ZoomToggle() abort
     if exists('t:zoomed') && t:zoomed
