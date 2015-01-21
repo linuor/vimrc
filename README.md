@@ -39,6 +39,7 @@ Plugin
 - Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
 - Plugin 'tpope/vim-fugitive'                 " a Git wrapper
 - Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
+- Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)
 
 Plugin Shortcuts
 ================

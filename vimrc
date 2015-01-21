@@ -150,9 +150,8 @@ set tm=500
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Enable syntax highlighting
 syntax enable
-
-colorscheme desert
 set background=dark
+colorscheme desert
 
 " Set extra options when running in GUI mode
 if has("gui_running")
@@ -410,6 +409,27 @@ let g:syntastic_auto_loc_list=1
 let g:syntastic_check_on_open=1
 let g:syntastic_check_on_wq=0
 
+" --- xptemplate
+"NO spaces in auto-completed brackets/braces
+let g:xptemplate_vars="SParg=&author=linuor&email=linuor@gmail.com"
+"Author & Email
+" Prevent supertab from mapping <tab> to anything.
+let g:SuperTabMappingForward = '<Plug>xpt_void'
+" Tell XPTemplate what to fall back to, if nothing matches.
+" Original SuperTab() yields nothing if g:SuperTabMappingForward was set to
+" something it does not know.
+let g:xptemplate_fallback = '<C-r>=XPTwrapSuperTab("n")<CR>'
+
+fun! XPTwrapSuperTab(command) "{{{
+    let v = SuperTab(a:command)
+    if v == ''
+        " Change \<Tab> to whatever you want, when neither XPTemplate or
+        " supertab needs to do anything.
+        return "\<Tab>"
+    else
+        return v
+    end
+endfunction "}}}
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Use functions
