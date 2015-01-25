@@ -16,7 +16,7 @@ Plugin
 ======
 
 - Plugin 'gmarik/Vundle.vim'                  " Plugin manage
-- Plugin 'tomtom/tlib_vim'                    " Some utility functions for VIM
+<!--- Plugin 'tomtom/tlib_vim'                    " Some utility functions for VIM-->
 - Plugin 'scrooloose/nerdtree'                " Tree explorer
 - Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote
 - Plugin 'tpope/vim-surround'                 " Modify surroundings
@@ -39,7 +39,7 @@ Plugin
 - Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
 - Plugin 'tpope/vim-fugitive'                 " a Git wrapper
 - Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
-- Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)
+<!--- Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)-->
 
 Plugin Shortcuts
 ================
@@ -50,20 +50,97 @@ NERDtree
 - `<leader>nn`                        to toggle the tree window
 - `<leader>nb`                        map to :nerdtreefrombookmark
 - `<leader>nf`                        map to :nerdtreefind
+- `?`                                 toggle help in tree window
+- `o` `O`                             open dir or file
+- `x` `X`                             close dir
+- `t`                                 open file in tab
 
 Plugin YankRing
 ---------------
 
 - `<leader>y`                         map to :YRShow
-- `<c-s>`                             pre yanked item
+- `<c-s>`                             pre yanked item, **NOTICE**
 - `<c-g>`                             next yanked item
 
 CtrlpBuffer
 -----------
 
-`<C-T>`                             map to :CtrlpBuffer
+- `<C-T>`                             map to :CtrlpBuffer
+- `<C-F>` `<C-B>`                     shift between modes in ctrlp window
+- `<C-J>` `<C-K>`                     move up and down in ctrlp window
 
 TagBar
 ------
 
-`<leader>tt`                        map to :TagbarToggle
+- `<leader>tt`                        map to :TagbarToggle
+- `?`                                 toggle help in tagbar window
+- `<CR>`                              Jump to tag definition
+- `p`                                 As above, but stay in Tagbar window
+- `P`                                 Show tag in preview window
+- `<C-N>`                             Go to next top-level tag
+- `<C-P>`                             Go to previous top-level tag
+- `<Space>`                           Display tag prototype
+- `v`                                 Hide non-public tags
+- `+`                                 Open fold
+- `-`                                 Close fold
+- `o`                                 Toggle fold
+- `*`                                 Open all folds
+- `=`                                 Close all folds
+- `zj`                                Go to next fold
+- `zk`                                Go to previous fold
+- `s`                                 Toggle sort
+- `c`                                 Toggle autoclose option
+- `x`                                 Zoom window in/out
+- `q`                                 Close window
+
+vim-surround
+------------
+
+```
+  Old text                  Command     New text ~
+  "Hello *world!"           ds"         Hello world!
+  [123+4*56]/2              cs])        (123+456)/2
+  "Look ma, I'm *HTML!"     cs"<q>      <q>Look ma, I'm HTML!</q>
+  if *x>3 {                 ysW(        if ( x>3 ) {
+  my $str = *whee!;         vllllS'     my $str = 'whee!';
+```
+
+multi-cursor
+------------
+
+- `<C-N>`                             next one
+- `<C-P>`                             prev one
+- `<C-X>`                             ignore one
+
+xptemplage
+----------
+
+triggered by super tab already.
+
+easy-motion
+-----------
+
+`<Leader><Leader>w`                 to trigger the word motion |w|.
+
+indent-motion
+-------------
+
+`<leader>]` `<leader[>`             forward and backward
+
+emmet
+-----
+
+- `<C-Y>,`                            Expand Abbreviation
+- `v_<C-Y>,`                          Wrap with Abbreviation
+
+Ack
+---
+
+`:Ack[!] [options] {pattern} [{directory}]`
+
+nerd-commentor
+--------------
+
+- `<leader>cc`                      comment a line
+- `<leader>c$`                      comment to the end of line
+- `<leader>c<space>`                toggle comment

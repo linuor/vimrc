@@ -11,7 +11,7 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
     Plugin 'gmarik/Vundle.vim'                  " Plugin manage
-    Plugin 'tomtom/tlib_vim'                    " Some utility functions for VIM
+    "Plugin 'tomtom/tlib_vim'                    " Some utility functions for VIM
     Plugin 'scrooloose/nerdtree'                " Tree explorer
     Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote
     Plugin 'tpope/vim-surround'                 " Modify surroundings
@@ -34,7 +34,7 @@ call vundle#begin()
     Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
     Plugin 'tpope/vim-fugitive'                 " a Git wrapper
     Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
-    Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)
+    "Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)
 call vundle#end()
 
 
@@ -404,10 +404,10 @@ if !has("gui_running")
 endif
 
 " --- Synatastic
-let g:syntastic_always_populate_loc_list=1
-let g:syntastic_auto_loc_list=1
-let g:syntastic_check_on_open=1
-let g:syntastic_check_on_wq=0
+"let g:syntastic_always_populate_loc_list=1
+"let g:syntastic_auto_loc_list=1
+"let g:syntastic_check_on_open=1
+"let g:syntastic_check_on_wq=0
 
 " --- xptemplate
 "NO spaces in auto-completed brackets/braces
