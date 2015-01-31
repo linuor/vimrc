@@ -10,6 +10,7 @@ set nocompatible
 filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
+    " GNU Global gtags is not install by vundle
     Plugin 'gmarik/Vundle.vim'                  " Plugin manage
     Plugin 'scrooloose/nerdtree'                " Tree explorer
     Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote
@@ -88,7 +89,7 @@ endif
 set number relativenumber
 
 "Highligh coloum 80
-set cc=79
+set cc=80
 
 " Height of the command bar
 set cmdheight=2
@@ -185,22 +186,20 @@ scriptencoding utf-8
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" Move backup and swap to other dir, since most stuff is in SVN, git anyway...
-set backup
-set wb
-set swapfile
+" no backup nor swap, since most stuff is in SVN, git anyway...
+set nobackup
+set nowb
+set noswapfile
 
 if has('persistent_undo')
     set undofile                " So is persistent undo ...
     set undolevels=1000         " Maximum number of changes that can be undone
     set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
 endif
-
-" Install.sh will create all the direcotries
-set backupdir=~/.vim/temp/backup    " where to put backup file
-set directory=~/.vim/temp/swap      " where to put swap file
 set undodir=~/.vim/temp/undo        " where to put backup file
 
+" viminfo file
+set viminfo+=n~/.vim/temp/.viminfo
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Text, tab, fold and indent related
@@ -247,8 +246,6 @@ nmap <leader>8 <Plug>AirlineSelectTab8
 nmap <leader>9 <Plug>AirlineSelectTab9
 let g:airline#extensions#hunks#enabled=0
 let g:airline#extensions#branch#enabled=1
-let g:airline#extensions#syntastic#enabled=1
-
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -283,7 +280,7 @@ map <C-t><C-w> :tabclose<CR>
 cnoremap <C-A> <Home>
 cnoremap <C-E> <End>
 cnoremap <C-K> <C-U>
-" \pp toggles paste mode
+" <leader>pp toggles paste mode
 nmap <leader>pp :set paste!<BAR>set paste?<CR>
 
 " allow multiple indentation/deindentation in visual mode
@@ -342,10 +339,22 @@ autocmd BufNewFile,BufRead *.sass set ft=sass.css
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Plugin Config
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" --- GNU Global, gtags.vim
+source ~/.vim/localplugin/gtags.vim
+let g:Gtags_Auto_Update=1
+let g:Gtags_Auto_Map=0
+nmap <leader>qo :copen<CR>
+nmap <leader>qc :cclose<CR>
+nmap <leader>qg :Gtags<SPACE>
+nmap <leader>qf :Gtags -f %<CR>
+nmap <leader>qn :cn<CR>
+nmap <leader>qp :cp<CR>
+nmap <leader>g :GtagsCursor<CR>
+
 " --- YankRing
-nnoremap <leader>y :YRShow<CR>
-let g:yankring_replace_n_pkey='<c-s>'
-let g:yankring_replace_n_nkey='<c-g>'
+nnoremap <leader>yy :YRShow<CR>
+let g:yankring_replace_n_pkey='<leader>yp'
+let g:yankring_replace_n_nkey='<leader>yn'
 let g:yankring_history_dir='~/.vim/temp'
 
 " --- CtrlP
@@ -451,8 +460,6 @@ let g:indent_guides_guide_size=1
 " <leader>i to toggle indent-guide
 :nmap <silent> <Leader>i <Plug>IndentGuidesToggle
 
-" --- vim-signature
-
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Use functions
@@ -475,13 +482,7 @@ nnoremap <silent> <leader>x :ZoomToggle<CR>
 " store and resotre windows size
 if has("gui_running")
   function! ScreenFilename()
-    if has('amiga')
-      return "s:.vimsize"
-    elseif has('win32')
-      return $HOME.'.vim\temp\_vimsize'
-    else
-      return $HOME.'.vim/temp/.vimsize'
-    endif
+    return $HOME.'/.vim/temp/.vimsize'
   endfunction
 
   function! ScreenRestore()

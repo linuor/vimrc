@@ -3,6 +3,12 @@ vimrc
 
 linuor's vimrc files.
 
+Requirement
+===========
+
+- git
+- GNU global
+
 Usage
 =====
 
@@ -51,6 +57,52 @@ Predefined shortcuts
 - `cd`                                cd into the direction of current buffer
 - `<leader>x`                         toggle window to max/normal
 
+````
+" new tab
+map <C-t><C-t> :tabnew<CR>
+" close tab
+map <C-t><C-w> :tabclose<CR>
+
+" Bash like keys for the command line
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
+cnoremap <C-K> <C-U>
+
+" <leader>pp toggles paste mode
+nmap <leader>pp :set paste!<BAR>set paste?<CR>
+
+" Writing Restructured Text (Sphinx Documentation) {
+" Ctrl-u 1: underline Parts w/ #'s
+noremap <C-u>1 yyPVr#yyjp
+inoremap <C-u>1 <esc>yyPVr#yyjpA
+" Ctrl-u 2: underline Chapters w/ *'s
+noremap <C-u>2 yyPVr*yyjp
+inoremap <C-u>2 <esc>yyPVr*yyjpA
+" Ctrl-u 3: underline Section Level 1 w/ ='s
+noremap <C-u>3 yypVr=
+inoremap <C-u>3 <esc>yypVr=A
+" Ctrl-u 4: underline Section Level 2 w/ -'s
+noremap <C-u>4 yypVr-
+inoremap <C-u>4 <esc>yypVr-A
+" Ctrl-u 5: underline Section Level 3 w/ ^'s
+noremap <C-u>5 yypVr^
+inoremap <C-u>5 <esc>yypVr^A
+"}
+````
+
+gtags
+-----
+
+````
+nmap <leader>qo :copen<CR>
+nmap <leader>qc :cclose<CR>
+nmap <leader>qg :Gtags<SPACE>
+nmap <leader>qf :Gtags -f %<CR>
+nmap <leader>qn :cn<CR>
+nmap <leader>qp :cp<CR>
+nmap <leader>g :GtagsCursor<CR>
+````
+
 NERDtree
 --------
 
@@ -65,9 +117,9 @@ NERDtree
 Plugin YankRing
 ---------------
 
-- `<leader>y`                         map to :YRShow
-- `<c-s>`                             pre yanked item, **NOTICE**
-- `<c-g>`                             next yanked item
+- `<leader>yy`                         map to :YRShow
+- `<leader>yp`                         prev yanked item
+- `<leader>yn`                         next yanked item
 
 CtrlpBuffer
 -----------
