@@ -11,7 +11,6 @@ filetype off
 set rtp+=~/.vim/bundle/Vundle.vim
 call vundle#begin()
     Plugin 'gmarik/Vundle.vim'                  " Plugin manage
-    "Plugin 'tomtom/tlib_vim'                    " Some utility functions for VIM
     Plugin 'scrooloose/nerdtree'                " Tree explorer
     Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote
     Plugin 'tpope/vim-surround'                 " Modify surroundings
@@ -34,13 +33,17 @@ call vundle#begin()
     Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
     Plugin 'tpope/vim-fugitive'                 " a Git wrapper
     Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
-    "Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)
+    Plugin 'tomasr/molokai'                     " molokai color schema
+    Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
 call vundle#end()
 
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => General
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" let <leader> key to be ;
+let mapleader=";"
+
 " Sets how many lines of history VIM has to remember
 set history=1000
 
@@ -151,14 +154,22 @@ set tm=500
 " Enable syntax highlighting
 syntax enable
 set background=dark
-colorscheme desert
+colorscheme molokai
 
 " Set extra options when running in GUI mode
 if has("gui_running")
-    set guioptions-=T
+    " Add tab pages when indicated with 'showtabline'.
     set guioptions+=e
-    set t_Co=256
+    " No scroll bar
+    set guioptions-=l
+    set guioptions-=L
+    set guioptions-=r
+    set guioptions-=R
+    " No menu nor toolbar
+    set guioptions-=m
+    set guioptions-=T
     set guitablabel=%M\ %t
+    set t_Co=256
 endif
 
 " Use Unix as the standard file type
@@ -190,8 +201,9 @@ set backupdir=~/.vim/temp/backup    " where to put backup file
 set directory=~/.vim/temp/swap      " where to put swap file
 set undodir=~/.vim/temp/undo        " where to put backup file
 
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
-" => Text, tab and indent related
+" => Text, tab, fold and indent related
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " Use spaces instead of tabs
 set expandtab
@@ -199,7 +211,7 @@ set expandtab
 " Be smart when using tabs ;)
 set smarttab
 
-" 1 tab=4 spaces
+" 1 tab = 4 spaces
 set shiftwidth=4
 set tabstop=4
 
@@ -211,6 +223,10 @@ set ai "Auto indent
 set si "Smart indent
 set nowrap "NOT Wrap lines
 
+" fold with indent
+set foldmethod=indent
+" disable fold when startup
+set nofoldenable
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Status line
@@ -274,8 +290,8 @@ nmap <leader>pp :set paste!<BAR>set paste?<CR>
 vnoremap < <gv
 vnoremap > >gv
 
-" :cd. change working directory to that of the current file
-cmap cd. lcd %:p:h
+" cd change working directory to that of the current file
+map cd :lcd %:p:h<CR>
 
 " Writing Restructured Text (Sphinx Documentation) {
 " Ctrl-u 1: underline Parts w/ #'s
@@ -403,12 +419,6 @@ if !has("gui_running")
    nmap OD h
 endif
 
-" --- Synatastic
-"let g:syntastic_always_populate_loc_list=1
-"let g:syntastic_auto_loc_list=1
-"let g:syntastic_check_on_open=1
-"let g:syntastic_check_on_wq=0
-
 " --- xptemplate
 "NO spaces in auto-completed brackets/braces
 let g:xptemplate_vars="SParg=&author=linuor&email=linuor@gmail.com"
@@ -431,6 +441,19 @@ fun! XPTwrapSuperTab(command) "{{{
     end
 endfunction "}}}
 
+" --- vim-indexnt-guides
+" auto enable on startup
+let g:indent_guides_enable_on_vim_startup=1
+" enable from the level 2
+let g:indent_guides_start_level=2
+" block size
+let g:indent_guides_guide_size=1
+" <leader>i to toggle indent-guide
+:nmap <silent> <Leader>i <Plug>IndentGuidesToggle
+
+" --- vim-signature
+
+
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Use functions
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
@@ -448,3 +471,62 @@ function! s:ZoomToggle() abort
 endfunction
 command! ZoomToggle call s:ZoomToggle()
 nnoremap <silent> <leader>x :ZoomToggle<CR>
+
+" store and resotre windows size
+if has("gui_running")
+  function! ScreenFilename()
+    if has('amiga')
+      return "s:.vimsize"
+    elseif has('win32')
+      return $HOME.'.vim\temp\_vimsize'
+    else
+      return $HOME.'.vim/temp/.vimsize'
+    endif
+  endfunction
+
+  function! ScreenRestore()
+    " Restore window size (columns and lines) and position
+    " from values stored in vimsize file.
+    " Must set font first so columns and lines are based on font size.
+    let f = ScreenFilename()
+    if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      for line in readfile(f)
+        let sizepos = split(line)
+        if len(sizepos) == 5 && sizepos[0] == vim_instance
+          silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
+          silent! execute "winpos ".sizepos[3]." ".sizepos[4]
+          return
+        endif
+      endfor
+    endif
+  endfunction
+
+  function! ScreenSave()
+    " Save window size and position.
+    if has("gui_running") && g:screen_size_restore_pos
+      let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
+      let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
+            \ (getwinposx()<0?0:getwinposx()) . ' ' .
+            \ (getwinposy()<0?0:getwinposy())
+      let f = ScreenFilename()
+      if filereadable(f)
+        let lines = readfile(f)
+        call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
+        call add(lines, data)
+      else
+        let lines = [data]
+      endif
+      call writefile(lines, f)
+    endif
+  endfunction
+
+  if !exists('g:screen_size_restore_pos')
+    let g:screen_size_restore_pos = 1
+  endif
+  if !exists('g:screen_size_by_vim_instance')
+    let g:screen_size_by_vim_instance = 1
+  endif
+  autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
+  autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
+endif

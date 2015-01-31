@@ -16,7 +16,6 @@ Plugin
 ======
 
 - Plugin 'gmarik/Vundle.vim'                  " Plugin manage
-<!--- Plugin 'tomtom/tlib_vim'                    " Some utility functions for VIM-->
 - Plugin 'scrooloose/nerdtree'                " Tree explorer
 - Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote
 - Plugin 'tpope/vim-surround'                 " Modify surroundings
@@ -39,10 +38,18 @@ Plugin
 - Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
 - Plugin 'tpope/vim-fugitive'                 " a Git wrapper
 - Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
-<!--- Plugin 'scrooloose/syntastic'               " Check a file's syntax when saving a file (php, ruby, tex ...)-->
+- Plugin 'tomasr/molokai'                     " molokai color schema
+- Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
 
-Plugin Shortcuts
+Shortcuts
 ================
+
+Predefined shortcuts
+--------------------
+
+- `<leader>` is mapped to `;`
+- `cd`                                cd into the direction of current buffer
+- `<leader>x`                         toggle window to max/normal
 
 NERDtree
 --------
@@ -144,3 +151,8 @@ nerd-commentor
 - `<leader>cc`                      comment a line
 - `<leader>c$`                      comment to the end of line
 - `<leader>c<space>`                toggle comment
+
+vim-indent-guides
+-----------------
+
+`<leader>i`                         toggle indent guides
