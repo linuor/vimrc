@@ -36,6 +36,7 @@ call vundle#begin()
     Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
     Plugin 'tomasr/molokai'                     " molokai color schema
     Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
+    Plugin 'shawncplus/phpcomplete.vim'         " Improved PHP omnicompletion
 call vundle#end()
 
 
@@ -182,6 +183,9 @@ set termencoding=utf-8
 set fileencoding=utf-8
 set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
 scriptencoding utf-8
+
+" Set fonts
+set guifont=Source\ Code\ Pro\ 10
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
