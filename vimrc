@@ -36,7 +36,6 @@ call vundle#begin()
     Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
     Plugin 'tomasr/molokai'                     " molokai color schema
     Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
-    Plugin 'shawncplus/phpcomplete.vim'         " Improved PHP omnicompletion
 call vundle#end()
 
 
