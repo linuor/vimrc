@@ -180,11 +180,12 @@ set ffs=unix,dos,mac
 set encoding=utf-8
 set termencoding=utf-8
 set fileencoding=utf-8
-set fileencodings=ucs-bom,utf-8,big5,gb2312,latin1
+set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1
 scriptencoding utf-8
 
 " Set fonts
 set guifont=Source\ Code\ Pro\ 10
+set guifontwide=WenQuanYi\ Zen\ Hei\ Mono\ 10
 
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 " => Files, backups and undo
