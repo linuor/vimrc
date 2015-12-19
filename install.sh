@@ -4,7 +4,7 @@ VIMHOME=~/.vim
 VIMFILE=~/.vimrc
 PWD=$(cd $(dirname $0); pwd)
 
-echo "Installing hightman/vimrc from: $PWD ..."
+echo "Installing linuor/vimrc from: $PWD ..."
 # backup exists file/dir
 echo "Backup old configurations ..."
 for f in $VIMHOME $VIMFILE; do
