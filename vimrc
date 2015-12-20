@@ -32,6 +32,7 @@
         Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
         Plugin 'tpope/vim-fugitive'                 " a Git wrapper
         Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
+        Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
         Plugin 'altercation/vim-colors-solarized'   " solarized color schema
     call vundle#end()
 " }
@@ -392,6 +393,11 @@
     let g:UltiSnipsExpandTrigger = '<c-j>'
     let g:UltiSnipsJumpForwardTrigger = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
+
+    " --- DoxygenToolkit
+    let g:DoxygenToolkit_authorName="linuor"
+    " show function name in brief
+    let g:DoxygenToolkit_briefTag_funcName = "yes"
 
 " }
 

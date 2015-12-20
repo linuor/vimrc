@@ -49,6 +49,7 @@ Plugin
 - Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
 - Plugin 'tpope/vim-fugitive'                 " a Git wrapper
 - Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
+- Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
 - Plugin 'altercation/vim-colors-solarized'   " solarized color schema
 
 Shortcuts
@@ -232,5 +233,21 @@ YCM-Generator
 ultisnips
 ---------
 
+With many common code snippets, there are also:
+
+- `c)` for copyright text
+- `date` for `strftime("%Y-%m-%d")`
+- `ddate` for `strftime("%B %d, %Y")`
+- `time` for `strftime("%H:%M")`
+- `datetime` for `strftime("%Y-%m-%d %H:%M")`
+- `lorem` for lorem string
+
 vim-fugitive
 ------------
+
+DoxygenToolkit
+--------------
+
+- `:Dox` generate comment for function and class.
+- `:DoxAuthor` generate author comment.
+
