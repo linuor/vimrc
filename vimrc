@@ -22,7 +22,7 @@
         Plugin 'mattn/emmet-vim'                    " expanding abbreviation like zen-coding.
         Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
         Plugin 'scrooloose/nerdcommenter'           " plugin for intensely orgasmic commenting
-        Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote
+        Plugin 'Raimondi/delimitMate'               " provides insert mode auto-completion for quotes, parens, brackets, etc.
         Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
         Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
         Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
@@ -358,20 +358,6 @@
 
     " --- vim-gitgutter
     let g:gitgutter_enabled=1
-
-    " --- AutoClose
-    " fixed the arrow key problems caused by AutoClose
-    if !has("gui_running")
-       imap OA <ESC>ki
-       imap OB <ESC>ji
-       imap OC <ESC>li
-       imap OD <ESC>hi
-       nmap OA k
-       nmap OB j
-       nmap OC l
-       nmap OD h
-    endif
-    nmap <leader>ac :AutoCloseToggle<CR>
 
     " --- vim-indexnt-guides
     " auto enable on startup

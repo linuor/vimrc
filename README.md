@@ -39,7 +39,7 @@ Plugin
 - Plugin 'mattn/emmet-vim'                    " expanding abbreviation like zen-coding.
 - Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
 - Plugin 'scrooloose/nerdcommenter'           " plugin for intensely orgasmic commenting
-- Plugin 'Townk/vim-autoclose'                " Inserts matching bracket, paren, brace or quote
+- Plugin 'Raimondi/delimitMate'               " provides insert mode auto-completion for quotes, parens, brackets, etc.
 - Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
 - Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
 - Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
@@ -213,12 +213,6 @@ nerd-commentor
 - `<leader>cc`                      comment a line
 - `<leader>c$`                      comment to the end of line
 
-vim-autoclose
--------------
-
-`<leader>ac` toggle AutoClose on and off
-`v_<leader>a` and `"` wrap the selection with `"`
-
 vim-indent-guides
 -----------------
 
@@ -229,6 +223,9 @@ YouCompleteMe
 
 YCM-Generator
 -------------
+
+`:YcmGenerateConfig` generate a config file for the current directory
+`:CCGenerateConfig`  generate a config file for the current directory
 
 ultisnips
 ---------
