@@ -380,6 +380,9 @@
     let g:UltiSnipsJumpForwardTrigger = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
+    " --- vim-snippets
+    let g:snips_author = 'linuor'
+
     " --- DoxygenToolkit
     let g:DoxygenToolkit_authorName="linuor"
     " show function name in brief
