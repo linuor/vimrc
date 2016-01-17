@@ -51,6 +51,7 @@ Plugin
 - Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
 - Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
 - Plugin 'altercation/vim-colors-solarized'   " solarized color schema
+- Plugin 'rhysd/vim-clang-format'             " plugin for clang-format, a formatter for C, C++ and Obj-C code
 
 Shortcuts
 ================
@@ -248,3 +249,7 @@ DoxygenToolkit
 - `:Dox` generate comment for function and class.
 - `:DoxAuthor` generate author comment.
 
+vim-clang-format
+----------------
+
+use `<leader>cf` to toggle auto format or not.

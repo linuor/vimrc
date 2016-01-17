@@ -34,6 +34,7 @@
         Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
         Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
         Plugin 'altercation/vim-colors-solarized'   " solarized color schema
+        Plugin 'rhysd/vim-clang-format'             " plugin for clang-format, a formatter for C, C++ and Obj-C code
     call vundle#end()
 " }
 
@@ -387,6 +388,22 @@
     let g:DoxygenToolkit_authorName="linuor"
     " show function name in brief
     let g:DoxygenToolkit_briefTag_funcName = "yes"
+
+    " --- vim-clang-format
+    let g:clang_format#code_style = "google"
+    let g:clang_format#style_options = {
+        \ "AccessModifierOffset" : -4,
+        \ "AllowShortIfStatementsOnASingleLine" : "true",
+        \ "AlwaysBreakTemplateDeclarations" : "true",
+        \ "Standard" : "C++11",
+        \ "BreakBeforeBraces" : "Stroustrup"}
+    " automatically formatted on saving the buffer
+    let g:clang_format#auto_format = 1
+    " inserted lines are automatically formatted on leaving insert mode
+    let g:clang_format#auto_format_on_insert_leave = 1
+    " set Vim's format mappings (e.g. gq) get to use clang-format to format
+    let g:clang_format#auto_formatexpr = 1
+    nmap <Leader>cf :ClangFormatAutoToggle<CR>
 
 " }
 
