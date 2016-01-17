@@ -35,6 +35,8 @@
         Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
         Plugin 'altercation/vim-colors-solarized'   " solarized color schema
         Plugin 'rhysd/vim-clang-format'             " plugin for clang-format, a formatter for C, C++ and Obj-C code
+        Plugin 'godlygeek/tabular'                  " script for text filtering and alignment
+
     call vundle#end()
 " }
 
@@ -405,6 +407,9 @@
     let g:clang_format#auto_formatexpr = 1
     nmap <Leader>cf :ClangFormatAutoToggle<CR>
 
+    " --- Tabularize
+    nmap <Leader>a :Tabularize /
+    vmap <Leader>a :Tabularize /
 " }
 
 " Use functions {
