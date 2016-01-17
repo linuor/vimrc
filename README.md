@@ -53,6 +53,7 @@ Plugin
 - Plugin 'altercation/vim-colors-solarized'   " solarized color schema
 - Plugin 'rhysd/vim-clang-format'             " plugin for clang-format, a formatter for C, C++ and Obj-C code
 - Plugin 'godlygeek/tabular'                  " script for text filtering and alignment
+- Plugin 'vim-scripts/DrawIt'                 " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
 
 Shortcuts
 ================
@@ -262,3 +263,8 @@ Press `<leader>a` then a `,` or something like that, will make align.
 
 - `nmap <Leader>a :Tabularize /`
 - `vmap <Leader>a :Tabularize /`
+
+Draw-it
+-------
+
+`<leader>di` to strat draw, and `<leader>ds` to stop.
