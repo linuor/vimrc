@@ -54,6 +54,7 @@ Plugin
 - Plugin 'rhysd/vim-clang-format'             " plugin for clang-format, a formatter for C, C++ and Obj-C code
 - Plugin 'godlygeek/tabular'                  " script for text filtering and alignment
 - Plugin 'vim-scripts/DrawIt'                 " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
+- Plugin 'vim-scripts/VOoM'                   " Vim Outliner of Markers
 
 Shortcuts
 ================
@@ -268,3 +269,12 @@ Draw-it
 -------
 
 `<leader>di` to strat draw, and `<leader>ds` to stop.
+
+VOom
+----
+
+- For a Markdown file: `:Voom markdown`
+- For LaTeX file: `:Voom latex`
+- For an Orgmode file: `:Voom org`
+
+`<Tab>` is used after `:Voom` for auto-completion

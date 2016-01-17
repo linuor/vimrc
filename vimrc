@@ -37,6 +37,7 @@
         Plugin 'rhysd/vim-clang-format'             " plugin for clang-format, a formatter for C, C++ and Obj-C code
         Plugin 'godlygeek/tabular'                  " script for text filtering and alignment
         Plugin 'vim-scripts/DrawIt'                 " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
+        Plugin 'vim-scripts/VOoM'                   " Vim Outliner of Markers
 
     call vundle#end()
 " }
