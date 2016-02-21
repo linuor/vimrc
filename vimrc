@@ -170,7 +170,7 @@
     colorscheme solarized
 
     " Set fonts
-    " set guifont=Source\ Code\ Pro\ 10
+    set guifont=Source\ Code\ Pro:h11
     " set guifontwide=WenQuanYi\ Zen\ Hei\ Mono\ 10
 " }
 
@@ -390,8 +390,6 @@
 
     " --- DoxygenToolkit
     let g:DoxygenToolkit_authorName="linuor"
-    " show function name in brief
-    let g:DoxygenToolkit_briefTag_funcName = "yes"
 
     " --- vim-clang-format
     let g:clang_format#code_style = "google"
@@ -401,13 +399,8 @@
         \ "AlwaysBreakTemplateDeclarations" : "true",
         \ "Standard" : "C++11",
         \ "BreakBeforeBraces" : "Stroustrup"}
-    " automatically formatted on saving the buffer
-    let g:clang_format#auto_format = 1
-    " inserted lines are automatically formatted on leaving insert mode
-    let g:clang_format#auto_format_on_insert_leave = 1
-    " set Vim's format mappings (e.g. gq) get to use clang-format to format
-    let g:clang_format#auto_formatexpr = 1
-    nmap <Leader>cf :ClangFormatAutoToggle<CR>
+    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+    autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
     " --- Tabularize
     nmap <Leader>a :Tabularize /
