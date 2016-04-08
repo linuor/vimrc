@@ -153,15 +153,16 @@
 
     " Set extra options when running in GUI mode
     if has("gui_running")
-        set guioptions+=e       " Add tab pages when indicated with 'showtabline'.
-        set guioptions-=l       " No scroll bar
-        set guioptions-=L       " No scroll bar
-        set guioptions-=r       " No scroll bar
-        set guioptions-=R       " No scroll bar
-        set guioptions-=m       " No menu
-        set guioptions-=T       " No toolbar
-        set guitablabel=%M\ %t  " GUI tab label
-        set t_Co=256            " Number of colors
+        set guioptions+=e          " Add tab pages when indicated with 'showtabline'.
+        set guioptions-=l          " No scroll bar
+        set guioptions-=L          " No scroll bar
+        set guioptions-=r          " No scroll bar
+        set guioptions-=R          " No scroll bar
+        set guioptions-=m          " No menu
+        set guioptions-=T          " No toolbar
+        set guitablabel=%M\ %t     " GUI tab label
+        set t_Co=256               " Number of colors
+        set gcr=a:block-blinkon0   " No blink cursor
     endif
 
     " Enable syntax highlighting
