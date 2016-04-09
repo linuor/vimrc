@@ -46,6 +46,9 @@
     " let <leader> key to be ;
     let mapleader=";"
 
+    " 0 is much easy to press than ^, which used more often
+    map 0 ^
+
     " Sets how many lines of history VIM has to remember
     set history=1000
 
@@ -80,6 +83,9 @@
 " }
 
 " UserInterface {
+    " set lines to the top/bottom of the buffer
+    set scrolloff=3
+
     " Turn on the WiLd menu
     set wildmenu
 
