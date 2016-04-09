@@ -33,7 +33,6 @@ Plugin
 - Plugin 'kien/ctrlp.vim'                     " Fuzzy file, buffer, mru, tag, etc finder.
 - Plugin 'tpope/vim-surround'                 " Modify surroundings
 - Plugin 'terryma/vim-multiple-cursors'       " Sublime Text style multiple selections for Vim
-- Plugin 'Lokaltog/vim-easymotion'            " An easy way to jump to a word
 - Plugin 'vim-scripts/indent-motion'          " Vim motions to the start and end of the current indentation-delimited block
 - Plugin 'vim-scripts/matchit.zip'            " extended % matching for HTML, LaTeX, and many other languages
 - Plugin 'mattn/emmet-vim'                    " expanding abbreviation like zen-coding.
@@ -182,12 +181,6 @@ multi-cursor
 - `<C-N>`                             next one
 - `<C-P>`                             prev one
 - `<C-X>`                             ignore one
-
-easy-motion
------------
-
-`<Leader><Leader>w`                 to trigger the word motion |w|.
-`<Leader><Leader>f`                 to trigger the word motion |f|.
 
 indent-motion
 -------------
