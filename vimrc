@@ -22,14 +22,14 @@
         Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
         Plugin 'scrooloose/nerdcommenter'           " plugin for intensely orgasmic commenting
         Plugin 'Raimondi/delimitMate'               " provides insert mode auto-completion for quotes, parens, brackets, etc.
-        Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
+        "Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
         Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
         Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
         Plugin 'SirVer/ultisnips'                   " The ultimate snippet solution for Vim.
         Plugin 'honza/vim-snippets'                 " Code snippets.
         Plugin 'sukima/xmledit'                     " XML/HTML tags will be completed automatically
         Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
-        Plugin 'tpope/vim-fugitive'                 " a Git wrapper
+        "Plugin 'tpope/vim-fugitive'                 " a Git wrapper
         Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
         Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
         Plugin 'altercation/vim-colors-solarized'   " solarized color schema
@@ -176,8 +176,7 @@
     colorscheme solarized
 
     " Set fonts
-    set guifont=Source\ Code\ Pro:h11
-    " set guifontwide=WenQuanYi\ Zen\ Hei\ Mono\ 10
+    "set guifont=Source\ Code\ Pro:h11
 " }
 
 " Files, backups and undo {
@@ -319,6 +318,12 @@
     nmap <leader>qf :Gtags -f %<CR>
 
     " --- Nerd Tree
+    " show line number
+    let NERDTreeShowLineNumbers=1
+    " show hidden files
+    let NERDTreeShowHidden=1
+    " ignore files
+    let NERDTreeIgnore=['\.pyc','\~$','\.swp']
     " toggle tree window
     map <leader>nn :NERDTreeToggle<cr>
     " Find the current file in the tree.
