@@ -22,14 +22,12 @@
         Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
         Plugin 'scrooloose/nerdcommenter'           " plugin for intensely orgasmic commenting
         Plugin 'Raimondi/delimitMate'               " provides insert mode auto-completion for quotes, parens, brackets, etc.
-        "Plugin 'nathanaelkane/vim-indent-guides'    " visually displaying indent levels in code
         Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
         Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
         Plugin 'SirVer/ultisnips'                   " The ultimate snippet solution for Vim.
         Plugin 'honza/vim-snippets'                 " Code snippets.
         Plugin 'sukima/xmledit'                     " XML/HTML tags will be completed automatically
         Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
-        "Plugin 'tpope/vim-fugitive'                 " a Git wrapper
         Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
         Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
         Plugin 'altercation/vim-colors-solarized'   " solarized color schema
@@ -89,7 +87,7 @@
     set wildmenu
 
     " Ignore compiled files
-    set wildignore=*.o,*~,*.pyc,*.lib,*.exe,*.dll
+    set wildignore=*.o,*~,*.pyc,*.lib,*.exe,*.dll,.git,*.a
 
     " Always show current position
     if has('cmdline_info')
@@ -301,7 +299,6 @@
 " Plugin Config {
     " --- GNU Global, gtags
     let g:Gtags_Auto_Update=1
-    let g:Gtags_Auto_Map=0
     " open quick fix window.
     nmap <leader>qo :copen<CR>
     " close quick fix window.
@@ -383,8 +380,9 @@
 
     " --- YouCompleteMe
     let g:ycm_confirm_extra_conf=0
-    nmap <leader>h :YcmCompleter GoToDeclaration<CR>
-    nmap <leader>c :YcmCompleter GoToDefinition<CR>
+    let g:ycm_key_invoke_completion='<C-\>'
+    let g:ycm_autoclose_preview_window_after_insertion=1
+    nnoremap <leader>jg :YcmCompleter GoTo<CR>
 
     " --- ultisnips
     " prevent conflict with YCM
@@ -396,7 +394,9 @@
     let g:snips_author = 'linuor'
 
     " --- DoxygenToolkit
+    let g:DoxygenToolkit_briefTag_funcName="yes"
     let g:DoxygenToolkit_authorName="linuor"
+    let g:DoxygenToolkit_versionString="0.1"
 
     " --- vim-clang-format
     let g:clang_format#code_style = "google"
@@ -410,76 +410,4 @@
     " --- Tabularize
     nmap <Leader>a :Tabularize /
     vmap <Leader>a :Tabularize /
-" }
-
-" Use functions {
-    " Zoom / Restore window.
-    function! s:ZoomToggle() abort
-        if exists('t:zoomed') && t:zoomed
-            execute t:zoom_winrestcmd
-            let t:zoomed = 0
-        else
-            let t:zoom_winrestcmd = winrestcmd()
-            resize
-            vertical resize
-            let t:zoomed = 1
-        endif
-    endfunction
-    command! ZoomToggle call s:ZoomToggle()
-    nnoremap <silent> <leader>x :ZoomToggle<CR>
-
-    " store and resotre windows size
-    if has("gui_running")
-      function! ScreenFilename()
-        return $HOME.'/.vim/temp/.vimsize'
-      endfunction
-
-      function! ScreenRestore()
-        " Restore window size (columns and lines) and position
-        " from values stored in vimsize file.
-        " Must set font first so columns and lines are based on font size.
-        let f = ScreenFilename()
-        if has("gui_running") && g:screen_size_restore_pos && filereadable(f)
-          let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-          for line in readfile(f)
-            let sizepos = split(line)
-            if len(sizepos) == 5 && sizepos[0] == vim_instance
-              silent! execute "set columns=".sizepos[1]." lines=".sizepos[2]
-              silent! execute "winpos ".sizepos[3]." ".sizepos[4]
-              return
-            endif
-          endfor
-        endif
-      endfunction
-
-      function! ScreenSave()
-        " Save window size and position.
-        if has("gui_running") && g:screen_size_restore_pos
-          let vim_instance = (g:screen_size_by_vim_instance==1?(v:servername):'GVIM')
-          let data = vim_instance . ' ' . &columns . ' ' . &lines . ' ' .
-                \ (getwinposx()<0?0:getwinposx()) . ' ' .
-                \ (getwinposy()<0?0:getwinposy())
-          let f = ScreenFilename()
-          if filereadable(f)
-            let lines = readfile(f)
-            call filter(lines, "v:val !~ '^" . vim_instance . "\\>'")
-            call add(lines, data)
-          else
-            let lines = [data]
-          endif
-          call writefile(lines, f)
-        endif
-      endfunction
-
-      if !exists('g:screen_size_restore_pos')
-        let g:screen_size_restore_pos = 1
-      endif
-      if !exists('g:screen_size_by_vim_instance')
-        let g:screen_size_by_vim_instance = 1
-      endif
-
-      " restore vim pos and size
-      autocmd VimEnter * if g:screen_size_restore_pos == 1 | call ScreenRestore() | endif
-      autocmd VimLeavePre * if g:screen_size_restore_pos == 1 | call ScreenSave() | endif
-    endif
 " }
