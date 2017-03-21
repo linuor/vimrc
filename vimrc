@@ -9,7 +9,6 @@
         Plugin 'gmarik/Vundle.vim'                  " Plugin manage
         Plugin 'Shougo/unite.vim'                   " Unite and create user interfaces
         Plugin 'tpope/vim-surround'                 " Modify surroundings
-        Plugin 'vim-scripts/matchit.zip'            " extended % matching for HTML, LaTeX, and many other languages
         Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
         Plugin 'tpope/vim-commentary'               " comment stuff out.
         Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
@@ -27,9 +26,15 @@
         Plugin 'vim-scripts/Unicode-RST-Tables'     " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
 
     call vundle#end()
+
+    " enable plugins Vim provides
+    runtime macros/matchit.vim
 " }
 
 " General {
+    " Set suffix for search
+    set suffixesadd=.rst
+
     " Sets how many lines of history VIM has to remember
     set history=1000
 

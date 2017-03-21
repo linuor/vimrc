@@ -60,6 +60,23 @@ vnoremap > >gv
 noremap cd :lcd %:p:h<CR>
 ```
 
+netrw
+-----
+
+netrw is released with every vim, we use it as default file explorer.
+
+- `-` Go up directory
+- `%` Create new file
+- `c` Make the directory under the cursor to be the current directory
+- `d` Create new directory
+- `D` Delete file or directory
+- `gh` Toggle hiden/unhide of dot-files
+- `gn` Make directory under the cursor to be the top of the tree
+- `i` Cycle betwnn thin, long, wide, and tree listings
+- `R` Rename
+- `s` Select sorting style: by name, time, or file size
+- `t` Enter the file/directory under the cursor in a new tab
+
 unite.vim
 ---------
 
