@@ -33,7 +33,7 @@
 
 " General {
     " Set suffix for search
-    set suffixesadd=.rst
+    set suffixesadd+=.rst
 
     " Sets how many lines of history VIM has to remember
     set history=1000
@@ -210,6 +210,8 @@
 " }
 
 " Useful Shortcut {
+    " mute search high light before clear and redraw the screen
+    nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
     " Move around splits
     " map <C-J> <C-W>j                        " to below split
     " map <C-K> <C-W>k                        " to above split
