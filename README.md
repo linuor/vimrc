@@ -52,6 +52,9 @@ Predefined shortcuts
 --------------------
 
 ```
+" mute search high light before clear and redraw the screen
+nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
 " retain visual selection after indention
 vnoremap < <gv
 vnoremap > >gv
