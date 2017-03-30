@@ -7,7 +7,6 @@
     set rtp+=~/.vim/bundle/Vundle.vim
     call vundle#begin()
         Plugin 'gmarik/Vundle.vim'                  " Plugin manage
-        Plugin 'Shougo/unite.vim'                   " Unite and create user interfaces
         Plugin 'tpope/vim-surround'                 " Modify surroundings
         Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
         Plugin 'tpope/vim-commentary'               " comment stuff out.
@@ -212,6 +211,24 @@
 " Useful Shortcut {
     " mute search high light before clear and redraw the screen
     nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+
+    " shortcut for navation
+    nnoremap [a :previous
+    nnoremap ]a :next
+    nnoremap [A :first
+    nnoremap ]A :last
+    nnoremap [b :bprevious
+    nnoremap ]b :bnext
+    nnoremap [B :bfirst
+    nnoremap ]B :blast
+    nnoremap [l :lprevious
+    nnoremap ]l :lnext
+    nnoremap [L :lfirst
+    nnoremap ]L :llast
+    nnoremap [q :cprevious
+    nnoremap ]q :cnext
+    nnoremap [Q :cfirst
+    nnoremap ]Q :clast
     " Move around splits
     " map <C-J> <C-W>j                        " to below split
     " map <C-K> <C-W>k                        " to above split
@@ -223,8 +240,8 @@
     " map <C-t><C-w> :tabclose<CR>            " close tab
 
     " Bash like keys for the command line
-    " cnoremap <C-A> <Home>
-    " cnoremap <C-E> <End>
+    cnoremap <C-A> <Home>
+    cnoremap <C-E> <End>
     " cnoremap <C-K> <C-U>
 
     " retain visual selection after indention
