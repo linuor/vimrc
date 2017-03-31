@@ -42,6 +42,7 @@ Plugins
 - Plugin 'vim-scripts/DrawIt'                 " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
 - Plugin 'vim-scripts/VOoM'                   " Vim Outliner of Markers
 - Plugin 'vim-scripts/Unicode-RST-Tables'     " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
+- Plugin 'tpope/vim-fugitive'                 " a Git wrapper
 
 Shortcuts
 ================
@@ -197,3 +198,11 @@ Unicode-RST-Tables
 
 - `<Leader><Leader>c` Creates a new restructuredText table.
 - `<Leader><Leader>f` Fix table columns in a table.
+
+vim-fugitive
+------------
+
+- `Gstatus` to get `git status` info, and use `-` to add/reset files.
+- `Gcommit` to commit
+- `Gpush`   to push
+- `Gpull` to pull
