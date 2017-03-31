@@ -118,6 +118,10 @@ vim-surround
   my $str = *whee!;         vllllS'     my $str = 'whee!';
 ```
 
+- `ys{motion}{mark}` wrap the text object with {mark}
+- `cs{mark1}{mark2}` change {mark1} to {mark2}
+- `ds{mark}` delete {mark}
+
 matchit
 -------
 
