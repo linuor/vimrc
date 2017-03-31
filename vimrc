@@ -64,11 +64,6 @@
 
     if has('cmdline_info')
         set ruler   " Show the ruler
-        if has("statusline")
-            "{filename}     #{buffer_no}{type}{modifier}{readonly}{preview}
-            "{line},{col} {percent}%
-            set rulerformat=%30(%=\#%n%y%m%r%w\ %l,%c%V\ %P%) 
-        endif
         set showcmd     "Show partial commands the last line of screen
     endif
 
