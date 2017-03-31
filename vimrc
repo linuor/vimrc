@@ -3,26 +3,26 @@
 
 " Bundles {
     set nocompatible
-    filetype off                        " required by vundle
+    filetype off   " required by vundle
     set rtp+=~/.vim/bundle/Vundle.vim   " required by vundle
     call vundle#begin()
-        Plugin 'gmarik/Vundle.vim'                  " Plugin manage
-        Plugin 'tpope/vim-surround'                 " Modify surroundings
-        Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from Vim, and shows the results in a split window
-        Plugin 'tpope/vim-commentary'               " comment stuff out.
-        Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
-        Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
-        Plugin 'SirVer/ultisnips'                   " The ultimate snippet solution for Vim.
-        Plugin 'honza/vim-snippets'                 " Code snippets.
-        Plugin 'sukima/xmledit'                     " XML/HTML tags will be completed automatically
-        Plugin 'tpope/vim-repeat'                   " enable repeating supported plugin maps with '.'
-        Plugin 'airblade/vim-gitgutter'             " shows a git diff in the 'gutter' (sign column)
-        Plugin 'vim-scripts/DoxygenToolkit.vim'     " Simplify Doxygen documentation in C, C++, Python.
-        Plugin 'rhysd/vim-clang-format'             " plugin for clang-format, a formatter for C, C++ and Obj-C code
-        Plugin 'godlygeek/tabular'                  " script for text filtering and alignment
-        Plugin 'vim-scripts/DrawIt'                 " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
-        Plugin 'vim-scripts/VOoM'                   " Vim Outliner of Markers
-        Plugin 'vim-scripts/Unicode-RST-Tables'     " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
+        Plugin 'gmarik/Vundle.vim'              " Plugin manage
+        Plugin 'tpope/vim-surround'             " Modify surroundings
+        Plugin 'mileszs/ack.vim'                " run ack (a better grep) from Vim, and shows the results in a split window
+        Plugin 'tpope/vim-commentary'           " comment stuff out.
+        Plugin 'Valloric/YouCompleteMe'         " A code-completion engine for Vim
+        Plugin 'rdnetto/YCM-Generator'          " Generates config files for YouCompleteMe
+        Plugin 'SirVer/ultisnips'               " The ultimate snippet solution for Vim.
+        Plugin 'honza/vim-snippets'             " Code snippets.
+        Plugin 'sukima/xmledit'                 " XML/HTML tags will be completed automatically
+        Plugin 'tpope/vim-repeat'               " enable repeating supported plugin maps with '.'
+        Plugin 'airblade/vim-gitgutter'         " shows a git diff in the 'gutter' (sign column)
+        Plugin 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation in C, C++, Python.
+        Plugin 'rhysd/vim-clang-format'         " plugin for clang-format, a formatter for C, C++ and Obj-C code
+        Plugin 'godlygeek/tabular'              " script for text filtering and alignment
+        Plugin 'vim-scripts/DrawIt'             " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
+        Plugin 'vim-scripts/VOoM'               " Vim Outliner of Markers
+        Plugin 'vim-scripts/Unicode-RST-Tables' " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
     call vundle#end()
     " required by vundle, turn on filetype plugin indent
     filetype plugin indent on
@@ -32,22 +32,18 @@
 " }
 
 " General {
-    " lines of history Vim has to remember
-    set history=1000
+    set history=1000   " lines of history Vim has to remember
 
-    " auto read when a file is changed from the outside
-    set autoread
+    set autoread   " auto read when a file is changed from the outside
 
-    " don't redraw while executing macros (good performance config)
-    set lazyredraw
+    set lazyredraw   " don't redraw while executing macros, better performance
 
-    " hidden dirty buffers when abandoned
-    set hidden
+    set hidden   " hidden dirty buffers when abandoned
 
-    set nojoinspaces        " insert only one space after '.' on J
+    set nojoinspaces   " insert only one space after '.' on J
 
-    set backspace=indent,eol,start  " allow <BS> to delete everything
-    set whichwrap+=<,>,[,],b  " allow <Left> <Right> to move to next/prev line
+    set backspace=indent,eol,start   " allow <BS> to delete everything
+    set whichwrap+=<,>,[,],b   " allow <Left> <Right> <BS> to move to next/prev line
 " }
 
 " UserInterface {
@@ -55,18 +51,18 @@
     set winminheight=0 " min height of a window to 0 so we can maximize others
 
     if has("gui_running")
-        set mouse=a         " Enable mouse for all modes in gui, 
-        set mousehide       " Hide the mouse cursor while typing
+        set mouse=a   " Enable mouse for all modes in gui, 
+        set mousehide   " Hide the mouse cursor while typing
     else
-        set mouse=n         " Enable mouse for normal mode only.
+        set mouse=n   " Enable mouse for normal mode only.
     endif
 
-    set laststatus=2    " Always show status line
+    set laststatus=2   " Always show status line
 
-    set scrolloff=3     " set lines to the top/bottom of the buffer
+    set scrolloff=3   " set lines to the top/bottom of the buffer
 
     if has('cmdline_info')
-        set ruler                   " Show the ruler
+        set ruler   " Show the ruler
         if has("statusline")
             "{filename}     #{buffer_no}{type}{modifier}{readonly}{preview}
             "{line},{col} {percent}%
@@ -77,18 +73,18 @@
 
     set number relativenumber   " Show line number with relative number
 
-    set colorcolumn=80          "Highligh coloum
+    set colorcolumn=80  " Highligh coloum
 
-    set cmdheight=2     " Height of the command bar, avoid hit-enter prompts
+    set cmdheight=2   " Height of the command bar, avoid hit-enter prompts
 
-    set hlsearch        " Highlight search results
+    set hlsearch   " Highlight search results
 
-    set matchtime=1     "Tenths of a second to show the matching paren
+    set matchtime=1   " Tenths of a second to show the matching paren
 
-    set cursorline      " Highlight current line
+    set cursorline   " Highlight current line
 
-    set splitright      " Place new vsplit to the right
-    set splitbelow      " Place new split to the bottom
+    set splitright   " Place new vsplit to the right
+    set splitbelow   " Place new split to the bottom
 
     " No annoying sound on errors
     set noerrorbells
@@ -97,43 +93,43 @@
 
     " Set extra options when running in GUI mode
     if has("gui_running")
-        set guioptions+=e              " tab pages when 'showtabline'
-        set guioptions-=l              " No scroll bar
-        set guioptions-=L              " No scroll bar
-        set guioptions-=r              " No right-hand scroll bar
-        set guioptions-=R              " No right-hand scroll bar
-        set guioptions-=m              " No menu
-        set guioptions-=T              " No toolbar
-        set guitablabel=%M\ %t         " GUI tab label
+        set guioptions+=e   " tab pages when 'showtabline'
+        set guioptions-=l   " No scroll bar
+        set guioptions-=L   " No scroll bar
+        set guioptions-=r   " No right-hand scroll bar
+        set guioptions-=R   " No right-hand scroll bar
+        set guioptions-=m   " No menu
+        set guioptions-=T   " No toolbar
+        set guitablabel=%M\ %t   " GUI tab label
         set guicursor=a:block-blinkon0 " No blink cursor
     endif
 
-    syntax enable       " Enable syntax highlighting
+    syntax enable   " Enable syntax highlighting
 
-    set t_Co=256               " Number of colors
+    set t_Co=256   " Number of colors
     set background=light
     colorscheme desert
-    highlight clear SignColumn  " clear SignColumn background color
-    highlight clear LineNr      " clear line number row backgound color
+    highlight clear SignColumn   " clear SignColumn background color
+    highlight clear LineNr   " clear line number row backgound color
 
 " }
 
 " Pattern and search {
-    set wildmenu        " Turn on the wild menu
+    set wildmenu   " Turn on the wild menu
 
     " Ignore compiled files
     set wildignore=*.o,*~,*.pyc,*.lib,*.exe,*.dll,.git,*.a,*.obj
 
-    set incsearch       " preview first match while typing pattern
-    set ignorecase      " Ignore case when searching
-    set smartcase       " When searching try to be smart about cases
+    set incsearch   " preview first match while typing pattern
+    set ignorecase   " Ignore case when searching
+    set smartcase   " When searching try to be smart about cases
 
     " Show matching brackets when text indicator is over them
     set showmatch
 " }
 
 " Files {
-    set fileformats=unix,dos,mac  " detect EOL, and use unix's EOL as default
+    set fileformats=unix,dos,mac   " detect EOL, and use unix's EOL as default
 
     " Set encodings
     if has("multi_byte")
@@ -149,18 +145,18 @@
     set noswapfile
 
     if has('persistent_undo')
-        set undodir=~/.vim/temp/undo    " where to put backup file
-        set undofile                    " So is persistent undo ...
-        set undolevels=1000             " Maximum changes can be undone
-        set undoreload=10000            " Maximum lines for a buffer reload
+        set undodir=~/.vim/temp/undo   " where to put backup file
+        set undofile   " So is persistent undo ...
+        set undolevels=1000   " Maximum changes can be undone
+        set undoreload=10000   " Maximum lines for a buffer reload
     endif
     
     set viminfo+=n~/.vim/temp/viminfo   " viminfo file
 " }
 
 " Tab, fold and indent related {
-    set expandtab       " Use spaces instead of tabs
-    set smarttab        " Be smart when using tabs
+    set expandtab   " Use spaces instead of tabs
+    set smarttab   " Be smart when using tabs
     " 1 tab = 4 spaces
     set shiftwidth=4
     set tabstop=4
@@ -171,8 +167,8 @@
     set autoindent "Auto indent
     set smartindent "Smart indent
 
-    set foldmethod=indent    " fold with indent
-    set nofoldenable    " disable fold when startup
+    set foldmethod=indent   " fold with indent
+    set nofoldenable   " disable fold when startup
 " }
 
 " Useful Shortcut {
@@ -198,10 +194,10 @@
     nnoremap ]Q :clast<CR>
     
     " Move around splits
-    " map <C-J> <C-W>j                        " to below split
-    " map <C-K> <C-W>k                        " to above split
-    " nmap <c-h> <c-w>h                       " to left split
-    " nmap <c-l> <c-w>l                       " to right split
+    " map <C-J> <C-W>j   " to below split
+    " map <C-K> <C-W>k   " to above split
+    " nmap <c-h> <c-w>h   " to left split
+    " nmap <c-l> <c-w>l   " to right split
 
     " Bash like keys for the command line
     cnoremap <C-A> <Home>
