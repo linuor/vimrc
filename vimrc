@@ -1,14 +1,14 @@
 " linuor's vimrc files.
-" Less configuration, more vim defaults.
+" Less configuration, more defaults.
 
 " Bundles {
     set nocompatible
-    filetype off
-    set rtp+=~/.vim/bundle/Vundle.vim
+    filetype off                        " required by vundle
+    set rtp+=~/.vim/bundle/Vundle.vim   " required by vundle
     call vundle#begin()
         Plugin 'gmarik/Vundle.vim'                  " Plugin manage
         Plugin 'tpope/vim-surround'                 " Modify surroundings
-        Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
+        Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from Vim, and shows the results in a split window
         Plugin 'tpope/vim-commentary'               " comment stuff out.
         Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
         Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
@@ -23,114 +23,72 @@
         Plugin 'vim-scripts/DrawIt'                 " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
         Plugin 'vim-scripts/VOoM'                   " Vim Outliner of Markers
         Plugin 'vim-scripts/Unicode-RST-Tables'     " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
-
     call vundle#end()
+    " required by vundle, turn on filetype plugin indent
+    filetype plugin indent on
 
-    " enable plugins Vim provides
+    " enable plugins released with Vim
     runtime macros/matchit.vim
 " }
 
 " General {
-    " Set suffix for search
-    set suffixesadd+=.rst
-
-    " Sets how many lines of history VIM has to remember
+    " lines of history Vim has to remember
     set history=1000
 
-    " no backup nor swap, since most stuff is in SVN, git anyway...
-    set nobackup
-    set nowritebackup
-    set noswapfile
-
-
-    " Enable filetype plugins
-    filetype plugin on
-    filetype indent on
-
-    " Set to auto read when a file is changed from the outside
+    " auto read when a file is changed from the outside
     set autoread
 
-    " Automatically enable mouse usage
-    set mouse=a
-    " Hide the mouse cursor while typing
-    set mousehide
-
-    " Don't redraw while executing macros (good performance config)
+    " don't redraw while executing macros (good performance config)
     set lazyredraw
 
-    set wmw=0 " set the min width of a window to 0 so we can maximize others
-    set wmh=0 " set the min height of a window to 0 so we can maximize others
+    " hidden dirty buffers when abandoned
+    set hidden
+
+    set nojoinspaces        " insert only one space after '.' on J
+
+    set backspace=indent,eol,start  " allow <BS> to delete everything
+    set whichwrap+=<,>,[,],b  " allow <Left> <Right> to move to next/prev line
 " }
 
 " UserInterface {
-    " set lines to the top/bottom of the buffer
-    set scrolloff=3
+    set winminwidth=0 " min width of a window to 0 so we can maximize others
+    set winminheight=0 " min height of a window to 0 so we can maximize others
 
-    " Turn on the wild menu
-    set wildmenu
-
-    " Ignore compiled files
-    set wildignore=*.o,*~,*.pyc,*.lib,*.exe,*.dll,.git,*.a
-
-    " Always show current position
-    if has('cmdline_info')
-        set ruler                   " Show the ruler
-        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
-        set showcmd                 " Show partial commands in status line and
+    if has("gui_running")
+        set mouse=a         " Enable mouse for all modes in gui, 
+        set mousehide       " Hide the mouse cursor while typing
+    else
+        set mouse=n         " Enable mouse for normal mode only.
     endif
 
-    " Show line number
-    set number relativenumber
+    set laststatus=2    " Always show status line
 
-    "Highligh coloum at 80
-    set colorcolumn=80
+    set scrolloff=3     " set lines to the top/bottom of the buffer
 
-    " Height of the command bar
-    set cmdheight=2
+    if has('cmdline_info')
+        set ruler                   " Show the ruler
+        if has("statusline")
+            "{filename}     #{buffer_no}{type}{modifier}{readonly}{preview}
+            "{line},{col} {percent}%
+            set rulerformat=%30(%=\#%n%y%m%r%w\ %l,%c%V\ %P%) 
+        endif
+        set showcmd     "Show partial commands the last line of screen
+    endif
 
-    " A buffer becomes hidden when it is abandoned
-    set hidden
+    set number relativenumber   " Show line number with relative number
 
-    " Configure backspace so it acts as it should act
-    set backspace=eol,start,indent
-    set whichwrap+=<,>,h,l
+    set colorcolumn=80          "Highligh coloum
 
-    " Highlight search results
-    set hlsearch
+    set cmdheight=2     " Height of the command bar, avoid hit-enter prompts
 
-    " Makes search act like search in modern browsers
-    set incsearch
-    set ignorecase                  " Ignore case when searching
-    set smartcase                   " When searching try to be smart about cases
+    set hlsearch        " Highlight search results
 
-    " For regular expressions turn magic on
-    set magic
+    set matchtime=1     "Tenths of a second to show the matching paren
 
-    " Show matching brackets when text indicator is over them
-    set showmatch
+    set cursorline      " Highlight current line
 
-    " Show current mode
-    set showmode
-
-    " How many tenths of a second to blink when matching brackets
-    set mat=2
-
-    " Highlight current line
-    set cursorline
-
-    " SignColumn should match background
-    highlight clear SignColumn
-
-    " Current line number row will have same background color in relative mode
-    highlight clear LineNr
-
-    " Prevents inserting two spaces after punctuation on a join (J)
-    set nojoinspaces
-
-    " Puts new vsplit windows to the right of the current
-    set splitright
-    " Puts new split windows to the bottom of the current
-    set splitbelow
+    set splitright      " Place new vsplit to the right
+    set splitbelow      " Place new split to the bottom
 
     " No annoying sound on errors
     set noerrorbells
@@ -139,118 +97,129 @@
 
     " Set extra options when running in GUI mode
     if has("gui_running")
-        set guioptions+=e          " Add tab pages when indicated with 'showtabline'.
-        set guioptions-=l          " No scroll bar
-        set guioptions-=L          " No scroll bar
-        set guioptions-=r          " No scroll bar
-        set guioptions-=R          " No scroll bar
-        set guioptions-=m          " No menu
-        set guioptions-=T          " No toolbar
-        set guitablabel=%M\ %t     " GUI tab label
-        set t_Co=256               " Number of colors
-        set gcr=a:block-blinkon0   " No blink cursor
+        set guioptions+=e              " tab pages when 'showtabline'
+        set guioptions-=l              " No scroll bar
+        set guioptions-=L              " No scroll bar
+        set guioptions-=r              " No right-hand scroll bar
+        set guioptions-=R              " No right-hand scroll bar
+        set guioptions-=m              " No menu
+        set guioptions-=T              " No toolbar
+        set guitablabel=%M\ %t         " GUI tab label
+        set guicursor=a:block-blinkon0 " No blink cursor
     endif
 
-    " Enable syntax highlighting
-    syntax enable
+    syntax enable       " Enable syntax highlighting
 
-    " set background=dark
-    " colorscheme solarized
+    set t_Co=256               " Number of colors
+    set background=light
     colorscheme desert
+    highlight clear SignColumn  " clear SignColumn background color
+    highlight clear LineNr      " clear line number row backgound color
 
 " }
 
+" Pattern and search {
+    set wildmenu        " Turn on the wild menu
+
+    " Ignore compiled files
+    set wildignore=*.o,*~,*.pyc,*.lib,*.exe,*.dll,.git,*.a,*.obj
+
+    set incsearch       " preview first match while typing pattern
+    set ignorecase      " Ignore case when searching
+    set smartcase       " When searching try to be smart about cases
+
+    " Show matching brackets when text indicator is over them
+    set showmatch
+" }
+
 " Files {
-    " Use Unix as the standard file type
-    set ffs=unix,dos,mac
+    set fileformats=unix,dos,mac  " detect EOL, and use unix's EOL as default
 
     " Set encodings
-    set encoding=utf-8
-    set termencoding=utf-8
-    set fileencoding=utf-8
-    set fileencodings=utf-8,ucs-bom,gb18030,gbk,gb2312,cp936,latin1
-    scriptencoding utf-8
+    if has("multi_byte")
+        set encoding=utf-8
+        set termencoding=utf-8
+        set fileencoding=utf-8
+        set fileencodings=ucs-bom,utf-8,gb18030,gbk,gb2312,cp936,latin1
+        scriptencoding utf-8
+    endif
+
+    " no backup nor swap,
+    set nowritebackup
+    set noswapfile
 
     if has('persistent_undo')
         set undodir=~/.vim/temp/undo    " where to put backup file
         set undofile                    " So is persistent undo ...
-        set undolevels=1000             " Maximum number of changes that can be undone
-        set undoreload=10000            " Maximum number lines to save for undo on a buffer reload
+        set undolevels=1000             " Maximum changes can be undone
+        set undoreload=10000            " Maximum lines for a buffer reload
     endif
-
-    " viminfo file
-    set viminfo+=n~/.vim/temp/.viminfo
+    
+    set viminfo+=n~/.vim/temp/viminfo   " viminfo file
 " }
 
-" Text, tab, fold and indent related {
-    " Use spaces instead of tabs
-    set expandtab
-
-    " Be smart when using tabs
-    set smarttab
-
+" Tab, fold and indent related {
+    set expandtab       " Use spaces instead of tabs
+    set smarttab        " Be smart when using tabs
     " 1 tab = 4 spaces
     set shiftwidth=4
     set tabstop=4
+    set softtabstop=4
 
     set nowrap "NOT wrap lines
 
     set autoindent "Auto indent
     set smartindent "Smart indent
 
-    " fold with indent
-    set foldmethod=indent
-    " disable fold when startup
-    set nofoldenable
-" }
-
-" Status line {
-    set laststatus=2
+    set foldmethod=indent    " fold with indent
+    set nofoldenable    " disable fold when startup
 " }
 
 " Useful Shortcut {
     " mute search high light before clear and redraw the screen
-    nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+    nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
 
     " shortcut for navation
-    nnoremap [a :previous
-    nnoremap ]a :next
-    nnoremap [A :first
-    nnoremap ]A :last
-    nnoremap [b :bprevious
-    nnoremap ]b :bnext
-    nnoremap [B :bfirst
-    nnoremap ]B :blast
-    nnoremap [l :lprevious
-    nnoremap ]l :lnext
-    nnoremap [L :lfirst
-    nnoremap ]L :llast
-    nnoremap [q :cprevious
-    nnoremap ]q :cnext
-    nnoremap [Q :cfirst
-    nnoremap ]Q :clast
+    nnoremap [a :previous<CR>
+    nnoremap ]a :next<CR>
+    nnoremap [A :first<CR>
+    nnoremap ]A :last<CR>
+    nnoremap [b :bprevious<CR>
+    nnoremap ]b :bnext<CR>
+    nnoremap [B :bfirst<CR>
+    nnoremap ]B :blast<CR>
+    nnoremap [l :lprevious<CR>
+    nnoremap ]l :lnext<CR>
+    nnoremap [L :lfirst<CR>
+    nnoremap ]L :llast<CR>
+    nnoremap [q :cprevious<CR>
+    nnoremap ]q :cnext<CR>
+    nnoremap [Q :cfirst<CR>
+    nnoremap ]Q :clast<CR>
+    
     " Move around splits
     " map <C-J> <C-W>j                        " to below split
     " map <C-K> <C-W>k                        " to above split
     " nmap <c-h> <c-w>h                       " to left split
     " nmap <c-l> <c-w>l                       " to right split
 
-    " Tab
-    " map <C-t><C-t> :tabnew<CR>              " new tab
-    " map <C-t><C-w> :tabclose<CR>            " close tab
-
     " Bash like keys for the command line
     cnoremap <C-A> <Home>
     cnoremap <C-E> <End>
-    " cnoremap <C-K> <C-U>
 
     " retain visual selection after indention
     vnoremap < <gv
     vnoremap > >gv
 
     " cd change working directory to that of the current file
-    noremap cd :lcd %:p:h<CR>
+    nnoremap cd :lcd %:p:h<CR>
 
+" }
+
+" FileType autocmd {
+    if has("autocmd")
+        autocmd FileType rst set suffixesadd+=.rst
+    endif
 " }
 
 " Plugin Config {
@@ -286,10 +255,12 @@
         \ "AccessModifierOffset" : -4,
         \ "DerivePointerAlignment" : "false",
         \ "PointerAlignment" : "Left"}
-    autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-    autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+    if has("autocmd")
+        autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+        autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
+    endif
 
     " --- Tabularize
-    nmap <Leader>a :Tabularize /
-    vmap <Leader>a :Tabularize /
+    nnoremap <Leader>a :Tabularize /
+    vnoremap <Leader>a :Tabularize /
 " }

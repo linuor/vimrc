@@ -2,19 +2,19 @@ vimrc
 =======
 
 linuor's vimrc files.
-Less configuration, more vim defaults.
+Less configuration, more defaults.
 
 Requirement
 ===========
 
 - git
-- GNU global
+- Exuberant Ctags
 - ack
 
 Usage
 =====
 
-Firstly, install git, GNU global and ack.
+Firstly, install git, Exuberant Ctags and ack.
 
 ```
 git clone https://github.com/linuor/vimrc.git vimrc
@@ -22,14 +22,12 @@ cd vimrc
 ./install.sh
 ```
 
-Plugin
-======
+Plugins
+=======
 
 - Plugin 'gmarik/Vundle.vim'                  " Plugin manage
-- Plugin 'Shougo/unite.vim'                   " Unite and create user interfaces
 - Plugin 'tpope/vim-surround'                 " Modify surroundings
-- Plugin 'vim-scripts/matchit.zip'            " extended % matching for HTML, LaTeX, and many other languages
-- Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from vim, and shows the results in a split window
+- Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from Vim, and shows the results in a split window
 - Plugin 'tpope/vim-commentary'               " comment stuff out.
 - Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
 - Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
@@ -53,14 +51,42 @@ Predefined shortcuts
 
 ```
 " mute search high light before clear and redraw the screen
-nnoremap <silent> <C-l> :<C-u>nohlsearch<CR><C-l>
+nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+
+" shortcut for navation
+nnoremap [a :previous<CR>
+nnoremap ]a :next<CR>
+nnoremap [A :first<CR>
+nnoremap ]A :last<CR>
+nnoremap [b :bprevious<CR>
+nnoremap ]b :bnext<CR>
+nnoremap [B :bfirst<CR>
+nnoremap ]B :blast<CR>
+nnoremap [l :lprevious<CR>
+nnoremap ]l :lnext<CR>
+nnoremap [L :lfirst<CR>
+nnoremap ]L :llast<CR>
+nnoremap [q :cprevious<CR>
+nnoremap ]q :cnext<CR>
+nnoremap [Q :cfirst<CR>
+nnoremap ]Q :clast<CR>
+
+" Move around splits
+" map <C-J> <C-W>j                        " to below split
+" map <C-K> <C-W>k                        " to above split
+" nmap <c-h> <c-w>h                       " to left split
+" nmap <c-l> <c-w>l                       " to right split
+
+" Bash like keys for the command line
+cnoremap <C-A> <Home>
+cnoremap <C-E> <End>
 
 " retain visual selection after indention
 vnoremap < <gv
 vnoremap > >gv
 
 " cd change working directory to that of the current file
-noremap cd :lcd %:p:h<CR>
+nnoremap cd :lcd %:p:h<CR>
 ```
 
 netrw
@@ -79,11 +105,6 @@ netrw is released with every vim, we use it as default file explorer.
 - `R` Rename
 - `s` Select sorting style: by name, time, or file size
 - `t` Enter the file/directory under the cursor in a new tab
-
-unite.vim
----------
-
-TODO
 
 vim-surround
 ------------
@@ -115,8 +136,8 @@ vim-commentary
 YCM-Generator
 -------------
 
-`:YcmGenerateConfig` generate a config file for the current directory
-`:CCGenerateConfig`  generate a config file for the current directory
+- `:YcmGenerateConfig` generate a config file for the current directory
+- `:CCGenerateConfig`  generate a config file for the current directory
 
 ultisnips
 ---------
