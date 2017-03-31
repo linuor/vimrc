@@ -23,6 +23,7 @@
         Plugin 'vim-scripts/DrawIt'             " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
         Plugin 'vim-scripts/VOoM'               " Vim Outliner of Markers
         Plugin 'vim-scripts/Unicode-RST-Tables' " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
+        Plugin 'tpope/vim-fugitive'             " a Git wrapper
     call vundle#end()
     " required by vundle, turn on filetype plugin indent
     filetype plugin indent on
