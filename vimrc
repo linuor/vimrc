@@ -4,7 +4,7 @@
 " Bundles {
     set nocompatible
     filetype off   " required by vundle
-    set rtp+=$HOME/vim/bundle/Vundle.vim   " required by vundle
+    set rtp+=$HOME/.vim/bundle/Vundle.vim   " required by vundle
     call vundle#begin()
         Plugin 'gmarik/Vundle.vim'              " Plugin manage
         Plugin 'tpope/vim-surround'             " Modify surroundings
@@ -144,13 +144,13 @@
     set noswapfile
 
     if has('persistent_undo')
-        set undodir=$HOME/vim/temp/undo   " where to put backup file
+        set undodir=$HOME/.vim/temp/undo   " where to put backup file
         set undofile   " So is persistent undo ...
         set undolevels=1000   " Maximum changes can be undone
         set undoreload=10000   " Maximum lines for a buffer reload
     endif
     
-    set viminfo+=n$HOME/vim/temp/viminfo   " viminfo file
+    set viminfo+=n$HOME/.vim/temp/viminfo   " viminfo file
 " }
 
 " Tab, fold and indent related {
