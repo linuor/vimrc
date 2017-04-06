@@ -4,7 +4,7 @@
 " Bundles {
     set nocompatible
     filetype off   " required by vundle
-    set rtp+=~/.vim/bundle/Vundle.vim   " required by vundle
+    set rtp+=$HOME/vim/bundle/Vundle.vim   " required by vundle
     call vundle#begin()
         Plugin 'gmarik/Vundle.vim'              " Plugin manage
         Plugin 'tpope/vim-surround'             " Modify surroundings
@@ -44,7 +44,10 @@
     set nojoinspaces   " insert only one space after '.' on J
 
     set backspace=indent,eol,start   " allow <BS> to delete everything
-    set whichwrap+=<,>,[,],b   " allow <Left> <Right> <BS> to move to next/prev line
+
+    set whichwrap+=b   " allow <BS> to move to next/prev line
+
+    set report=0   " always report number of lines changed
 " }
 
 " UserInterface {
@@ -141,13 +144,13 @@
     set noswapfile
 
     if has('persistent_undo')
-        set undodir=~/.vim/temp/undo   " where to put backup file
+        set undodir=$HOME/vim/temp/undo   " where to put backup file
         set undofile   " So is persistent undo ...
         set undolevels=1000   " Maximum changes can be undone
         set undoreload=10000   " Maximum lines for a buffer reload
     endif
     
-    set viminfo+=n~/.vim/temp/viminfo   " viminfo file
+    set viminfo+=n$HOME/vim/temp/viminfo   " viminfo file
 " }
 
 " Tab, fold and indent related {
