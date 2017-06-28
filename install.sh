@@ -26,4 +26,4 @@ echo "Clone from https://github.com/gmarik/Vundle.vim.git ..."
 mkdir bundle
 git clone https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim
 echo "Install other bundles..."
-vi +PluginInstall
+vim +PluginInstall
