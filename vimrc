@@ -172,7 +172,7 @@
 
 " Useful Shortcut {
     " mute search high light before clear and redraw the screen
-    nnoremap <silent> <C-l> :nohlsearch<CR><C-l>
+    nnoremap <silent> <C-c> :nohlsearch<CR><C-l>
 
     " shortcut for navation
     nnoremap [a :previous<CR>
