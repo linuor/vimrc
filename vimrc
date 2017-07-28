@@ -193,10 +193,10 @@
     nnoremap ]Q :clast<CR>
     
     " Move around splits
-    " map <C-J> <C-W>j   " to below split
-    " map <C-K> <C-W>k   " to above split
-    " nmap <c-h> <c-w>h   " to left split
-    " nmap <c-l> <c-w>l   " to right split
+    nnoremap <C-j> <C-W>j   " to below split
+    nnoremap <C-k> <C-W>k   " to above split
+    nnoremap <C-h> <C-W>h   " to left split
+    nnoremap <C-l> <C-W>l   " to right split
 
     " Bash like keys for the command line
     cnoremap <C-A> <Home>
