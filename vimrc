@@ -171,6 +171,8 @@
 " Useful Shortcut {
     " mute search high light before clear and redraw the screen
     nnoremap <silent> <C-c> :nohlsearch<CR><C-l>
+    " hight tailing space
+    nnoremap <leader>sp /\s\+$
 
     " shortcut for navation
     nnoremap [a :previous<CR>
@@ -226,9 +228,9 @@
     " --- YouCompleteMe
     let g:ycm_autoclose_preview_window_after_insertion=1
     let g:ycm_key_invoke_completion='<C-\>'
-    nnoremap <leader>jg :YcmCompleter GoTo<CR>
-    nnoremap <leader>jf :YcmCompleter FixIt<CR>
-    nnoremap <leader>jd :YcmDiags<CR>
+    nnoremap <leader>cg :YcmCompleter GoTo<CR>
+    nnoremap <leader>cf :YcmCompleter FixIt<CR>
+    nnoremap <leader>cd :YcmDiags<CR>
 
     " --- ultisnips
     " prevent conflict with YCM

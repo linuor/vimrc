@@ -28,7 +28,6 @@ Plugins
 - Plugin 'tpope/vim-surround'                 " Modify surroundings
 - Plugin 'tpope/vim-commentary'               " comment stuff out.
 - Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
-- Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe
 - Plugin 'SirVer/ultisnips'                   " The ultimate snippet solution for Vim.
 - Plugin 'honza/vim-snippets'                 " Code snippets.
 - Plugin 'sukima/xmledit'                     " XML/HTML tags will be completed automatically
@@ -51,6 +50,8 @@ Predefined shortcuts
 ```
 " mute search high light before clear and redraw the screen
 nnoremap <silent> <C-c> :nohlsearch<CR><C-l>
+" hight tailing space
+nnoremap <leader>sp /\s\+$
 
 " shortcut for navation
 nnoremap [a :previous<CR>
