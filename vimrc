@@ -10,7 +10,6 @@
         Plugin 'tpope/vim-surround'             " Modify surroundings
         Plugin 'tpope/vim-commentary'           " comment stuff out.
         Plugin 'Valloric/YouCompleteMe'         " A code-completion engine for Vim
-        Plugin 'rdnetto/YCM-Generator'          " Generates config files for YouCompleteMe
         Plugin 'SirVer/ultisnips'               " The ultimate snippet solution for Vim.
         Plugin 'honza/vim-snippets'             " Code snippets.
         Plugin 'sukima/xmledit'                 " XML/HTML tags will be completed automatically
@@ -190,6 +189,10 @@
     nnoremap ]q :cnext<CR>
     nnoremap [Q :cfirst<CR>
     nnoremap ]Q :clast<CR>
+    nnoremap [t :tabprevious<CR>
+    nnoremap ]t :tabnext<CR>
+    nnoremap [T :tabfirst<CR>
+    nnoremap ]T :tablast<CR>
 
     " Move around splits
     nnoremap <C-j> <C-W>j   " to below split
@@ -221,10 +224,11 @@
     let g:gitgutter_enabled=1
 
     " --- YouCompleteMe
-    let g:ycm_confirm_extra_conf=0
-    let g:ycm_key_invoke_completion='<C-\>'
     let g:ycm_autoclose_preview_window_after_insertion=1
+    let g:ycm_key_invoke_completion='<C-\>'
     nnoremap <leader>jg :YcmCompleter GoTo<CR>
+    nnoremap <leader>jf :YcmCompleter FixIt<CR>
+    nnoremap <leader>jd :YcmDiags<CR>
 
     " --- ultisnips
     " prevent conflict with YCM

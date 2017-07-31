@@ -69,6 +69,10 @@ nnoremap [q :cprevious<CR>
 nnoremap ]q :cnext<CR>
 nnoremap [Q :cfirst<CR>
 nnoremap ]Q :clast<CR>
+nnoremap [t :tabprevious<CR>
+nnoremap ]t :tabnext<CR>
+nnoremap [T :tabfirst<CR>
+nnoremap ]T :tablast<CR>
 
 " Move around splits
 " Use upper case <C-w>J <C-w>K <C-w>H <C-w>L to move the splits
@@ -132,11 +136,15 @@ vim-commentary
 
 `gcc` to toggle commentary
 
-YCM-Generator
+YouCompleteMe
 -------------
 
-- `:YcmGenerateConfig` generate a config file for the current directory
-- `:CCGenerateConfig`  generate a config file for the current directory
+```
+    let g:ycm_key_invoke_completion='<C-\>'
+    nnoremap <leader>cg :YcmCompleter GoTo<CR>
+    nnoremap <leader>cf :YcmCompleter FixIt<CR>
+    nnoremap <leader>cd :YcmDiags<CR>
+```
 
 ultisnips
 ---------
