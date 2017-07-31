@@ -26,7 +26,7 @@
     " required by vundle, turn on filetype plugin indent
     if has('autocmd')
         filetype plugin indent on
-    endif 
+    endif
 
     " enable plugins released with Vim
     if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
@@ -187,7 +187,7 @@
     " mute search high light before clear and redraw the screen
     nnoremap <silent> <C-c> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
     " hight tailing space
-    nnoremap <leader>sp /\s\+$
+    nnoremap <leader>sp /\s\+$<CR>
 
     " shortcut for navation
     nnoremap [a :previous<CR>
