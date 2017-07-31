@@ -24,14 +24,19 @@
         Plugin 'tpope/vim-fugitive'             " a Git wrapper
     call vundle#end()
     " required by vundle, turn on filetype plugin indent
-    filetype plugin indent on
+    if has('autocmd')
+        filetype plugin indent on
+    endif 
 
     " enable plugins released with Vim
-    runtime macros/matchit.vim
+    if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
+      runtime! macros/matchit.vim
+    endif
 " }
 
 " General {
     set history=1000   " lines of history Vim has to remember
+    set tabpagemax=50  " max number of tab pages
 
     set autoread   " auto read when a file is changed from the outside
 
@@ -40,6 +45,9 @@
     set hidden   " hidden dirty buffers when abandoned
 
     set nojoinspaces   " insert only one space after '.' on J
+    if v:version > 703 || v:version == 703 && has("patch541")
+        set formatoptions+=j " Delete comment character when joining commented lines
+    endif
 
     set backspace=indent,eol,start   " allow <BS> to delete everything
 
@@ -61,8 +69,12 @@
 
     set laststatus=2   " Always show status line
 
-    set scrolloff=3   " set lines to the top/bottom of the buffer
-
+    if !&scrolloff
+      set scrolloff=3
+    endif
+    if !&sidescrolloff
+      set sidescrolloff=5   " set lines to the top/bottom of the buffer
+    endif
     if has('cmdline_info')
         set ruler   " Show the ruler
         set showcmd     "Show partial commands the last line of screen
@@ -100,10 +112,12 @@
         set guitablabel=%M\ %t   " GUI tab label
         set guicursor=a:block-blinkon0 " No blink cursor
     endif
-
-    syntax enable   " Enable syntax highlighting
-
-    set t_Co=256   " Number of colors
+    if has('syntax') && !exists('g:syntax_on')
+        syntax enable   " Enable syntax highlighting
+    endif
+    if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
+        set t_Co=16
+    endif
     set background=light
     colorscheme desert
     highlight clear SignColumn   " clear SignColumn background color
@@ -149,6 +163,7 @@
     endif
 
     set viminfo+=n$HOME/.vim/temp/viminfo   " viminfo file
+    set viminfo^=!
 " }
 
 " Tab, fold and indent related {
@@ -170,7 +185,7 @@
 
 " Useful Shortcut {
     " mute search high light before clear and redraw the screen
-    nnoremap <silent> <C-c> :nohlsearch<CR><C-l>
+    nnoremap <silent> <C-c> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
     " hight tailing space
     nnoremap <leader>sp /\s\+$
 
