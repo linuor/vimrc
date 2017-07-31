@@ -127,11 +127,6 @@ matchit
 
 `%` extended % matching for HTML, LaTeX, and many other languages
 
-Ack
----
-
-`:Ack[!] [options] {pattern} [{directory}]`
-
 vim-commentary
 --------------
 
