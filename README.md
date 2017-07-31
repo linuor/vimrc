@@ -9,12 +9,11 @@ Requirement
 
 - git
 - Exuberant Ctags
-- ack
 
 Usage
 =====
 
-Firstly, install git, Exuberant Ctags and ack.
+Firstly, install git, and make sure there is Exuberant Ctags available.
 
 ```
 git clone https://github.com/linuor/vimrc.git vimrc
@@ -27,7 +26,6 @@ Plugins
 
 - Plugin 'gmarik/Vundle.vim'                  " Plugin manage
 - Plugin 'tpope/vim-surround'                 " Modify surroundings
-- Plugin 'mileszs/ack.vim'                    " run ack (a better grep) from Vim, and shows the results in a split window
 - Plugin 'tpope/vim-commentary'               " comment stuff out.
 - Plugin 'Valloric/YouCompleteMe'             " A code-completion engine for Vim
 - Plugin 'rdnetto/YCM-Generator'              " Generates config files for YouCompleteMe

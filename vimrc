@@ -8,7 +8,6 @@
     call vundle#begin()
         Plugin 'gmarik/Vundle.vim'              " Plugin manage
         Plugin 'tpope/vim-surround'             " Modify surroundings
-        Plugin 'mileszs/ack.vim'                " run ack (a better grep) from Vim, and shows the results in a split window
         Plugin 'tpope/vim-commentary'           " comment stuff out.
         Plugin 'Valloric/YouCompleteMe'         " A code-completion engine for Vim
         Plugin 'rdnetto/YCM-Generator'          " Generates config files for YouCompleteMe
@@ -55,7 +54,7 @@
     set winminheight=0 " min height of a window to 0 so we can maximize others
 
     if has("gui_running")
-        set mouse=a   " Enable mouse for all modes in gui, 
+        set mouse=a   " Enable mouse for all modes in gui,
         set mousehide   " Hide the mouse cursor while typing
     else
         set mouse=n   " Enable mouse for normal mode only.
@@ -149,7 +148,7 @@
         set undolevels=1000   " Maximum changes can be undone
         set undoreload=10000   " Maximum lines for a buffer reload
     endif
-    
+
     set viminfo+=n$HOME/.vim/temp/viminfo   " viminfo file
 " }
 
@@ -191,7 +190,7 @@
     nnoremap ]q :cnext<CR>
     nnoremap [Q :cfirst<CR>
     nnoremap ]Q :clast<CR>
-    
+
     " Move around splits
     nnoremap <C-j> <C-W>j   " to below split
     nnoremap <C-k> <C-W>k   " to above split
