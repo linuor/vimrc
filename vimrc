@@ -184,8 +184,9 @@
 " }
 
 " Useful Shortcut {
+    let mapleader="\<Space>"
     " mute search high light before clear and redraw the screen
-    nnoremap <silent> <C-c> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+    nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
     " hight tailing space
     nnoremap <leader>sp /\s\+$<CR>
 
@@ -212,10 +213,10 @@
     nnoremap ]T :tablast<CR>
 
     " Move around splits
-    nnoremap <C-j> <C-W>j   " to below split
-    nnoremap <C-k> <C-W>k   " to above split
-    nnoremap <C-h> <C-W>h   " to left split
-    nnoremap <C-l> <C-W>l   " to right split
+    " nnoremap <C-j> <C-W>j   " to below split
+    " nnoremap <C-k> <C-W>k   " to above split
+    " nnoremap <C-h> <C-W>h   " to left split
+    " nnoremap <C-l> <C-W>l   " to right split
 
     " Bash like keys for the command line
     cnoremap <C-A> <Home>
@@ -243,9 +244,9 @@
     " --- YouCompleteMe
     let g:ycm_autoclose_preview_window_after_insertion=1
     let g:ycm_key_invoke_completion='<C-\>'
-    nnoremap <leader>cg :YcmCompleter GoTo<CR>
-    nnoremap <leader>cf :YcmCompleter FixIt<CR>
-    nnoremap <leader>cd :YcmDiags<CR>
+    nnoremap <leader>yg :YcmCompleter GoTo<CR>
+    nnoremap <leader>yf :YcmCompleter FixIt<CR>
+    nnoremap <leader>yd :YcmDiags<CR>
 
     " --- ultisnips
     " prevent conflict with YCM

@@ -48,8 +48,9 @@ Predefined shortcuts
 --------------------
 
 ```
+let mapleader="\<Space>"
 " mute search high light before clear and redraw the screen
-nnoremap <silent> <C-c> :nohlsearch<CR><C-l>
+nnoremap <silent> <C-L> :nohlsearch<CR><C-l>
 " hight tailing space
 nnoremap <leader>sp /\s\+$
 
@@ -74,13 +75,6 @@ nnoremap [t :tabprevious<CR>
 nnoremap ]t :tabnext<CR>
 nnoremap [T :tabfirst<CR>
 nnoremap ]T :tablast<CR>
-
-" Move around splits
-" Use upper case <C-w>J <C-w>K <C-w>H <C-w>L to move the splits
-nnoremap <C-j> <C-W>j   " to below split
-nnoremap <C-k> <C-W>k   " to above split
-nnoremap <C-h> <C-W>h   " to left split
-nnoremap <C-l> <C-W>l   " to right split
 
 " Bash like keys for the command line
 cnoremap <C-A> <Home>
@@ -142,9 +136,9 @@ YouCompleteMe
 
 ```
     let g:ycm_key_invoke_completion='<C-\>'
-    nnoremap <leader>cg :YcmCompleter GoTo<CR>
-    nnoremap <leader>cf :YcmCompleter FixIt<CR>
-    nnoremap <leader>cd :YcmDiags<CR>
+    nnoremap <leader>yg :YcmCompleter GoTo<CR>
+    nnoremap <leader>yf :YcmCompleter FixIt<CR>
+    nnoremap <leader>yd :YcmDiags<CR>
 ```
 
 ultisnips
