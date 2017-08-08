@@ -261,7 +261,7 @@
     let g:snips_author = g:author
 
     " --- DoxygenToolkit
-    let g:DoxygenToolkit_briefTag_funcName="yes"
+    " let g:DoxygenToolkit_briefTag_funcName="yes"
     let g:DoxygenToolkit_authorName=g:author
     let g:DoxygenToolkit_versionString="0.1"
 
