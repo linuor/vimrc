@@ -22,6 +22,7 @@
         Plugin 'vim-scripts/VOoM'               " Vim Outliner of Markers
         Plugin 'vim-scripts/Unicode-RST-Tables' " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
         Plugin 'tpope/vim-fugitive'             " a Git wrapper
+        Plugin 'ctrlpvim/ctrlp.vim'             " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
     call vundle#end()
     " required by vundle, turn on filetype plugin indent
     if has('autocmd')
@@ -279,4 +280,19 @@
     " --- Tabularize
     nnoremap <Leader>a :Tabularize /
     vnoremap <Leader>a :Tabularize /
+
+    " --- CtrlP
+    let g:ctrlp_extensions = ['buffertag', 'undo', 'changes']
+    let g:ctrlp_types = ['buf', 'fil', 'buffertag']
+    if executable("rg")
+        set grepprg=rg\ --vimgrep\ --no-heading
+        set grepformat=%f:%l:%c:%m,%f:%l:%m
+        let g:ctrlp_user_command = {
+            \'types': {
+                \1: ['.git', 'cd %s && git ls-files'],
+                \2: ['.hg', 'hg --cwd %s locate -I .'],
+            \},
+            \'fallback': 'rg %s --files --color=never --glob ""',
+        \}
+    endif
 " }

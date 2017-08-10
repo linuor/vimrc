@@ -9,6 +9,7 @@ Requirement
 
 - git
 - Exuberant Ctags
+- ripgrep, optional
 
 Usage
 =====
@@ -19,6 +20,8 @@ Firstly, install git, and make sure there is Exuberant Ctags available.
 git clone https://github.com/linuor/vimrc.git vimrc
 cd vimrc
 ./install.sh
+cd ~/.vim/bundle/YouCompleteMe/
+./install.py
 ```
 
 Plugins
@@ -40,6 +43,7 @@ Plugins
 - Plugin 'vim-scripts/VOoM'                   " Vim Outliner of Markers
 - Plugin 'vim-scripts/Unicode-RST-Tables'     " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
 - Plugin 'tpope/vim-fugitive'                 " a Git wrapper
+- Plugin 'ctrlpvim/ctrlp.vim'             " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 
 Shortcuts
 ================
@@ -203,3 +207,12 @@ vim-fugitive
 - `Gcommit` to commit
 - `Gpush`   to push
 - `Gpull` to pull
+
+
+CtrlP
+-----
+
+Use `<C-p>` to trigger the CtrlP promote. It is change to buffer mode.
+Use `<C-f>` `<C-b>` to toggle between modes, and `<C-j>` `<C-k>` to navigate
+the list items.
+
