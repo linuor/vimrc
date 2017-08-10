@@ -71,10 +71,10 @@
     set laststatus=2   " Always show status line
 
     if !&scrolloff
-      set scrolloff=3
+      set scrolloff=2
     endif
     if !&sidescrolloff
-      set sidescrolloff=5   " set lines to the top/bottom of the buffer
+      set sidescrolloff=3   " set lines to the top/bottom of the buffer
     endif
     if has('cmdline_info')
         set ruler   " Show the ruler
@@ -284,6 +284,7 @@
     " --- CtrlP
     let g:ctrlp_extensions = ['buffertag', 'undo', 'changes']
     let g:ctrlp_types = ['buf', 'fil', 'buffertag']
+    nnoremap <Leader>bb :CtrlPBufTag<CR>
     if executable("rg")
         set grepprg=rg\ --vimgrep\ --no-heading
         set grepformat=%f:%l:%c:%m,%f:%l:%m

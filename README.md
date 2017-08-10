@@ -214,5 +214,5 @@ CtrlP
 
 Use `<C-p>` to trigger the CtrlP promote. It is change to buffer mode.
 Use `<C-f>` `<C-b>` to toggle between modes, and `<C-j>` `<C-k>` to navigate
-the list items.
+the list items. Also `<Leader>bb` is mapped to `:CtrlPBufTag` .
 
