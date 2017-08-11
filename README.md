@@ -43,7 +43,7 @@ Plugins
 - Plugin 'vim-scripts/VOoM'                   " Vim Outliner of Markers
 - Plugin 'vim-scripts/Unicode-RST-Tables'     " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
 - Plugin 'tpope/vim-fugitive'                 " a Git wrapper
-- Plugin 'ctrlpvim/ctrlp.vim'             " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
+- Plugin 'ctrlpvim/ctrlp.vim'                 " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
 
 Shortcuts
 ================
@@ -152,14 +152,14 @@ With many common code snippets, there are also:
 
 - `c)` for copyright text
 - `date` for `strftime("%Y-%m-%d")`
-- `ddate` for `strftime("%B %d, %Y")`
-- `time` for `strftime("%H:%M")`
 - `datetime` for `strftime("%Y-%m-%d %H:%M")`
+- `time` for `strftime("%H:%M")`
 - `lorem` for lorem string
 
 Also, new snippets are provided, which located in directory `my_snippets/` :
 
-- `my_snippets/rst.snippets` For rst files, and provides `tpl` for new rst.
+- `my_snippets/rst.snippets` For rst files, and provides `tpl` for file header.
+- `my_snippets/c.snippets` For C/C++ files, and provides `tpl` for file header.
 
 DoxygenToolkit
 --------------
@@ -215,4 +215,12 @@ CtrlP
 Use `<C-p>` to trigger the CtrlP promote. It is change to buffer mode.
 Use `<C-f>` `<C-b>` to toggle between modes, and `<C-j>` `<C-k>` to navigate
 the list items. Also `<Leader>bb` is mapped to `:CtrlPBufTag` .
+
+Other shortcuts are:
+
+```
+nnoremap <Leader>bt :CtrlPBufTag<CR>
+nnoremap <Leader>tg :CtrlPTag<CR>
+nnoremap <Leader>fd :CtrlPCurWD<CR>
+```
 

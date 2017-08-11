@@ -1,0 +1,23 @@
+snippet tpl "Template for c" b
+/**
+* @file `!p snip.rv = snip.fn`
+* @brief $2
+*
+* @copyright Copyright `!v &enc[:2] == "utf" ? "©" : "(c)"` `!v strftime("%Y")` `!v g:author` <`!v g:email`>.
+*            All Rights Reserved.
+* @author `!v g:author`
+* @version `!v g:version`
+* @date `!v strftime("%Y-%m-%d")`
+*/
+
+#ifndef ${1:HEADER_GUARD}
+#define $1
+#ifdef __cplusplus
+extern "C" {
+#endif
+$0
+#ifdef __cplusplus
+}
+#endif
+#endif /* $1 */
+endsnippet

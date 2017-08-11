@@ -260,11 +260,12 @@
     let g:author='linuor'
     let g:email='linuor at gmail dot com'
     let g:snips_author = g:author
+    let g:version='0.1'
 
     " --- DoxygenToolkit
     " let g:DoxygenToolkit_briefTag_funcName="yes"
     let g:DoxygenToolkit_authorName=g:author
-    let g:DoxygenToolkit_versionString="0.1"
+    let g:DoxygenToolkit_versionString=g:version
 
     " --- vim-clang-format
     let g:clang_format#code_style = "google"
@@ -284,7 +285,9 @@
     " --- CtrlP
     let g:ctrlp_extensions = ['buffertag', 'undo', 'changes']
     let g:ctrlp_types = ['buf', 'fil', 'buffertag']
-    nnoremap <Leader>bb :CtrlPBufTag<CR>
+    nnoremap <Leader>bt :CtrlPBufTag<CR>
+    nnoremap <Leader>tg :CtrlPTag<CR>
+    nnoremap <Leader>fd :CtrlPCurWD<CR>
     if executable("rg")
         set grepprg=rg\ --vimgrep\ --no-heading
         set grepformat=%f:%l:%c:%m,%f:%l:%m
