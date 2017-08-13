@@ -263,10 +263,8 @@
     let g:version='0.1'
 
     " --- DoxygenToolkit
-    " let g:DoxygenToolkit_briefTag_funcName="yes"
     let g:DoxygenToolkit_authorName=g:author
     let g:DoxygenToolkit_versionString=g:version
-    let g:DoxygenToolkit_commentType = "C++"
     let g:DoxygenToolkit_compactOneLineDoc = "yes"
     let g:DoxygenToolkit_compactDoc = "yes"
 
