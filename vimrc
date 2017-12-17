@@ -273,6 +273,7 @@
     let g:clang_format#style_options = {
         \ "AccessModifierOffset" : -4,
         \ "DerivePointerAlignment" : "false",
+        \ "SortIncludes" : "false",
         \ "PointerAlignment" : "Left"}
     if has("autocmd")
         autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
