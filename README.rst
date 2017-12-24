@@ -108,17 +108,17 @@ netrw
 
 netrw is released with every vim, we use it as default file explorer.
 
-- `-` Go up directory.
-- `%` Create new file.
-- `d` Create new directory.
-- `D` Delete file or directory.
-- `R` Rename.
-- `c` Make the directory under the cursor to be the current directory.
-- `gh` Toggle hiden/unhide of dot-files.
-- `gn` Make directory under the cursor to be the top of the tree.
-- `i` Cycle betwnn thin, long, wide, and tree listings.
-- `s` Select sorting style: by name, time, or file size.
-- `t` Enter the file/directory under the cursor in a new tab.
+- ``-`` Go up directory.
+- ``%`` Create new file.
+- ``d`` Create new directory.
+- ``D`` Delete file or directory.
+- ``R`` Rename.
+- ``c`` Make the directory under the cursor to be the current directory.
+- ``gh`` Toggle hiden/unhide of dot-files.
+- ``gn`` Make directory under the cursor to be the top of the tree.
+- ``i`` Cycle betwnn thin, long, wide, and tree listings.
+- ``s`` Select sorting style: by name, time, or file size.
+- ``t`` Enter the file/directory under the cursor in a new tab.
 
 vim-surround
 ============
@@ -191,8 +191,8 @@ DoxygenToolkit
 vim-clang-format
 ================
 
-Use `<leader>cf` to format the whole/selected source. This shortcut is available
-under normal and visual mode.
+Use ``<leader>cf`` to format the whole/selected source. This shortcut is
+available under normal and visual mode.
 
 Tabularize
 ==========
