@@ -1,5 +1,6 @@
 " linuor's vimrc files.
 " Less configuration, more defaults.
+" Copyright © 2017 linuor. All Rights Reserved.
 
 " Bundles {
     set nocompatible
@@ -61,12 +62,8 @@
     set winminwidth=0 " min width of a window to 0 so we can maximize others
     set winminheight=0 " min height of a window to 0 so we can maximize others
 
-    if has("gui_running")
-        set mouse=a   " Enable mouse for all modes in gui,
-        set mousehide   " Hide the mouse cursor while typing
-    else
-        set mouse=n   " Enable mouse for normal mode only.
-    endif
+    set mouse=""   " Disable mouse.
+    set mousehide   " Hide the mouse cursor while typing
 
     set laststatus=2   " Always show status line
 
@@ -113,6 +110,7 @@
         set guitablabel=%M\ %t   " GUI tab label
         set guicursor=a:block-blinkon0 " No blink cursor
     endif
+
     if has('syntax') && !exists('g:syntax_on')
         syntax enable   " Enable syntax highlighting
     endif
@@ -123,7 +121,6 @@
     colorscheme desert
     highlight clear SignColumn   " clear SignColumn background color
     highlight clear LineNr   " clear line number row backgound color
-
 " }
 
 " Pattern and search {
@@ -229,7 +226,6 @@
 
     " cd change working directory to that of the current file
     nnoremap cd :lcd %:p:h<CR>
-
 " }
 
 " FileType autocmd {
@@ -257,24 +253,20 @@
     let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 
     " --- vim-snippets
-    let g:author='linuor'
-    let g:email='linuor at gmail dot com'
+    let g:author=$USER
+    let g:email='set email in vimrc first'
     let g:snips_author = g:author
-    let g:version='0.1'
+    let g:version='set version in vimrc first'
 
     " --- DoxygenToolkit
+    let g:DoxygenToolkit_commentType="C++"
     let g:DoxygenToolkit_authorName=g:author
     let g:DoxygenToolkit_versionString=g:version
     let g:DoxygenToolkit_compactOneLineDoc = "yes"
     let g:DoxygenToolkit_compactDoc = "yes"
 
     " --- vim-clang-format
-    let g:clang_format#code_style = "google"
-    let g:clang_format#style_options = {
-        \ "AccessModifierOffset" : -4,
-        \ "DerivePointerAlignment" : "false",
-        \ "SortIncludes" : "false",
-        \ "PointerAlignment" : "Left"}
+    let g:clang_format#detect_style_file=1
     if has("autocmd")
         autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
         autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>

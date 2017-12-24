@@ -7,9 +7,9 @@ Less configuration, more defaults.
 Requirement
 ===========
 
-- git
-- Exuberant Ctags
+- git, required
 - ripgrep, optional
+- Exuberant Ctags, optional
 
 Usage
 =====
@@ -207,6 +207,7 @@ vim-fugitive
 - `Gcommit` to commit
 - `Gpush`   to push
 - `Gpull` to pull
+- `Gdiff` to diff
 
 
 CtrlP
