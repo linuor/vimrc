@@ -7,7 +7,7 @@
     filetype off   " required by vundle
     set rtp+=$HOME/.vim/bundle/Vundle.vim   " required by vundle
     call vundle#begin()
-        Plugin 'gmarik/Vundle.vim'              " Plugin manage
+        Plugin 'gmarik/Vundle.vim'              " Plugin manager
         Plugin 'tpope/vim-surround'             " Modify surroundings
         Plugin 'tpope/vim-commentary'           " comment stuff out.
         Plugin 'Valloric/YouCompleteMe'         " A code-completion engine for Vim
@@ -278,10 +278,7 @@
 
     " --- CtrlP
     let g:ctrlp_extensions = ['buffertag', 'undo', 'changes']
-    let g:ctrlp_types = ['buf', 'fil', 'buffertag']
-    nnoremap <Leader>bt :CtrlPBufTag<CR>
-    nnoremap <Leader>tg :CtrlPTag<CR>
-    nnoremap <Leader>fd :CtrlPCurWD<CR>
+    let g:ctrlp_types = ['fil', 'buf', 'buffertag']
     if executable("rg")
         set grepprg=rg\ --vimgrep\ --no-heading
         set grepformat=%f:%l:%c:%m,%f:%l:%m
