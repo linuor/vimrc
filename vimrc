@@ -4,94 +4,134 @@
 
 " Bundles {
     set nocompatible
-    filetype off   " required by vundle
-    set rtp+=$HOME/.vim/bundle/Vundle.vim   " required by vundle
-    call vundle#begin()
-        Plugin 'gmarik/Vundle.vim'              " Plugin manager
-        Plugin 'tpope/vim-surround'             " Modify surroundings
-        Plugin 'tpope/vim-commentary'           " comment stuff out.
-        Plugin 'Valloric/YouCompleteMe'         " A code-completion engine for Vim
-        Plugin 'SirVer/ultisnips'               " The ultimate snippet solution for Vim.
-        Plugin 'honza/vim-snippets'             " Code snippets.
-        Plugin 'sukima/xmledit'                 " XML/HTML tags will be completed automatically
-        Plugin 'tpope/vim-repeat'               " enable repeating supported plugin maps with '.'
-        Plugin 'airblade/vim-gitgutter'         " shows a git diff in the 'gutter' (sign column)
-        Plugin 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation in C, C++, Python.
-        Plugin 'rhysd/vim-clang-format'         " plugin for clang-format, a formatter for C, C++ and Obj-C code
-        Plugin 'godlygeek/tabular'              " script for text filtering and alignment
-        Plugin 'vim-scripts/DrawIt'             " Ascii drawing plugin: lines, ellipses, arrows, fills, and more!
-        Plugin 'vim-scripts/VOoM'               " Vim Outliner of Markers
-        Plugin 'vim-scripts/Unicode-RST-Tables' " Allows to create and edit restructuredText tables easily (Unicode and Python 3).
-        Plugin 'tpope/vim-fugitive'             " a Git wrapper
-        Plugin 'ctrlpvim/ctrlp.vim'             " Active fork of kien/ctrlp.vim—Fuzzy file, buffer, mru, tag, etc finder.
-    call vundle#end()
-    " required by vundle, turn on filetype plugin indent
-    if has('autocmd')
-        filetype plugin indent on
-    endif
+    call plug#begin()   " auto filetype off
+        Plug 'tpope/vim-commentary' " comment stuff out
+        Plug 'tpope/vim-surround'   " Modify surroundings
+        Plug 'tpope/vim-repeat'     " enable supported plugin maps with '.'
+        Plug 'godlygeek/tabular'    " text filtering and alignment
+        Plug 'SirVer/ultisnips'     " The ultimate snippet solution for Vim
+        Plug 'honza/vim-snippets'   " Code snippets
+        Plug 'airblade/vim-gitgutter'   " shows a git diff in the sign column
+        Plug 'tpope/vim-fugitive'   " git wrapper
+        Plug 'ludovicchabant/vim-gutentags'   " tag files management
+        Plug 'rhysd/vim-clang-format'   " plugin for clang-format
+        Plug 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation
+        Plug 'vim-scripts/DrawIt'   " Ascii drawing
+        Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
+        Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
+        Plug 'Valloric/YouCompleteMe'   " code-completion engine
+        Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
+    call plug#end()     " auto filetype plugin indent on and syntax on
 
     " enable plugins released with Vim
-    if !exists('g:loaded_matchit') && findfile('plugin/matchit.vim', &rtp) ==# ''
-      runtime! macros/matchit.vim
+    if !exists('g:loaded_matchit') &&
+                \ findfile('plugin/matchit.vim', &rtp) ==# ''
+      runtime! macros/matchit.vim   " extend matching with %
     endif
+    " source /usr/local/share/gtags/gtags.vim
+" }
+
+" Tab, space, indent and fold {
+    set autoindent   "Auto indent
+
+    set backspace=indent,eol,start   " allow <BS> to delete everything
+    set whichwrap+=b    " allow <BS> to move to prev line
+
+    set smarttab        " Be smart when using tabs
+    set expandtab       " Use spaces instead of tabs
+    set shiftwidth=4
+    set tabstop=4
+    set softtabstop=4
+
+    set nowrap          "NOT wrap lines
+
+    set foldmethod=indent   " fold with indent
+    set nofoldenable    " disable fold when startup
 " }
 
 " General {
-    set history=1000   " lines of history Vim has to remember
-    set tabpagemax=50  " max number of tab pages
+    set nrformats-=octal    " <C-A> <C-X> has no effect on octal numbers
 
-    set autoread   " auto read when a file is changed from the outside
-
-    set lazyredraw   " don't redraw while executing macros, better performance
-
-    set hidden   " hidden dirty buffers when abandoned
-
-    set nojoinspaces   " insert only one space after '.' on J
-    if v:version > 703 || v:version == 703 && has("patch541")
-        set formatoptions+=j " Delete comment character when joining commented lines
+    if &ttimeoutlen==-1 " map key timeout
+        set ttimeout
+        set ttimeoutlen=100
     endif
 
-    set backspace=indent,eol,start   " allow <BS> to delete everything
+    set autoread        " auto read when a file is changed from the outside
 
-    set whichwrap+=b   " allow <BS> to move to next/prev line
+    set lazyredraw      " no redraw while executing macros, better performance
 
-    set report=0   " always report number of lines changed
+    set hidden          " hidden dirty buffers when abandoned
+
+    set nojoinspaces    " insert only one space after '.' on J
+    if v:version > 703 || v:version == 703 && has("patch541")
+        " Delete comment character when joining commented lines
+        set formatoptions+=j
+    endif
+
+    set report=0        " always report number of lines changed
+" }
+
+" Pattern and search {
+    set incsearch       " preview first match while typing pattern
+    set wildmenu        " turn on the wild menu
+
+    " Ignore compiled files
+    set wildignore=*.o,*~,*.pyc,*.lib,*.exe,*.dll,.git,*.a,*.obj
+
+    set ignorecase      " ignore case when searching
+    set smartcase       " when searching try to be smart about cases
+
+    set showmatch       " show matching brackets when cursor over
+
+    if executable('rg') " replace grep with ripgrep
+        set grepprg=rg\ --vimgrep\ --no-heading\ --column\ $*
+        set grepformat=%f:%l:%c:%m,%f:%l:%m
+    endif
 " }
 
 " UserInterface {
-    set winminwidth=0 " min width of a window to 0 so we can maximize others
-    set winminheight=0 " min height of a window to 0 so we can maximize others
+    set laststatus=2    " always show status line
 
-    set mouse=""   " Disable mouse.
-    set mousehide   " Hide the mouse cursor while typing
+    if has('cmdline_info')
+        set ruler       " show the ruler
+        set showcmd     " show partial commands the last line of screen
+    endif
 
-    set laststatus=2   " Always show status line
-
+    " set margin lines
     if !&scrolloff
       set scrolloff=2
     endif
     if !&sidescrolloff
-      set sidescrolloff=3   " set lines to the top/bottom of the buffer
+      set sidescrolloff=3
     endif
-    if has('cmdline_info')
-        set ruler   " Show the ruler
-        set showcmd     "Show partial commands the last line of screen
+    set display+=lastline
+
+    " minimize windows size to 0, so others can be maximized
+    set winminwidth=0
+    set winminheight=0
+
+    set mouse=""        " disable mouse
+    set mousehide       " hide the mouse cursor while typing
+
+    " strings to used in list mode
+    if &listchars ==# 'eol:$'
+      set listchars=tab:>\ ,trail:-,extends:>,precedes:<,nbsp:+
     endif
 
     set number relativenumber   " Show line number with relative number
 
-    set colorcolumn=80  " Highligh coloum
+    set colorcolumn=80  " highligh coloum
+    set cursorline      " highlight current line
 
-    set cmdheight=2   " Height of the command bar, avoid hit-enter prompts
+    set cmdheight=2     " height of the command bar, avoid hit-enter prompts
 
-    set hlsearch   " Highlight search results
+    set hlsearch        " highlight search results
 
-    set matchtime=1   " Tenths of a second to show the matching paren
+    set matchtime=1     " tenths of a second to show the matching paren
 
-    set cursorline   " Highlight current line
-
-    set splitright   " Place new vsplit to the right
-    set splitbelow   " Place new split to the bottom
+    set splitright      " place new vsplit to the right
+    set splitbelow      " place new split to the bottom
 
     " No annoying sound on errors
     set noerrorbells
@@ -100,41 +140,26 @@
 
     " Set extra options when running in GUI mode
     if has("gui_running")
-        set guioptions+=e   " tab pages when 'showtabline'
-        set guioptions-=l   " No scroll bar
-        set guioptions-=L   " No scroll bar
-        set guioptions-=r   " No right-hand scroll bar
-        set guioptions-=R   " No right-hand scroll bar
-        set guioptions-=m   " No menu
-        set guioptions-=T   " No toolbar
-        set guitablabel=%M\ %t   " GUI tab label
+        set guioptions+=e              " tab pages when 'showtabline'
+        set guioptions-=l              " No scroll bar
+        set guioptions-=L              " No scroll bar
+        set guioptions-=r              " No right-hand scroll bar
+        set guioptions-=R              " No right-hand scroll bar
+        set guioptions-=m              " No menu
+        set guioptions-=T              " No toolbar
+        set guitablabel=%M\ %t         " GUI tab label
         set guicursor=a:block-blinkon0 " No blink cursor
     endif
 
-    if has('syntax') && !exists('g:syntax_on')
-        syntax enable   " Enable syntax highlighting
-    endif
+    " allow color schemes to do bright colors without forcing bold.
     if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
         set t_Co=16
     endif
+
     set background=light
     colorscheme desert
-    highlight clear SignColumn   " clear SignColumn background color
-    highlight clear LineNr   " clear line number row backgound color
-" }
-
-" Pattern and search {
-    set wildmenu   " Turn on the wild menu
-
-    " Ignore compiled files
-    set wildignore=*.o,*~,*.pyc,*.lib,*.exe,*.dll,.git,*.a,*.obj
-
-    set incsearch   " preview first match while typing pattern
-    set ignorecase   " Ignore case when searching
-    set smartcase   " When searching try to be smart about cases
-
-    " Show matching brackets when text indicator is over them
-    set showmatch
+    highlight clear SignColumn          " clear SignColumn background color
+    highlight clear LineNr              " clear line number row backgound color
 " }
 
 " Files {
@@ -149,72 +174,62 @@
         scriptencoding utf-8
     endif
 
-    " no backup nor swap,
+    " no backup nor swap
     set nowritebackup
     set noswapfile
 
+    set history=1000                " lines of history Vim has to remember
+    set tabpagemax=50               " max number of tab pages
+
     if has('persistent_undo')
-        set undodir=$HOME/.vim/temp/undo   " where to put backup file
-        set undofile   " So is persistent undo ...
-        set undolevels=1000   " Maximum changes can be undone
-        set undoreload=10000   " Maximum lines for a buffer reload
+        set undodir=$HOME/.vim/temp/undo    " locatoin for backup files
+        set undofile                        " persistent undo ...
+        set undolevels=1000                 " maximum changes can be undone
+        set undoreload=10000                " maximum lines for a buffer reload
     endif
 
     set viminfo+=n$HOME/.vim/temp/viminfo   " viminfo file
     set viminfo^=!
-" }
 
-" Tab, fold and indent related {
-    set expandtab   " Use spaces instead of tabs
-    set smarttab   " Be smart when using tabs
-    " 1 tab = 4 spaces
-    set shiftwidth=4
-    set tabstop=4
-    set softtabstop=4
-
-    set nowrap "NOT wrap lines
-
-    set autoindent "Auto indent
-    set smartindent "Smart indent
-
-    set foldmethod=indent   " fold with indent
-    set nofoldenable   " disable fold when startup
+    set sessionoptions-=options
 " }
 
 " Useful Shortcut {
     let mapleader="\<Space>"
     " mute search high light before clear and redraw the screen
-    nnoremap <silent> <C-L> :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
+    nnoremap <silent> <C-L>
+                \ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
     " hight tailing space
     nnoremap <leader>sp /\s\+$<CR>
+    " undo in insert mode
+    inoremap <C-U> <C-G>u<C-U>
 
     " shortcut for navation
+    " args
     nnoremap [a :previous<CR>
     nnoremap ]a :next<CR>
     nnoremap [A :first<CR>
     nnoremap ]A :last<CR>
+    " buffers
     nnoremap [b :bprevious<CR>
     nnoremap ]b :bnext<CR>
     nnoremap [B :bfirst<CR>
     nnoremap ]B :blast<CR>
+    " locations
     nnoremap [l :lprevious<CR>
     nnoremap ]l :lnext<CR>
     nnoremap [L :lfirst<CR>
     nnoremap ]L :llast<CR>
+    " quick fix
     nnoremap [q :cprevious<CR>
     nnoremap ]q :cnext<CR>
     nnoremap [Q :cfirst<CR>
     nnoremap ]Q :clast<CR>
+    " tabs
     nnoremap [t :tabprevious<CR>
     nnoremap ]t :tabnext<CR>
     nnoremap [T :tabfirst<CR>
     nnoremap ]T :tablast<CR>
-
-    " Move around splits
-    " nnoremap <C-j> <C-W>j   " to below split
-    " nnoremap <C-k> <C-W>k   " to above split
-    " nnoremap <C-h> <C-W>h   " to left split
-    " nnoremap <C-l> <C-W>l   " to right split
 
     " Bash like keys for the command line
     cnoremap <C-A> <Home>
@@ -226,9 +241,14 @@
 
     " cd change working directory to that of the current file
     nnoremap cd :lcd %:p:h<CR>
+
+    " silent grep, keep the QuickFix window open, and not jump to first match
+    command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen
+    nnoremap <leader><leader>g :MyGrep<Space>
 " }
 
 " FileType autocmd {
+    " gf to search .rst file
     if has("autocmd")
         autocmd FileType rst set suffixesadd+=.rst
     endif
@@ -237,26 +257,28 @@
 " Plugin Config {
     " --- vim-gitgutter
     let g:gitgutter_enabled=1
+    set updatetime=1000
 
     " --- YouCompleteMe
-    let g:ycm_autoclose_preview_window_after_insertion=1
+    " let g:ycm_autoclose_preview_window_after_insertion=1
+    let g:ycm_semantic_triggers =  { 'c,cpp': ['re!\w{2}'], }
     let g:ycm_key_invoke_completion='<C-\>'
     nnoremap <leader>yg :YcmCompleter GoTo<CR>
     nnoremap <leader>yf :YcmCompleter FixIt<CR>
     nnoremap <leader>yd :YcmDiags<CR>
 
     " --- ultisnips
+    let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
     " prevent conflict with YCM
     let g:UltiSnipsExpandTrigger = '<c-j>'
     let g:UltiSnipsJumpForwardTrigger = '<c-j>'
     let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-    let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
 
     " --- vim-snippets
     let g:author=$USER
-    let g:email='set email in vimrc first'
+    let g:email=''      " CUSTOM: set email here
     let g:snips_author = g:author
-    let g:version='set version in vimrc first'
+    let g:version=''    " CUSTOM: set version here
 
     " --- DoxygenToolkit
     let g:DoxygenToolkit_commentType="C++"
@@ -266,28 +288,59 @@
     let g:DoxygenToolkit_compactDoc = "yes"
 
     " --- vim-clang-format
-    let g:clang_format#detect_style_file=1
-    if has("autocmd")
-        autocmd FileType c,cpp,objc nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-        autocmd FileType c,cpp,objc vnoremap <buffer><Leader>cf :ClangFormat<CR>
-    endif
+    nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
+    vnoremap <buffer><Leader>cf :ClangFormat<CR>
 
     " --- Tabularize
     nnoremap <Leader>a :Tabularize /
     vnoremap <Leader>a :Tabularize /
 
-    " --- CtrlP
-    let g:ctrlp_extensions = ['buffertag', 'undo', 'changes']
-    let g:ctrlp_types = ['fil', 'buf', 'buffertag']
-    if executable("rg")
-        set grepprg=rg\ --vimgrep\ --no-heading
-        set grepformat=%f:%l:%c:%m,%f:%l:%m
-        let g:ctrlp_user_command = {
-            \'types': {
-                \1: ['.git', 'cd %s && git ls-files'],
-                \2: ['.hg', 'hg --cwd %s locate -I .'],
-            \},
-            \'fallback': 'rg %s --files --color=never --glob ""',
-        \}
+    " --- denite
+    call denite#custom#var(
+        \ 'buffer',
+        \ 'date_format', '%Y-%m-%d %H:%M:%S')
+    if executable('git')
+        call denite#custom#alias('source', 'file_rec/git', 'file_rec')
+        call denite#custom#var('file_rec/git', 'command',
+            \ ['git', 'ls-files', '-co', '--exclude-standard'])
+    endif
+    if executable('rg')
+        call denite#custom#var('file/rec', 'command', ['rg', '--files'])
+        call denite#custom#var('grep', 'command', ['rg'])
+        call denite#custom#var('grep', 'default_opts',
+            \ ['--vimgrep', '--no-heading'])
+        call denite#custom#var('grep', 'recursive_opts', [])
+        call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+        call denite#custom#var('grep', 'separator', ['--'])
+        call denite#custom#var('grep', 'final_opts', [])
+    endif
+    call denite#custom#map(
+	    \ 'insert',
+	    \ '<C-j>',
+	    \ '<denite:move_to_next_line>',
+	    \ 'noremap'
+	    \)
+	call denite#custom#map(
+	    \ 'insert',
+	    \ '<C-k>',
+	    \ '<denite:move_to_previous_line>',
+	    \ 'noremap'
+	    \)
+    nnoremap <leader>df :Denite file/rec<CR>
+
+    " --- gutentags 
+    " not auto tag until saving
+    let g:gutentags_generate_on_missing=0
+    let g:gutentags_generate_on_new=0
+    nnoremap <leader>gd :let g:gutentags_enabled=!g:gutentags_enabled<cr>
+    " use gtags only
+    let g:gutentags_modules = []
+    if executable('gtags-cscope') && executable('gtags') && has("cscope")
+        set cscopeprg=gtags-cscope  " use gtags_cscope instead of cscope
+        set cscopequickfix=s-,d-,c-,t-,e-,f-,i-,a-
+        set cscopetag   " use cscope instead of :tag and CTRL-]
+        set cscopepathcomp=3    " display the last 3 components of file
+        set csverb
+        let g:gutentags_modules += ['gtags_cscope']
     endif
 " }

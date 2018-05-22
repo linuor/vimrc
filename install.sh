@@ -22,8 +22,5 @@ ln -sf $PWD/vimrc $VIMFILE
 echo "Create temp direcotry ..."
 mkdir $PWD/temp
 mkdir $PWD/temp/undo
-echo "Clone from https://github.com/gmarik/Vundle.vim.git ..."
-mkdir bundle
-git clone https://github.com/gmarik/Vundle.vim.git bundle/Vundle.vim
-echo "Install other bundles..."
-vim +PluginInstall
+echo "Launch Vim and install plugins..."
+vim +"PlugUpgrade | PlugInstall"

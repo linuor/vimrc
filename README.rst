@@ -6,54 +6,63 @@ linuor's vimrc
 
 Less configuration, more defaults.
 
+Mainly focus on C/C++ and restructuredText.
+
 ***********
 Requirement
 ***********
 
-- git, required
-- clang-format, required
-- ripgrep, optional
-- Exuberant Ctags, optional
+- vim with python3 support
+- git
+- `GNU global <https://www.gnu.org/software/global/>`_ ,
+  `pygments <http://pygments.org/>`_ is recommanded.
+- `ripgrep <https://github.com/BurntSushi/ripgrep>`_
+- `clang-format <https://clang.llvm.org/docs/ClangFormat.html>`_
 
 *******
 Install
 *******
 
 Firstly, install all the modules required such as git, clang-format, etc.
-Optional modules such as ctags, ripgrep, etc. are recommanded.
 Then run bash commands as below::
 
     git clone https://github.com/linuor/vimrc.git vimrc
     cd vimrc
     ./install.sh
     cd ~/.vim/bundle/YouCompleteMe/
-    ./install.py
+    ./install.py --clang-completer
+
+Remember to alias vi to vim, and  export enviroment variables if pygments is
+installed too,::
+
+    alias vi="vim"
+    export GTAGSLABEL='native-pygments'
+    export GTAGSCONF='/usr/local/share/gtags/gtags.conf'
+
+Modify the vimrc file, such as adding email, just search "CUSTOM".
 
 *******
 Plugins
 *******
 
-Vendor plugins as follow will be installed:
+Vendor plugins as follow will be installed, including "junegunn/vim-plug":
 
-- Plugin 'gmarik/Vundle.vim' Plugin manage.
-- Plugin 'tpope/vim-surround' Modify surroundings.
-- Plugin 'tpope/vim-commentary' Comment stuff out.
-- Plugin 'Valloric/YouCompleteMe' Code-completion engine.
-- Plugin 'SirVer/ultisnips' Ultimate snippet solution for Vim.
-- Plugin 'honza/vim-snippets' Code snippets.
-- Plugin 'sukima/xmledit' XML/HTML tags will be completed automatically.
-- Plugin 'tpope/vim-repeat' Enable repeating supported plugin maps with ``.`` .
-- Plugin 'airblade/vim-gitgutter' shows a git diff in the 'gutter' (sign column)
-- Plugin 'vim-scripts/DoxygenToolkit.vim' Simplify Doxygen documentation in C,
-  C++, Python.
-- Plugin 'rhysd/vim-clang-format' Plugin for clang-format.
-- Plugin 'godlygeek/tabular' Script for text filtering and alignment
-- Plugin 'vim-scripts/DrawIt' Ascii drawing plugin.
-- Plugin 'vim-scripts/VOoM' Outliner of markers.
-- Plugin 'vim-scripts/Unicode-RST-Tables' Make work with RST tables easily
-  (Unicode and Python 3 supported).
-- Plugin 'tpope/vim-fugitive' a Git wrapper.
-- Plugin 'ctrlpvim/ctrlp.vim' Buffer, mru, tag, etc finder.
+- Plug 'tpope/vim-commentary' " comment stuff out
+- Plug 'tpope/vim-surround'   " Modify surroundings
+- Plug 'tpope/vim-repeat'     " enable supported plugin maps with '.'
+- Plug 'godlygeek/tabular'    " text filtering and alignment
+- Plug 'SirVer/ultisnips'     " The ultimate snippet solution for Vim
+- Plug 'honza/vim-snippets'   " Code snippets
+- Plug 'airblade/vim-gitgutter'   " shows a git diff in the sign column
+- Plug 'tpope/vim-fugitive'   " git wrapper
+- Plug 'ludovicchabant/vim-gutentags'   " tag files management
+- Plug 'rhysd/vim-clang-format'   " plugin for clang-format
+- Plug 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation
+- Plug 'vim-scripts/DrawIt'   " Ascii drawing
+- Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
+- Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
+- Plug 'Valloric/YouCompleteMe'   " code-completion engine
+- Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
 
 *********
 Shortcuts
@@ -66,27 +75,35 @@ Shortcuts are defined as follow::
 
     let mapleader="\<Space>"
     " mute search high light before clear and redraw the screen
-    nnoremap <silent> <C-L> :nohlsearch<CR><C-l>
+    nnoremap <silent> <C-L>
+                \ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
     " hight tailing space
-    nnoremap <leader>sp /\s\+$
+    nnoremap <leader>sp /\s\+$<CR>
+    " undo in insert mode
+    inoremap <C-U> <C-G>u<C-U>
 
     " shortcut for navation
+    " args
     nnoremap [a :previous<CR>
     nnoremap ]a :next<CR>
     nnoremap [A :first<CR>
     nnoremap ]A :last<CR>
+    " buffers
     nnoremap [b :bprevious<CR>
     nnoremap ]b :bnext<CR>
     nnoremap [B :bfirst<CR>
     nnoremap ]B :blast<CR>
+    " locations
     nnoremap [l :lprevious<CR>
     nnoremap ]l :lnext<CR>
     nnoremap [L :lfirst<CR>
     nnoremap ]L :llast<CR>
+    " quick fix
     nnoremap [q :cprevious<CR>
     nnoremap ]q :cnext<CR>
     nnoremap [Q :cfirst<CR>
     nnoremap ]Q :clast<CR>
+    " tabs
     nnoremap [t :tabprevious<CR>
     nnoremap ]t :tabnext<CR>
     nnoremap [T :tabfirst<CR>
@@ -102,6 +119,10 @@ Shortcuts are defined as follow::
 
     " cd change working directory to that of the current file
     nnoremap cd :lcd %:p:h<CR>
+
+    " silent grep, keep the QuickFix window open, and not jump to first match
+    command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen
+    nnoremap <leader><leader>g :MyGrep<Space>
 
 netrw
 =====
@@ -119,6 +140,17 @@ netrw is released with every vim, we use it as default file explorer.
 - ``i`` Cycle betwnn thin, long, wide, and tree listings.
 - ``s`` Select sorting style: by name, time, or file size.
 - ``t`` Enter the file/directory under the cursor in a new tab.
+
+matchit
+=======
+
+matchit also released with every vim, it extends ``%`` matching for HTML, LaTeX,
+and many other languages.
+
+vim-commentary
+==============
+
+``gcc`` to toggle commentary
 
 vim-surround
 ============
@@ -143,25 +175,11 @@ vim-surround has the following operations:
 - ``cs{mark1}{mark2}`` change {mark1} to ``{mark2}``
 - ``ds{mark}`` delete ``{mark}``
 
-matchit
+tabular
 =======
 
-``%`` extended ``%`` matching for HTML, LaTeX, and many other languages.
-
-vim-commentary
-==============
-
-``gcc`` to toggle commentary
-
-YouCompleteMe
-=============
-
-Usually, the following shortcuts are usefual::
-
-    let g:ycm_key_invoke_completion='<C-\>'
-    nnoremap <leader>yg :YcmCompleter GoTo<CR>
-    nnoremap <leader>yf :YcmCompleter FixIt<CR>
-    nnoremap <leader>yd :YcmDiags<CR>
+Press ``<leader>a`` then given a ``,`` , will make codes align base on ``,`` .
+This shortcut is available under normal and visual mode.
 
 ultisnips
 =========
@@ -182,23 +200,49 @@ Also, customer snippets are provided, which located in directory
 
 All customer snippets use ``tpl`` to create file skecth.
 
-DoxygenToolkit
-==============
+gitgutter
+=========
 
-- ``:Dox`` generate comment for function and class.
-- ``:DoxAuthor`` generate author comment. Use ``tpl`` snippet instead.
+- jump to next hunk (change): ``]c``
+- jump to previous hunk (change): ``[c``
+- stage the hunk with ``<Leader>hs``
+- undo it with ``<Leader>hu``
+- preview a hunk's changes with ``<Leader>hp``
+
+The ``.`` command will work with both these with the help of repeat.vim.
+
+A hunk text object is provided which works in visual and operator-pending modes.
+
+``ic`` operates on all lines in the current hunk.
+``ac`` operates on all lines in the current hunk and any trailing empty lines.
+
+vim-fugitive
+============
+
+- ``Gstatus`` to get ``git status`` info, and use ``-`` to add/reset files.
+- ``Gcommit`` to commit.
+- ``Gpush``   to push.
+- ``Gpull`` to pull.
+- ``Gdiff`` to diff.
+
+gutentags
+=========
+
+use ``<leader>gd`` to toggle auto tags disable/enable.
 
 vim-clang-format
 ================
 
 Use ``<leader>cf`` to format the whole/selected source. This shortcut is
-available under normal and visual mode.
+available for both normal and visual mode. 
 
-Tabularize
-==========
+A ``.clang-format`` file is needed. Place one in the project root.
 
-Press ``<leader>a`` then given a ``,`` , will make codes align base on ``,`` .
-This shortcut is available under normal and visual mode.
+DoxygenToolkit
+==============
+
+- ``:Dox`` generate comment for function and class.
+- ``:DoxAuthor`` generate author comment. Use ``tpl`` snippet instead.
 
 Draw-it
 =======
@@ -220,20 +264,36 @@ Unicode-RST-Tables
 - ``<Leader><Leader>c`` Creates a new restructuredText table.
 - ``<Leader><Leader>f`` Fix table columns in a table.
 
-vim-fugitive
-============
+YouCompleteMe
+=============
 
-- ``Gstatus`` to get ``git status`` info, and use ``-`` to add/reset files.
-- ``Gcommit`` to commit.
-- ``Gpush``   to push.
-- ``Gpull`` to pull.
-- ``Gdiff`` to diff.
+Usually, the following shortcuts are usefual::
 
+    let g:ycm_key_invoke_completion='<C-\>'
+    nnoremap <leader>yg :YcmCompleter GoTo<CR>
+    nnoremap <leader>yf :YcmCompleter FixIt<CR>
+    nnoremap <leader>yd :YcmDiags<CR>
 
-CtrlP
+denite
+======
+
+Use ``<leader>df`` to quickly open file.
+
+***************
+TODOs and DONEs
+***************
+
+TODOs
 =====
 
-Use ``<C-p>`` to trigger the CtrlP promote. It is change to buffer mode.
-Use ``<C-f>`` ``<C-b>`` to toggle between modes, and ``<C-j>`` ``<C-k>`` to
-navigate the list items.
+- outline for the current buffer.
+- template for new c/c++ header/source files, namespace, include guard, etc.
+- language server protocol
+
+DONEs
+=====
+
+- 2018-05-22
+    - restructure the whole vimrc.
+    - update README
 
