@@ -6,7 +6,9 @@ linuor's vimrc
 
 Less configuration, more defaults.
 
-Mainly focus on C/C++ and restructuredText.
+Mainly focus on C/C++ and restructuredText. Major languages such as Java,
+Python etc, are also supported theoretically, since the language related
+plugins are all support kinds of languages.
 
 ***********
 Requirement
@@ -45,7 +47,7 @@ Modify the vimrc file, such as adding email, just search "CUSTOM".
 Plugins
 *******
 
-Vendor plugins as follow will be installed, including "junegunn/vim-plug":
+Vendor plugins as follow will be installed
 
 - Plug 'tpope/vim-commentary' " comment stuff out
 - Plug 'tpope/vim-surround'   " Modify surroundings
@@ -63,6 +65,11 @@ Vendor plugins as follow will be installed, including "junegunn/vim-plug":
 - Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
 - Plug 'Valloric/YouCompleteMe'   " code-completion engine
 - Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
+
+Besides, there are 3 plugins already installed:
+- ``junegunn/vim-plug`` the plugin manager itself.
+- ``matchit.vim`` which released vim itself.
+- ``gtags.vim`` which installed with GNU global.
 
 *********
 Shortcuts
@@ -109,6 +116,8 @@ Shortcuts are defined as follow::
     nnoremap [T :tabfirst<CR>
     nnoremap ]T :tablast<CR>
 
+    " there are also navation for git hunks [c ]c, see gitgutter plugin below.
+
     " Bash like keys for the command line
     cnoremap <C-A> <Home>
     cnoremap <C-E> <End>
@@ -122,12 +131,13 @@ Shortcuts are defined as follow::
 
     " silent grep, keep the QuickFix window open, and not jump to first match
     command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen
-    nnoremap <leader><leader>g :MyGrep<Space>
+    nnoremap <leader>sh :MyGrep<Space>
 
 netrw
 =====
 
 netrw is released with every vim, we use it as default file explorer.
+Use ``:E`` to activate it in the current window.
 
 - ``-`` Go up directory.
 - ``%`` Create new file.
@@ -150,7 +160,7 @@ and many other languages.
 vim-commentary
 ==============
 
-``gcc`` to toggle commentary
+``gcc`` to toggle commentary.
 
 vim-surround
 ============
@@ -228,7 +238,42 @@ vim-fugitive
 gutentags
 =========
 
-use ``<leader>gd`` to toggle auto tags disable/enable.
+gutentags automatically updates tag files for the project.
+For projects without any tag files(GTAGS), gutentags never creates tag files,
+until a file in the project is saved.
+
+If no tag files creation is need, toggle off gutentags before saving any file.
+Use ``<leader>gt`` to toggle auto tags disable/enable.
+
+TODO: Never automatically create tag files, unless explicitly required.
+
+gtags
+=====
+
+We use gtags-cscope to replace the build in cscope.
+Just use the ``:cscope`` as usual. Notice that ``:cs find d`` command is not
+implemented by gtags-cscope.
+
+``:Gtags`` is provide to invoke the global command. Also the the following
+shortcuts are provided::
+
+    " list all the tags of the current file
+    nnoremap <leader>gl :Gtags -f %<CR>
+
+    " goto the definition of the symbol under the cursor
+    nnoremap <leader>gd :Gtags -d <C-R>=expand("<cword>")<CR><CR>
+
+    " list all the reference of the symbol under the cursor
+    nnoremap <leader>gr :Gtags -r <C-R>=expand("<cword>")<CR><CR>
+
+    " jump to files including the current file
+    nnoremap <leader>gi :cscope find i %<CR>
+
+    " jump to files under the cursor
+    nnoremap <leader>gf :Gtags -P <C-R>=expand("<cword>")<CR><CR>
+
+    " jump to definition or reference under the cursor
+    nnoremap <leader>gg :GtagsCursor<CR>
 
 vim-clang-format
 ================
@@ -261,8 +306,8 @@ VOom
 Unicode-RST-Tables
 ==================
 
-- ``<Leader><Leader>c`` Creates a new restructuredText table.
-- ``<Leader><Leader>f`` Fix table columns in a table.
+- ``<leader><leader>c`` Creates a new restructuredText table.
+- ``<leader><leader>f`` Fix table columns in a table.
 
 YouCompleteMe
 =============
@@ -274,10 +319,15 @@ Usually, the following shortcuts are usefual::
     nnoremap <leader>yf :YcmCompleter FixIt<CR>
     nnoremap <leader>yd :YcmDiags<CR>
 
+The goto command could be replace with ``GtagsCursor`` which is mapped to
+``<leader>gg`` .
+
 denite
 ======
 
 Use ``<leader>df`` to quickly open file.
+
+Use ``<C-J>`` ``<C-K>`` to navigate in the Denite interface.
 
 ***************
 TODOs and DONEs
@@ -286,9 +336,10 @@ TODOs and DONEs
 TODOs
 =====
 
-- outline for the current buffer.
+- better automatic tag file manager.
+- lint and show the result in a list.
 - template for new c/c++ header/source files, namespace, include guard, etc.
-- language server protocol
+- language server protocol.
 
 DONEs
 =====
@@ -296,4 +347,5 @@ DONEs
 - 2018-05-22
     - restructure the whole vimrc.
     - update README
-
+- 2018-05-23
+    - outline for the current buffer.

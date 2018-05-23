@@ -23,12 +23,19 @@
         Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
     call plug#end()     " auto filetype plugin indent on and syntax on
 
-    " enable plugins released with Vim
+    " matchit.vim released with vim, it extends matching with %
     if !exists('g:loaded_matchit') &&
                 \ findfile('plugin/matchit.vim', &rtp) ==# ''
-      runtime! macros/matchit.vim   " extend matching with %
+        runtime! macros/matchit.vim
     endif
-    " source /usr/local/share/gtags/gtags.vim
+
+    " gtags.vim released with GNU global
+    let gtags_path=fnameescape(fnamemodify($GTAGSCONF, ':h') . "/gtags.vim")
+    if filereadable(gtags_path)
+        execute 'source ' . gtags_path
+    endif
+    unlet gtags_path
+
 " }
 
 " Tab, space, indent and fold {
@@ -242,9 +249,9 @@
     " cd change working directory to that of the current file
     nnoremap cd :lcd %:p:h<CR>
 
-    " silent grep, keep the QuickFix window open, and not jump to first match
-    command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen
-    nnoremap <leader><leader>g :MyGrep<Space>
+    " silent grep, keep the QuickFix window open, and jump to first match
+    command! -nargs=+ MyGrep execute 'silent grep <args>' | copen
+    nnoremap <leader>sh :MyGrep<Space>
 " }
 
 " FileType autocmd {
@@ -255,17 +262,9 @@
 " }
 
 " Plugin Config {
-    " --- vim-gitgutter
-    let g:gitgutter_enabled=1
-    set updatetime=1000
-
-    " --- YouCompleteMe
-    " let g:ycm_autoclose_preview_window_after_insertion=1
-    let g:ycm_semantic_triggers =  { 'c,cpp': ['re!\w{2}'], }
-    let g:ycm_key_invoke_completion='<C-\>'
-    nnoremap <leader>yg :YcmCompleter GoTo<CR>
-    nnoremap <leader>yf :YcmCompleter FixIt<CR>
-    nnoremap <leader>yd :YcmDiags<CR>
+    " --- tabular
+    nnoremap <leader>a :Tabularize /
+    vnoremap <leader>a :Tabularize /
 
     " --- ultisnips
     let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
@@ -280,6 +279,46 @@
     let g:snips_author = g:author
     let g:version=''    " CUSTOM: set version here
 
+    " --- vim-gitgutter
+    let g:gitgutter_enabled=1
+    set updatetime=1000
+
+    " --- gutentags 
+    " no auto tag until saving
+    let g:gutentags_generate_on_missing=0
+    let g:gutentags_generate_on_new=0
+    nnoremap <leader>gt :let g:gutentags_enabled=!g:gutentags_enabled<CR>
+    " use gtags only
+    let g:gutentags_modules = []
+    if executable('gtags-cscope') && executable('gtags')
+        let g:gutentags_modules += ['gtags_cscope']
+    endif
+
+    " --- GNU global gtags.vim
+    if executable('gtags-cscope') && executable('gtags') && has("cscope")
+        set cscopeprg=gtags-cscope  " use gtags_cscope instead of cscope
+        set cscopequickfix=s-,g-,d-,c-,t-,e-,f-,i-,a-
+        set cscopetag   " use cscope instead of :tag and CTRL-]
+        set cscopepathcomp=3    " display the last 3 components of file
+        set csverb
+        " list all the tags of the current file
+        nnoremap <leader>gl :Gtags -f %<CR>
+        " goto the definition of the symbol under the cursor
+        nnoremap <leader>gd :Gtags -d <C-R>=expand("<cword>")<CR><CR>
+        " list all the reference of the symbol under the cursor
+        nnoremap <leader>gr :Gtags -r <C-R>=expand("<cword>")<CR><CR>
+        " jump to files including the current file
+        nnoremap <leader>gi :cscope find i %<CR>
+        " jump to files under the cursor
+        nnoremap <leader>gf :Gtags -P <C-R>=expand("<cword>")<CR><CR>
+        " jump to definition or reference under the cursor
+        nnoremap <leader>gg :GtagsCursor<CR>
+    endif
+
+    " --- vim-clang-format
+    nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
+    vnoremap <buffer><leader>cf :ClangFormat<CR>
+
     " --- DoxygenToolkit
     let g:DoxygenToolkit_commentType="C++"
     let g:DoxygenToolkit_authorName=g:author
@@ -287,23 +326,18 @@
     let g:DoxygenToolkit_compactOneLineDoc = "yes"
     let g:DoxygenToolkit_compactDoc = "yes"
 
-    " --- vim-clang-format
-    nnoremap <buffer><Leader>cf :<C-u>ClangFormat<CR>
-    vnoremap <buffer><Leader>cf :ClangFormat<CR>
-
-    " --- Tabularize
-    nnoremap <Leader>a :Tabularize /
-    vnoremap <Leader>a :Tabularize /
+    " --- YouCompleteMe
+    " let g:ycm_autoclose_preview_window_after_insertion=1
+    let g:ycm_semantic_triggers =  { 'c,cpp': ['re!\w{2}'], }
+    let g:ycm_key_invoke_completion='<C-\>'
+    nnoremap <leader>yg :YcmCompleter GoTo<CR>
+    nnoremap <leader>yf :YcmCompleter FixIt<CR>
+    nnoremap <leader>yd :YcmDiags<CR>
 
     " --- denite
     call denite#custom#var(
         \ 'buffer',
         \ 'date_format', '%Y-%m-%d %H:%M:%S')
-    if executable('git')
-        call denite#custom#alias('source', 'file_rec/git', 'file_rec')
-        call denite#custom#var('file_rec/git', 'command',
-            \ ['git', 'ls-files', '-co', '--exclude-standard'])
-    endif
     if executable('rg')
         call denite#custom#var('file/rec', 'command', ['rg', '--files'])
         call denite#custom#var('grep', 'command', ['rg'])
@@ -327,20 +361,4 @@
 	    \ 'noremap'
 	    \)
     nnoremap <leader>df :Denite file/rec<CR>
-
-    " --- gutentags 
-    " not auto tag until saving
-    let g:gutentags_generate_on_missing=0
-    let g:gutentags_generate_on_new=0
-    nnoremap <leader>gd :let g:gutentags_enabled=!g:gutentags_enabled<cr>
-    " use gtags only
-    let g:gutentags_modules = []
-    if executable('gtags-cscope') && executable('gtags') && has("cscope")
-        set cscopeprg=gtags-cscope  " use gtags_cscope instead of cscope
-        set cscopequickfix=s-,d-,c-,t-,e-,f-,i-,a-
-        set cscopetag   " use cscope instead of :tag and CTRL-]
-        set cscopepathcomp=3    " display the last 3 components of file
-        set csverb
-        let g:gutentags_modules += ['gtags_cscope']
-    endif
 " }
