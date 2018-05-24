@@ -66,7 +66,8 @@ Vendor plugins as follow will be installed
 - Plug 'Valloric/YouCompleteMe'   " code-completion engine
 - Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
 
-Besides, there are 3 plugins already installed:
+Besides, another 3 plugins has already installed:
+
 - ``junegunn/vim-plug`` the plugin manager itself.
 - ``matchit.vim`` which released vim itself.
 - ``gtags.vim`` which installed with GNU global.
@@ -126,12 +127,14 @@ Shortcuts are defined as follow::
     vnoremap < <gv
     vnoremap > >gv
 
-    " cd change working directory to that of the current file
-    nnoremap cd :lcd %:p:h<CR>
+    " since QuickFix window always open, just map a shortcut for closing.
+    nnoremap <leader>qc :cclose<CR>
 
-    " silent grep, keep the QuickFix window open, and not jump to first match
-    command! -nargs=+ MyGrep execute 'silent grep! <args>' | copen
-    nnoremap <leader>sh :MyGrep<Space>
+    " silent grep search
+    nnoremap <leader>sh :silent grep<Space>
+
+    " change working directory to the current file for the current window only
+    nnoremap <leader>cd :lcd %:p:h<CR>
 
 netrw
 =====
@@ -194,13 +197,14 @@ This shortcut is available under normal and visual mode.
 ultisnips
 =========
 
-With many common code snippets, there are also:
+With many common code snippets, such as:
 
 - ``c)`` for copyright text.
 - ``date`` for ``strftime("%Y-%m-%d")`` .
 - ``datetime`` for ``strftime("%Y-%m-%d %H:%M")`` .
 - ``time`` for ``strftime("%H:%M")`` .
 - ``lorem`` for lorem string.
+- ``box`` and ``bbox`` for nice box.
 
 Also, customer snippets are provided, which located in directory
 ``my_snippets/`` :
@@ -238,14 +242,14 @@ vim-fugitive
 gutentags
 =========
 
-gutentags automatically updates tag files for the project.
-For projects without any tag files(GTAGS), gutentags never creates tag files,
-until a file in the project is saved.
+gutentags automatically always updates tag files for the project.
+We disable this to prevent tag file generation unwanted.
 
-If no tag files creation is need, toggle off gutentags before saving any file.
-Use ``<leader>gt`` to toggle auto tags disable/enable.
+For project needs tag files, just use ``<leader>gt`` to toggle automation
+disable/enable.
 
 TODO: Never automatically create tag files, unless explicitly required.
+Never update tag files neither, unless there is ones in the project root.
 
 gtags
 =====
@@ -255,31 +259,20 @@ Just use the ``:cscope`` as usual. Notice that ``:cs find d`` command is not
 implemented by gtags-cscope.
 
 ``:Gtags`` is provide to invoke the global command. Also the the following
-shortcuts are provided::
+shortcuts are provided:
 
-    " list all the tags of the current file
-    nnoremap <leader>gl :Gtags -f %<CR>
-
-    " goto the definition of the symbol under the cursor
-    nnoremap <leader>gd :Gtags -d <C-R>=expand("<cword>")<CR><CR>
-
-    " list all the reference of the symbol under the cursor
-    nnoremap <leader>gr :Gtags -r <C-R>=expand("<cword>")<CR><CR>
-
-    " jump to files including the current file
-    nnoremap <leader>gi :cscope find i %<CR>
-
-    " jump to files under the cursor
-    nnoremap <leader>gf :Gtags -P <C-R>=expand("<cword>")<CR><CR>
-
-    " jump to definition or reference under the cursor
-    nnoremap <leader>gg :GtagsCursor<CR>
+- ``<leader>gl`` list all the tags of the current file
+- ``<leader>gd`` goto the definition of the symbol under the cursor
+- ``<leader>gr`` list all the reference of the symbol under the cursor
+- ``<leader>gi`` jump to files including the current file
+- ``<leader>gf`` jump to files under the cursor
+- ``<leader>gg`` jump to definition or reference under the cursor
 
 vim-clang-format
 ================
 
-Use ``<leader>cf`` to format the whole/selected source. This shortcut is
-available for both normal and visual mode. 
+Use ``<leader>cf`` to format the whole/selected source.
+This shortcut is available for both normal and visual mode.
 
 A ``.clang-format`` file is needed. Place one in the project root.
 
@@ -312,12 +305,10 @@ Unicode-RST-Tables
 YouCompleteMe
 =============
 
-Usually, the following shortcuts are usefual::
-
-    let g:ycm_key_invoke_completion='<C-\>'
-    nnoremap <leader>yg :YcmCompleter GoTo<CR>
-    nnoremap <leader>yf :YcmCompleter FixIt<CR>
-    nnoremap <leader>yd :YcmDiags<CR>
+- ``<C-\>`` trigger the auto completion
+- ``<leader>yg`` goto definition or declearation
+- ``<leader>yd`` list all the diagnostic informations
+- ``<leader>yf`` auto Fix It
 
 The goto command could be replace with ``GtagsCursor`` which is mapped to
 ``<leader>gg`` .
@@ -325,21 +316,14 @@ The goto command could be replace with ``GtagsCursor`` which is mapped to
 denite
 ======
 
-Use ``<leader>df`` to quickly open file.
-
-Use ``<C-J>`` ``<C-K>`` to navigate in the Denite interface.
+- ``<leader>df`` to quickly open file.
+- ``<leader>db`` to quickly switch buffer.
+- ``<leader>dr`` to open files related to the current file.
+- ``<C-J>`` ``<C-K>`` to navigate in the Denite interface.
 
 ***************
 TODOs and DONEs
 ***************
-
-TODOs
-=====
-
-- better automatic tag file manager.
-- lint and show the result in a list.
-- template for new c/c++ header/source files, namespace, include guard, etc.
-- language server protocol.
 
 DONEs
 =====
@@ -349,3 +333,22 @@ DONEs
     - update README
 - 2018-05-23
     - outline for the current buffer.
+    - related file, header file, implementation file, test file
+- 2018-05-24
+    - toggle Quickfix window
+
+DENYs
+=====
+
+- gtags outline source for Denite. Using outline means we don't know much about
+  the name. Navigation is better than filtering. So, keep the QuickFix style,
+  but drop the filtering style.
+
+TODOs
+=====
+
+- template for new c/c++ header/source files, namespace, include guard, etc.
+- language server protocol.
+- better automatic tag file manager.
+- lint and show the result in a list.
+- run make in the build dir.

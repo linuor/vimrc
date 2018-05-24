@@ -77,6 +77,12 @@
     endif
 
     set report=0        " always report number of lines changed
+
+    " always show up QuickFix window after some quickfix commands.
+    augroup QuickFix
+        autocmd!
+        autocmd QuickFixCmdPost * botright copen
+    augroup END
 " }
 
 " Pattern and search {
@@ -246,19 +252,14 @@
     vnoremap < <gv
     vnoremap > >gv
 
-    " cd change working directory to that of the current file
-    nnoremap cd :lcd %:p:h<CR>
+    " since QuickFix window always open, just map a shortcut for closing.
+    nnoremap <leader>qc :cclose<CR>
 
-    " silent grep, keep the QuickFix window open, and jump to first match
-    command! -nargs=+ MyGrep execute 'silent grep <args>' | copen
-    nnoremap <leader>sh :MyGrep<Space>
-" }
+    " silent grep search
+    nnoremap <leader>sh :silent grep<Space>
 
-" FileType autocmd {
-    " gf to search .rst file
-    if has("autocmd")
-        autocmd FileType rst set suffixesadd+=.rst
-    endif
+    " change working directory to the current file for the current window only
+    nnoremap <leader>cd :lcd %:p:h<CR>
 " }
 
 " Plugin Config {
@@ -283,10 +284,9 @@
     let g:gitgutter_enabled=1
     set updatetime=1000
 
-    " --- gutentags 
-    " no auto tag until saving
-    let g:gutentags_generate_on_missing=0
-    let g:gutentags_generate_on_new=0
+    " --- gutentags
+    " no auto tag until explicitly enable with <leader>gt
+    let g:gutentags_enabled=0
     nnoremap <leader>gt :let g:gutentags_enabled=!g:gutentags_enabled<CR>
     " use gtags only
     let g:gutentags_modules = []
@@ -316,8 +316,8 @@
     endif
 
     " --- vim-clang-format
-    nnoremap <buffer><leader>cf :<C-u>ClangFormat<CR>
-    vnoremap <buffer><leader>cf :ClangFormat<CR>
+    nnoremap <leader>cf :<C-u>ClangFormat<CR>
+    vnoremap <leader>cf :ClangFormat<CR>
 
     " --- DoxygenToolkit
     let g:DoxygenToolkit_commentType="C++"
@@ -338,7 +338,7 @@
     call denite#custom#var(
         \ 'buffer',
         \ 'date_format', '%Y-%m-%d %H:%M:%S')
-    if executable('rg')
+    if executable('rg') " use riggrep for file search and grep
         call denite#custom#var('file/rec', 'command', ['rg', '--files'])
         call denite#custom#var('grep', 'command', ['rg'])
         call denite#custom#var('grep', 'default_opts',
@@ -360,5 +360,12 @@
 	    \ '<denite:move_to_previous_line>',
 	    \ 'noremap'
 	    \)
-    nnoremap <leader>df :Denite file/rec<CR>
+    nnoremap <leader>df :DeniteProjectDir file/rec<CR>
+    nnoremap <leader>db :Denite buffer<CR>
+
+    function! GetCoreBaseFileName(file)
+        let l:file=substitute(a:file, '[_-]\+test\c', '', 'g')
+        execute 'Denite -input=' . l:file . ' file/rec'
+    endfunction
+    nnoremap <leader>dr :call GetCoreBaseFileName(expand('%:t:r'))<CR>
 " }
