@@ -291,13 +291,17 @@
     set updatetime=1000
 
     " --- gutentags
-    " no auto tag until explicitly enable with <leader>gt
-    let g:gutentags_enabled=0
     nnoremap <leader>gt :let g:gutentags_enabled=!g:gutentags_enabled<CR>
     " use gtags only
     let g:gutentags_modules = []
     if executable('gtags-cscope') && executable('gtags')
         let g:gutentags_modules += ['gtags_cscope']
+    endif
+    " if has GTAGS already, enable auto tag. Otherwise, disable auto tag.
+    if findfile("GTAGS", ".;") ==# ''
+        let g:gutentags_enabled=0
+    else
+        let g:gutentags_enabled=1
     endif
 
     " --- GNU global gtags.vim

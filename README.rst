@@ -337,6 +337,9 @@ DONEs
     - related file, header file, implementation file, test file
 - 2018-05-24
     - toggle Quickfix window
+- 2018-05-26
+    - template for new c/c++ header/source files, namespace, include guard, etc.
+    - better automatic tag file manager.
 
 DENYs
 =====
@@ -348,8 +351,7 @@ DENYs
 TODOs
 =====
 
-- template for new c/c++ header/source files, namespace, include guard, etc.
 - language server protocol.
-- better automatic tag file manager.
 - lint and show the result in a list.
 - run make in the build dir.
+
