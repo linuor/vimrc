@@ -77,12 +77,6 @@
     endif
 
     set report=0        " always report number of lines changed
-
-    " always show up QuickFix window after some quickfix commands.
-    augroup QuickFix
-        autocmd!
-        autocmd QuickFixCmdPost * botright copen
-    augroup END
 " }
 
 " Pattern and search {
@@ -207,6 +201,18 @@
     set sessionoptions-=options
 " }
 
+" Autocmd, Filetype {
+    if has("autocmd")
+        augroup MyVimrc
+            autocmd!
+            " always show up QuickFix window after some quickfix commands.
+            autocmd QuickFixCmdPost * botright copen
+            " gf to search .rst file
+            autocmd FileType rst set suffixesadd+=.rst
+        augroup END
+    endif
+" }
+
 " Useful Shortcut {
     let mapleader="\<Space>"
     " mute search high light before clear and redraw the screen
@@ -277,8 +283,8 @@
     " --- vim-snippets
     let g:author=$USER
     let g:email=''      " CUSTOM: set email here
-    let g:snips_author = g:author
     let g:version=''    " CUSTOM: set version here
+    let g:snips_author = g:author
 
     " --- vim-gitgutter
     let g:gitgutter_enabled=1

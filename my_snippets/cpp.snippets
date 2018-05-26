@@ -1,0 +1,105 @@
+priority 40
+
+global !p
+import vim
+import os
+from os import path as ospath
+import time
+
+class Template(object):
+
+	"""Template for cpp"""
+
+	def __init__(self, buffer):
+		"""init with the buffer name.
+
+		:buffer: the buffer name.
+
+		"""
+		self._buffer_name = buffer
+		self._project_name = None
+		self._namespace = None
+		self._include_grard = None
+
+	def BufferName(self):
+		"""get the buffer name.
+		:returns: the buffer name.
+
+		"""
+		return self._buffer_name
+
+	def ProjectName(self):
+		"""get the name of the project root directory.
+		:returns: the project name.
+
+		"""
+		if self._project_name == None:
+			self._project_name = ospath.basename(os.getcwd())
+		return self._project_name
+
+	def Namespace(self):
+		"""get namespace.
+		:returns: a pair of namespaces, (begin, end).
+
+		"""
+		if self._namespace == None:
+			p = ospath.dirname(ospath.relpath(vim.current.buffer.name))
+			f = p.split(os.sep)
+			self._namespace = [self.ProjectName()] + f
+		return self._namespace
+
+	def IncludeGuard(self):
+		"""get a include guard string.
+		:returns: a upper-case string of include guard
+
+		"""
+		if self._include_grard == None:
+			r = ""
+			for item in self.Namespace():
+				r += item.upper() + "_"
+			r += ospath.basename(self._buffer_name).replace(".", "_").upper()
+			self._include_grard = r
+		return self._include_grard
+	
+	def NamespaceBegin(self):
+		"""get the opening part of namespaces
+		:returns: a string of the openning part of the namespaces
+
+		"""
+		r = ""
+		for item in self.Namespace():
+			r += "namespace " + item + " {" + os.linesep
+		return r
+
+	def NamespaceEnd(self):
+		"""get the closing part of namespaces
+		:returns: a string of the closing part of namespaces
+
+		"""
+		r = ""
+		for item in reversed(self.Namespace()):
+			r += "} // namespace " + item + os.linesep
+		return r
+
+tpl = Template(vim.current.buffer.name)
+
+endglobal
+
+snippet tpl "Template for CPP" b
+/// Copyright (c) `!p snip.rv=time.localtime(time.time()).tm_year` `!p
+snip.rv = vim.vars['author']`. All Rights Reserved.
+/// @file `!p snip.rv = ospath.basename(tpl.BufferName())`
+/// @brief $1
+/// @author `!p snip.rv = vim.vars['author']`
+/// @date `!p snip.rv = time.strftime("%Y-%m-%d", time.localtime())`
+
+#ifndef `!p snip.rv = tpl.IncludeGuard()`
+#define `!p snip.rv = tpl.IncludeGuard()`
+
+$2
+`!p snip.rv = tpl.NamespaceBegin()`
+$0
+`!p snip.rv = tpl.NamespaceEnd()`
+#endif // `!p snip.rv = tpl.IncludeGuard()`
+
+endsnippet

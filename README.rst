@@ -310,8 +310,9 @@ YouCompleteMe
 - ``<leader>yd`` list all the diagnostic informations
 - ``<leader>yf`` auto Fix It
 
-The goto command could be replace with ``GtagsCursor`` which is mapped to
-``<leader>gg`` .
+The YouCompleteMe GoTo command is smarter than ``GtagsCursor`` which is mapped
+to ``<leader>gg`` .
+TODO: think about which is better.
 
 denite
 ======
