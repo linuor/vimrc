@@ -317,7 +317,8 @@ TODO: think about which is better.
 denite
 ======
 
-- ``<leader>df`` to quickly recursively search file in the current directory.
+- ``<leader>df`` to quickly recursively search file in the directory of the
+  current buffer.
 - ``<leader>db`` to quickly switch buffer.
 - ``<leader>dr`` to open files related to the current file.
 - ``<C-J>`` ``<C-K>`` to navigate in the Denite interface.
