@@ -370,12 +370,12 @@
 	    \ '<denite:move_to_previous_line>',
 	    \ 'noremap'
 	    \)
-    nnoremap <leader>df :DeniteProjectDir file/rec<CR>
+    nnoremap <leader>df :Denite file/rec<CR>
     nnoremap <leader>db :Denite buffer<CR>
 
     function! GetCoreBaseFileName(file)
         let l:file=substitute(a:file, '[_-]\+test\c', '', 'g')
-        execute 'Denite -input=' . l:file . ' file/rec'
+        execute 'DeniteProjectDir -input=' . l:file . ' file/rec'
     endfunction
     nnoremap <leader>dr :call GetCoreBaseFileName(expand('%:t:r'))<CR>
 " }

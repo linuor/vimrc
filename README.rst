@@ -317,10 +317,24 @@ TODO: think about which is better.
 denite
 ======
 
-- ``<leader>df`` to quickly open file.
+- ``<leader>df`` to quickly recursively search file in the current directory.
 - ``<leader>db`` to quickly switch buffer.
 - ``<leader>dr`` to open files related to the current file.
 - ``<C-J>`` ``<C-K>`` to navigate in the Denite interface.
+
+Tips
+----
+
+- launch vim from the root of the project.
+- pass a list of files as arguments for vim, such as ``vim `git ls-files``` ,
+  to open all the source files of the project.
+- to search files from the project root, use ``<leader>db`` to search buffers.
+- to recursively search files from the current location, use ``<leader>df`` .
+- to search relatedd files ( files have the same base name, such as ``foo.cpp``
+  ``foo.h``  ``foo_test.cpp`` , are related files), use ``<leader>dr`` .
+- see also Ycm's GoTo command( ``<leader>yg`` ), Gtags' P ( ``<leader>gf`` ),
+  vim's built in ``gf`` . These are used to goto the file explicitly, 
+  while ``<leader>gf`` is a fuzzy search.
 
 ***************
 TODOs and DONEs
