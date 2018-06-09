@@ -162,11 +162,13 @@
     if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
         set t_Co=16
     endif
-
-    set background=light
+    if has("termguicolors")
+        set termguicolors
+    endif
+    set background=dark
     colorscheme desert
-    highlight clear SignColumn          " clear SignColumn background color
-    highlight clear LineNr              " clear line number row backgound color
+    " highlight clear SignColumn          " clear SignColumn background color
+    " highlight clear LineNr              " clear line number row backgound color
 " }
 
 " Files {
