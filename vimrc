@@ -30,11 +30,10 @@
     endif
 
     " gtags.vim released with GNU global
-    let gtags_path=fnameescape(fnamemodify($GTAGSCONF, ':h') . "/gtags.vim")
-    if filereadable(gtags_path)
-        execute 'source ' . gtags_path
+    let s:gtags_path=fnameescape(fnamemodify($GTAGSCONF, ':h') . "/gtags.vim")
+    if filereadable(s:gtags_path)
+        execute 'source ' . s:gtags_path
     endif
-    unlet gtags_path
 
 " }
 
@@ -65,9 +64,7 @@
     endif
 
     set autoread        " auto read when a file is changed from the outside
-
     set lazyredraw      " no redraw while executing macros, better performance
-
     set hidden          " hidden dirty buffers when abandoned
 
     set nojoinspaces    " insert only one space after '.' on J
@@ -88,7 +85,6 @@
 
     set ignorecase      " ignore case when searching
     set smartcase       " when searching try to be smart about cases
-
     set showmatch       " show matching brackets when cursor over
 
     if executable('rg') " replace grep with ripgrep
@@ -293,6 +289,7 @@
     set updatetime=1000
 
     " --- gutentags
+    " toggle auto indexing on/off
     nnoremap <leader>gt :let g:gutentags_enabled=!g:gutentags_enabled<CR>
     " use gtags only
     let g:gutentags_modules = []
