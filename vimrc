@@ -142,7 +142,7 @@
 
     " No annoying sound on errors
     set noerrorbells
-    set novisualbell
+    set visualbell
     set t_vb=
 
     " Set extra options when running in GUI mode
