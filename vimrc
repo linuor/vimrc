@@ -267,7 +267,7 @@
     nnoremap <leader>sh :silent grep<Space>
 
     " change working directory to the current file for the current window only
-    nnoremap <leader>cd :lcd %:p:h<CR>
+    " nnoremap <leader>cd :lcd %:p:h<CR>
 " }
 
 " Plugin Config {
