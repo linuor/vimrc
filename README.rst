@@ -362,11 +362,11 @@ DENYs
 - gtags outline source for Denite. Using outline means we don't know much about
   the name. Navigation is better than filtering. So, keep the QuickFix style,
   but drop the filtering style.
+- run make in the build dir. Use ``make -C /path/to/makefile`` .
 
 TODOs
 =====
 
 - language server protocol.
 - lint and show the result in a list.
-- run make in the build dir.
 

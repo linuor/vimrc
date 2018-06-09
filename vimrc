@@ -41,7 +41,6 @@
     set autoindent   "Auto indent
 
     set backspace=indent,eol,start   " allow <BS> to delete everything
-    set whichwrap+=b    " allow <BS> to move to prev line
 
     set smarttab        " Be smart when using tabs
     set expandtab       " Use spaces instead of tabs
@@ -115,7 +114,6 @@
     set winminheight=0
 
     set mouse=""        " disable mouse
-    set mousehide       " hide the mouse cursor while typing
 
     " strings to used in list mode
     if &listchars ==# 'eol:$'
@@ -154,17 +152,11 @@
         set guicursor=a:block-blinkon0 " No blink cursor
     endif
 
-    " allow color schemes to do bright colors without forcing bold.
-    if &t_Co == 8 && $TERM !~# '^linux\|^Eterm'
-        set t_Co=16
-    endif
     if has("termguicolors")
         set termguicolors
     endif
     set background=dark
     colorscheme desert
-    " highlight clear SignColumn          " clear SignColumn background color
-    " highlight clear LineNr              " clear line number row backgound color
 " }
 
 " Files {
