@@ -137,7 +137,7 @@
         set termguicolors
     endif
     set background=dark
-    colorscheme default
+    colorscheme gruvbox
 " }
 
 " Files {

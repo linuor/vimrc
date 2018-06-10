@@ -46,3 +46,6 @@
 [submodule "pack/my/start/denite.nvim"]
 	path = pack/my/start/denite.nvim
 	url = https://github.com/Shougo/denite.nvim
+[submodule "pack/my/start/gruvbox"]
+	path = pack/my/start/gruvbox
+	url = https://github.com/morhetz/gruvbox

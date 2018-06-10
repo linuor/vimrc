@@ -82,6 +82,8 @@ Plugins as follow will be installed
   code-completion engine
 - `denite.nvim <https://github.com/Shougo/denite.nvim>`_
   asynchronous unite all interfaces
+- `gruvbox <https://github.com/morhetz/gruvbox>`_
+  color scheme
 
 Besides, another 2 plugins has already installed:
 
