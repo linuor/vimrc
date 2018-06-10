@@ -22,5 +22,11 @@ ln -sf $PWD/vimrc $VIMFILE
 echo "Create temp direcotry ..."
 mkdir $PWD/temp
 mkdir $PWD/temp/undo
-echo "Launch Vim and install plugins..."
-vim +"PlugUpgrade | PlugInstall"
+echo "Complete installation"
+echo "Remember to alias vi to vim and export enviroment variables as follow:"
+echo
+echo '    alias vi="vim"'
+echo '    export GTAGSLABEL="native-pygments"'
+echo '    export GTAGSCONF="/usr/local/share/gtags/gtags.conf"'
+echo
+

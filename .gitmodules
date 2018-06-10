@@ -1,0 +1,48 @@
+[submodule "pack/my/start/vim-commentary"]
+	path = pack/my/start/vim-commentary
+	url = https://github.com/tpope/vim-commentary
+[submodule "pack/my/start/vim-surround"]
+	path = pack/my/start/vim-surround
+	url = https://github.com/tpope/vim-surround
+[submodule "pack/my/start/vim-repeat"]
+	path = pack/my/start/vim-repeat
+	url = https://github.com/tpope/vim-repeat
+[submodule "pack/my/start/tabular"]
+	path = pack/my/start/tabular
+	url = https://github.com/godlygeek/tabular
+[submodule "pack/my/start/ultisnips"]
+	path = pack/my/start/ultisnips
+	url = https://github.com/SirVer/ultisnips
+[submodule "pack/my/start/vim-snippets"]
+	path = pack/my/start/vim-snippets
+	url = https://github.com/honza/vim-snippets
+[submodule "pack/my/start/vim-gitgutter"]
+	path = pack/my/start/vim-gitgutter
+	url = https://github.com/airblade/vim-gitgutter
+[submodule "pack/my/start/vim-fugitive"]
+	path = pack/my/start/vim-fugitive
+	url = https://github.com/tpope/vim-fugitive
+[submodule "pack/my/start/vim-gutentags"]
+	path = pack/my/start/vim-gutentags
+	url = https://github.com/ludovicchabant/vim-gutentags
+[submodule "pack/my/start/vim-clang-format"]
+	path = pack/my/start/vim-clang-format
+	url = https://github.com/rhysd/vim-clang-format
+[submodule "pack/my/start/DoxygenToolkit.vim"]
+	path = pack/my/start/DoxygenToolkit.vim
+	url = https://github.com/vim-scripts/DoxygenToolkit.vim
+[submodule "pack/my/start/DrawIt"]
+	path = pack/my/start/DrawIt
+	url = https://github.com/vim-scripts/DrawIt
+[submodule "pack/my/start/VOoM"]
+	path = pack/my/start/VOoM
+	url = https://github.com/vim-voom/VOoM
+[submodule "pack/my/start/Unicode-RST-Tables"]
+	path = pack/my/start/Unicode-RST-Tables
+	url = https://github.com/vim-scripts/Unicode-RST-Tables
+[submodule "pack/my/start/YouCompleteMe"]
+	path = pack/my/start/YouCompleteMe
+	url = https://github.com/Valloric/YouCompleteMe
+[submodule "pack/my/start/denite.nvim"]
+	path = pack/my/start/denite.nvim
+	url = https://github.com/Shougo/denite.nvim

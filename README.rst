@@ -30,6 +30,7 @@ Then run bash commands as below::
 
     git clone https://github.com/linuor/vimrc.git vimrc
     cd vimrc
+    git submodule update --init --recursive
     ./install.sh
     cd ~/.vim/bundle/YouCompleteMe/
     ./install.py --clang-completer
@@ -47,28 +48,27 @@ Modify the vimrc file, such as adding email, just search "CUSTOM".
 Plugins
 *******
 
-Vendor plugins as follow will be installed
+Plugins as follow will be installed
 
-- Plug 'tpope/vim-commentary' " comment stuff out
-- Plug 'tpope/vim-surround'   " Modify surroundings
-- Plug 'tpope/vim-repeat'     " enable supported plugin maps with '.'
-- Plug 'godlygeek/tabular'    " text filtering and alignment
-- Plug 'SirVer/ultisnips'     " The ultimate snippet solution for Vim
-- Plug 'honza/vim-snippets'   " Code snippets
-- Plug 'airblade/vim-gitgutter'   " shows a git diff in the sign column
-- Plug 'tpope/vim-fugitive'   " git wrapper
-- Plug 'ludovicchabant/vim-gutentags'   " tag files management
-- Plug 'rhysd/vim-clang-format'   " plugin for clang-format
-- Plug 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation
-- Plug 'vim-scripts/DrawIt'   " Ascii drawing
-- Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
-- Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
-- Plug 'Valloric/YouCompleteMe'   " code-completion engine
-- Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
+- `https://github.com/tpope/vim-commentary`_ comment stuff out
+- `https://github.com/tpope/vim-surround`_ Modify surroundings
+- `https://github.com/tpope/vim-repeat`_ enable supported plugin maps with '.'
+- `https://github.com/godlygeek/tabular`_ text filtering and alignment
+- `https://github.com/SirVer/ultisnips`_ The ultimate snippet solution for Vim
+- `https://github.com/honza/vim-snippets`_ Code snippets
+- `https://github.com/airblade/vim-gitgutter`_ git diff in the sign column
+- `https://github.com/tpope/vim-fugitive`_ git wrapper
+- `https://github.com/ludovicchabant/vim-gutentags`_ tag files management
+- `https://github.com/rhysd/vim-clang-format`_ plugin for clang-format
+- `https://github.com/vim-scripts/DoxygenToolkit.vim`_ Doxygen documentation
+- `https://github.com/vim-scripts/DrawIt`_ Ascii drawing
+- `https://github.com/vim-voom/VOoM`_ Vim Outliner of Markers
+- `https://github.com/vim-scripts/Unicode-RST-Tables`_ rst table helper
+- `https://github.com/Valloric/YouCompleteMe`_ code-completion engine
+- `https://github.com/Shougo/denite.nvim`_ asynchronous unite all interfaces
 
-Besides, another 3 plugins has already installed:
+Besides, another 2 plugins has already installed:
 
-- ``junegunn/vim-plug`` the plugin manager itself.
 - ``matchit.vim`` which released vim itself.
 - ``gtags.vim`` which installed with GNU global.
 

@@ -4,30 +4,9 @@
 
 " Bundles {
     set nocompatible
-    call plug#begin()   " auto filetype off
-        Plug 'tpope/vim-commentary' " comment stuff out
-        Plug 'tpope/vim-surround'   " Modify surroundings
-        Plug 'tpope/vim-repeat'     " enable supported plugin maps with '.'
-        Plug 'godlygeek/tabular'    " text filtering and alignment
-        Plug 'SirVer/ultisnips'     " The ultimate snippet solution for Vim
-        Plug 'honza/vim-snippets'   " Code snippets
-        Plug 'airblade/vim-gitgutter'   " shows a git diff in the sign column
-        Plug 'tpope/vim-fugitive'   " git wrapper
-        Plug 'ludovicchabant/vim-gutentags'   " tag files management
-        Plug 'rhysd/vim-clang-format'   " plugin for clang-format
-        Plug 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation
-        Plug 'vim-scripts/DrawIt'   " Ascii drawing
-        Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
-        Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
-        Plug 'Valloric/YouCompleteMe'   " code-completion engine
-        Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
-    call plug#end()     " auto filetype plugin indent on and syntax on
-
-    " matchit.vim released with vim, it extends matching with %
-    if !exists('g:loaded_matchit') &&
-                \ findfile('plugin/matchit.vim', &rtp) ==# ''
-        runtime! macros/matchit.vim
-    endif
+    filetype off
+    packloadall
+    packadd! matchit
 
     " gtags.vim released with GNU global
     let s:gtags_path=fnameescape(fnamemodify($GTAGSCONF, ':h') . "/gtags.vim")
@@ -35,6 +14,8 @@
         execute 'source ' . s:gtags_path
     endif
 
+    filetype plugin indent on
+    syntax enable
 " }
 
 " Tab, space, indent and fold {
@@ -156,7 +137,7 @@
         set termguicolors
     endif
     set background=dark
-    colorscheme desert
+    colorscheme default
 " }
 
 " Files {
