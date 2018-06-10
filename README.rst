@@ -50,22 +50,38 @@ Plugins
 
 Plugins as follow will be installed
 
-- `https://github.com/tpope/vim-commentary`_ comment stuff out
-- `https://github.com/tpope/vim-surround`_ Modify surroundings
-- `https://github.com/tpope/vim-repeat`_ enable supported plugin maps with '.'
-- `https://github.com/godlygeek/tabular`_ text filtering and alignment
-- `https://github.com/SirVer/ultisnips`_ The ultimate snippet solution for Vim
-- `https://github.com/honza/vim-snippets`_ Code snippets
-- `https://github.com/airblade/vim-gitgutter`_ git diff in the sign column
-- `https://github.com/tpope/vim-fugitive`_ git wrapper
-- `https://github.com/ludovicchabant/vim-gutentags`_ tag files management
-- `https://github.com/rhysd/vim-clang-format`_ plugin for clang-format
-- `https://github.com/vim-scripts/DoxygenToolkit.vim`_ Doxygen documentation
-- `https://github.com/vim-scripts/DrawIt`_ Ascii drawing
-- `https://github.com/vim-voom/VOoM`_ Vim Outliner of Markers
-- `https://github.com/vim-scripts/Unicode-RST-Tables`_ rst table helper
-- `https://github.com/Valloric/YouCompleteMe`_ code-completion engine
-- `https://github.com/Shougo/denite.nvim`_ asynchronous unite all interfaces
+- `vim-commentary <https://github.com/tpope/vim-commentary>`_
+  comment stuff out
+- `vim-surround <https://github.com/tpope/vim-surround>`_
+  Modify surroundings
+- `vim-repeat <https://github.com/tpope/vim-repeat>`_
+  enable supported plugin maps with '.'
+- `tabular <https://github.com/godlygeek/tabular>`_
+  text filtering and alignment
+- `ultisnips <https://github.com/SirVer/ultisnips>`_
+  The ultimate snippet solution for Vim
+- `vim-snippets <https://github.com/honza/vim-snippets>`_
+  Code snippets
+- `vim-gitgutter <https://github.com/airblade/vim-gitgutter>`_
+  git diff in the sign column
+- `vim-fugitive <https://github.com/tpope/vim-fugitive>`_
+  git wrapper
+- `vim-gutentags <https://github.com/ludovicchabant/vim-gutentags>`_
+  tag files management
+- `vim-clang-format <https://github.com/rhysd/vim-clang-format>`_
+  plugin for clang-format
+- `DoxygenToolkit.vim <https://github.com/vim-scripts/DoxygenToolkit.vim>`_
+  Doxygen documentation
+- `DrawIt <https://github.com/vim-scripts/DrawIt>`_
+  Ascii drawing
+- `VOoM <https://github.com/vim-voom/VOoM>`_
+  Vim Outliner of Markers
+- `Unicode-RST-Tables <https://github.com/vim-scripts/Unicode-RST-Tables>`_
+  rst table helper
+- `YouCompleteMe <https://github.com/Valloric/YouCompleteMe>`_
+  code-completion engine
+- `denite.nvim <https://github.com/Shougo/denite.nvim>`_
+  asynchronous unite all interfaces
 
 Besides, another 2 plugins has already installed:
 
