@@ -90,6 +90,12 @@ Besides, another 2 plugins has already installed:
 - ``matchit.vim`` which released vim itself.
 - ``gtags.vim`` which installed with GNU global.
 
+To add new plugins, just add submodule to the ``pack/my/start/`` ::
+
+    git submodule add https://github.com/morhetz/gruvbox pack/my/start/gruvbox
+
+For optional plugins, add to ``pack/my/opt/`` directory.
+
 *********
 Shortcuts
 *********
@@ -362,6 +368,9 @@ TODOs and DONEs
 DONEs
 =====
 
+- 2018-06-12
+    - lint and show the result in a list. YouCompleteMe provides this,
+      which is mapped to ``<leader>yd`` .
 - 2018-05-22
     - restructure the whole vimrc.
     - update README
@@ -386,5 +395,4 @@ TODOs
 =====
 
 - language server protocol.
-- lint and show the result in a list.
 
