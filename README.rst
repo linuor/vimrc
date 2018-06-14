@@ -30,10 +30,7 @@ Then run bash commands as below::
 
     git clone https://github.com/linuor/vimrc.git vimrc
     cd vimrc
-    git submodule update --init --recursive
     ./install.sh
-    cd ~/.vim/bundle/YouCompleteMe/
-    ./install.py --clang-completer
 
 Remember to alias vi to vim, and  export enviroment variables if pygments is
 installed too,::

@@ -8,12 +8,6 @@
     packloadall
     packadd! matchit
 
-    " gtags.vim released with GNU global
-    let s:gtags_path=fnameescape(fnamemodify($GTAGSCONF, ':h') . "/gtags.vim")
-    if filereadable(s:gtags_path)
-        execute 'source ' . s:gtags_path
-    endif
-
     filetype plugin indent on
     syntax enable
 " }

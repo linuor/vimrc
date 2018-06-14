@@ -28,15 +28,18 @@
 [submodule "pack/my/start/vim-clang-format"]
 	path = pack/my/start/vim-clang-format
 	url = https://github.com/rhysd/vim-clang-format
+    ignore = dirty
 [submodule "pack/my/start/DoxygenToolkit.vim"]
 	path = pack/my/start/DoxygenToolkit.vim
 	url = https://github.com/vim-scripts/DoxygenToolkit.vim
 [submodule "pack/my/start/DrawIt"]
 	path = pack/my/start/DrawIt
 	url = https://github.com/vim-scripts/DrawIt
+    ignore = dirty
 [submodule "pack/my/start/VOoM"]
 	path = pack/my/start/VOoM
 	url = https://github.com/vim-voom/VOoM
+    ignore = dirty
 [submodule "pack/my/start/Unicode-RST-Tables"]
 	path = pack/my/start/Unicode-RST-Tables
 	url = https://github.com/vim-scripts/Unicode-RST-Tables
