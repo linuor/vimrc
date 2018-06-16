@@ -160,8 +160,8 @@
         set undoreload=10000                " maximum lines for a buffer reload
     endif
 
-    set viminfo+=n$HOME/.vim/temp/viminfo   " viminfo file
     set viminfo^=!
+    set viminfo+=n$HOME/.vim/temp/viminfo   " viminfo file
 
     set sessionoptions-=options
 " }
@@ -174,6 +174,11 @@
             autocmd QuickFixCmdPost * botright copen
             " gf to search .rst file
             autocmd FileType rst set suffixesadd+=.rst
+            " hightlight doxygen in c
+            autocmd FileType c set filetype=c.doxygen
+            " enable /// comments
+            autocmd FileType cpp set filetype=cpp.doxygen foldmethod=syntax
+                        \ comments^=:///
         augroup END
     endif
 " }
@@ -252,8 +257,7 @@
     let g:snips_author = g:author
 
     " --- vim-gitgutter
-    let g:gitgutter_enabled=1
-    set updatetime=1000
+    set updatetime=100
 
     " --- gutentags
     " toggle auto indexing on/off

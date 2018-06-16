@@ -137,8 +137,7 @@ Shortcuts are defined as follow::
     nnoremap ]t :tabnext<CR>
     nnoremap [T :tabfirst<CR>
     nnoremap ]T :tablast<CR>
-
-    " there are also navation for git hunks [c ]c, see gitgutter plugin below.
+    " there are also [c ]c for jumping between git hunks
 
     " Bash like keys for the command line
     cnoremap <C-A> <Home>

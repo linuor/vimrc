@@ -86,17 +86,18 @@ tpl = Template(vim.current.buffer.name)
 endglobal
 
 snippet tpl "Template for CPP" b
+/// ${1:${VISUAL:Breif description}}.
+/// ${2:${VISUAL:Description in details}}
 /// Copyright (c) `!p snip.rv=time.localtime(time.time()).tm_year` `!p
 snip.rv = vim.vars['author']`. All Rights Reserved.
-/// @file `!p snip.rv = ospath.basename(tpl.BufferName())`
-/// @brief $1
-/// @author `!p snip.rv = vim.vars['author']`
-/// @date `!p snip.rv = time.strftime("%Y-%m-%d", time.localtime())`
+/// \file `!p snip.rv = ospath.basename(tpl.BufferName())`
+/// \author `!p snip.rv = vim.vars['author']`
+/// \date `!p snip.rv = time.strftime("%Y-%m-%d", time.localtime())`
 
 #ifndef `!p snip.rv = tpl.IncludeGuard()`
 #define `!p snip.rv = tpl.IncludeGuard()`
 
-$2
+$3
 `!p snip.rv = tpl.NamespaceBegin()`
 $0
 `!p snip.rv = tpl.NamespaceEnd()`
