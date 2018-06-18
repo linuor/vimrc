@@ -236,6 +236,15 @@
 
     " change working directory to the current file for the current window only
     " nnoremap <leader>cd :lcd %:p:h<CR>
+
+    " auto close pairs
+    inoremap ( ()<Left>
+    inoremap [ []<Left>
+    inoremap { {}<Left>
+    inoremap < <><Left>
+    inoremap " ""<Left>
+    inoremap ' ''<Left>
+    inoremap ` ``<Left>
 " }
 
 " Plugin Config {
