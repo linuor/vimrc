@@ -52,3 +52,6 @@
 [submodule "pack/my/start/gruvbox"]
 	path = pack/my/start/gruvbox
 	url = https://github.com/morhetz/gruvbox
+[submodule "pack/my/start/ucmake.vim"]
+	path = pack/my/start/ucmake.vim
+	url = https://github.com/linuor/ucmake.vim
