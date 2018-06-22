@@ -262,8 +262,10 @@ vim-fugitive
 gutentags
 =========
 
-gutentags automatically always updates tag files for the project.
-We disable this to prevent tag file generation unwanted.
+gutentags always automatically updates tag files for the project.
+We disable this to prevent unwanted tag file to be generated .
+
+To enabele the automation, manually generate tag fils first.
 
 For project needs tag files, just use ``<leader>gt`` to toggle automation
 disable/enable.

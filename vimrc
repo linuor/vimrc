@@ -4,12 +4,34 @@
 
 " Bundles {
     set nocompatible
-    filetype off
-    packloadall
+    call plug#begin()   " auto filetype off
+        Plug 'tpope/vim-commentary' " comment stuff out
+        Plug 'tpope/vim-surround'   " Modify surroundings
+        Plug 'tpope/vim-repeat'     " enable supported plugin maps with '.'
+        Plug 'godlygeek/tabular'    " text filtering and alignment
+        Plug 'SirVer/ultisnips'     " The ultimate snippet solution for Vim
+        Plug 'honza/vim-snippets'   " Code snippets
+        Plug 'airblade/vim-gitgutter'   " shows a git diff in the sign column
+        Plug 'tpope/vim-fugitive'   " git wrapper
+        Plug 'rhysd/vim-clang-format'   " plugin for clang-format
+        Plug 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation
+        Plug 'vim-scripts/DrawIt'   " Ascii drawing
+        Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
+        Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
+        Plug 'Valloric/YouCompleteMe'   " code-completion engine
+        Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
+        Plug 'morhetz/gruvbox'      " color scheme
+        Plug 'linuor/ucmake.vim'    " for cmake build system
+        Plug 'linuor/ugtags.vim'    " for GNU global tag system
+    call plug#end()     " auto filetype plugin indent on and syntax on
+
     packadd! matchit
 
-    filetype plugin indent on
-    syntax enable
+    " gtags.vim released with GNU global
+    let s:gtags_path=fnameescape(fnamemodify($GTAGSCONF, ':p:h') . "/gtags.vim")
+    if filereadable(s:gtags_path)
+        execute 'source ' . s:gtags_path
+    endif
 " }
 
 " Tab, space, indent and fold {
@@ -268,28 +290,9 @@
     " --- vim-gitgutter
     set updatetime=100
 
-    " --- gutentags
-    " toggle auto indexing on/off
-    nnoremap <leader>gt :let g:gutentags_enabled=!g:gutentags_enabled<CR>
-    " use gtags only
-    let g:gutentags_modules = []
-    if executable('gtags-cscope') && executable('gtags')
-        let g:gutentags_modules += ['gtags_cscope']
-    endif
-    " if has GTAGS already, enable auto tag. Otherwise, disable auto tag.
-    if findfile("GTAGS", ".;") ==# ''
-        let g:gutentags_enabled=0
-    else
-        let g:gutentags_enabled=1
-    endif
-
     " --- GNU global gtags.vim
     if executable('gtags-cscope') && executable('gtags') && has("cscope")
-        set cscopeprg=gtags-cscope  " use gtags_cscope instead of cscope
-        set cscopequickfix=s-,g-,d-,c-,t-,e-,f-,i-,a-
-        set cscopetag   " use cscope instead of :tag and CTRL-]
-        set cscopepathcomp=3    " display the last 3 components of file
-        set csverb
+        set cscopeverbose
         " list all the tags of the current file
         nnoremap <leader>gl :Gtags -f %<CR>
         " goto the definition of the symbol under the cursor
