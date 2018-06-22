@@ -3,7 +3,6 @@
 VIMHOME=~/.vim
 VIMFILE=~/.vimrc
 PWD=$(cd $(dirname $0); pwd)
-PKG=$VIMHOME/pack/my/start
 echo
 echo "Installing linuor/vimrc from: $PWD ..."
 echo "Backup old configurations ..."
@@ -24,28 +23,10 @@ echo "Create temp direcotries..."
 mkdir $PWD/temp
 mkdir $PWD/temp/undo
 
-# link the gtags.vim from GNU global
-if [ -z ${GTAGSCONF+x} ]; then
-    echo '$GTAGSCONF is unset, gtags.vim is not linked to package directory.' 
-    echo "Find a gtags.vim and place it in $PKG/gtags/plugin/, or find the "
-    echo 'full path of gtags.conf and export to $GTAGSCONF then re-install.'
-else
-    echo "Linking gtags.vim to package directory..."
-    mkdir -p $PKG/gtags/plugin
-    ln -sf ${GTAGSCONF%/*.*}/gtags.vim $PKG/gtags/plugin/
-fi
-
-echo 'Update plugins...'
-git submodule update --init --recursive
-
-echo 'Compile YouCompleteMe...'
-cd $PKG/YouCompleteMe
-./install.py --clang-completer
-
-echo "vim is about to launch to generate helptags."
-echo "Just quit vim to finish the installaion."
+echo "vim is about to launch to install plugins."
+echo "Just quit after the installaion."
 read -n 1 -s -r -p " Press any key to continue..."
-vim +'helptags ALL'
+vim +"PlugUpgrade | PlugInstall"
 
 echo
 echo "Installation complete"
@@ -54,5 +35,9 @@ echo
 echo '    alias vi="vim"'
 echo '    export GTAGSLABEL="native-pygments"'
 echo '    export GTAGSCONF="/usr/local/share/gtags/gtags.conf"'
+echo
+echo "And compile YouCompleteMe with:"
+echo
+echo '    ./install.py --clang-completer'
 echo
 
