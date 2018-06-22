@@ -81,15 +81,15 @@ Plugins as follow will be installed
   asynchronous unite all interfaces
 - `gruvbox <https://github.com/morhetz/gruvbox>`_
   color scheme
+- `ucmake.vim <https://github.com/linuor/ucmake.vim>`_
+  A vim helper for cmake build system.
+- `ugtags.vim <https://github.com/linuor/ucmake.vim>`_
+  A automation vim plugin for GNU global tag system.
 
 Besides, another 2 plugins has already installed:
 
 - ``matchit.vim`` which released vim itself.
 - ``gtags.vim`` which installed with GNU global.
-
-To add new plugins, just add submodule to the ``pack/my/start/`` ::
-
-    git submodule add https://github.com/morhetz/gruvbox pack/my/start/gruvbox
 
 For optional plugins, add to ``pack/my/opt/`` directory.
 
@@ -153,8 +153,14 @@ Shortcuts are defined as follow::
     " silent grep search
     nnoremap <leader>sh :silent grep<Space>
 
-    " change working directory to the current file for the current window only
-    nnoremap <leader>cd :lcd %:p:h<CR>
+    " auto close pairs
+    inoremap ( ()<Left>
+    inoremap [ []<Left>
+    inoremap { {}<Left>
+    inoremap < <><Left>
+    inoremap " ""<Left>
+    inoremap ' ''<Left>
+    inoremap ` ``<Left>
 
 netrw
 =====
@@ -258,20 +264,6 @@ vim-fugitive
 - ``Gpush``   to push.
 - ``Gpull`` to pull.
 - ``Gdiff`` to diff.
-
-gutentags
-=========
-
-gutentags always automatically updates tag files for the project.
-We disable this to prevent unwanted tag file to be generated .
-
-To enabele the automation, manually generate tag fils first.
-
-For project needs tag files, just use ``<leader>gt`` to toggle automation
-disable/enable.
-
-TODO: Never automatically create tag files, unless explicitly required.
-Never update tag files neither, unless there is ones in the project root.
 
 gtags
 =====
