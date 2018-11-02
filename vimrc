@@ -41,9 +41,9 @@
 
     set smarttab        " Be smart when using tabs
     set expandtab       " Use spaces instead of tabs
-    set shiftwidth=4
-    set tabstop=4
-    set softtabstop=4
+    set shiftwidth=2
+    set tabstop=2
+    set softtabstop=2
 
     set nowrap          "NOT wrap lines
 
