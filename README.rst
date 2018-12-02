@@ -64,10 +64,6 @@ Plugins as follow will be installed
   git diff in the sign column
 - `vim-fugitive <https://github.com/tpope/vim-fugitive>`_
   git wrapper
-- `vim-gutentags <https://github.com/ludovicchabant/vim-gutentags>`_
-  tag files management
-- `vim-clang-format <https://github.com/rhysd/vim-clang-format>`_
-  plugin for clang-format
 - `DoxygenToolkit.vim <https://github.com/vim-scripts/DoxygenToolkit.vim>`_
   Doxygen documentation
 - `DrawIt <https://github.com/vim-scripts/DrawIt>`_
@@ -206,14 +202,20 @@ vim-surround has the following operations:
 +---------------------------+-------------+-------------------------------+
 | ``"Look ma, I'm *HTML!"`` | ``cs"<q>``  | ``<q>Look ma, I'm HTML!</q>`` |
 +---------------------------+-------------+-------------------------------+
-| ``if *x>3 {``             | ``ysW(``    | ``if ( x>3 ) {``              |
-+---------------------------+-------------+-------------------------------+
-| ``my $str = *whee!;``     | ``vllllS'`` | ``my $str = 'whee!';``        |
-+---------------------------+-------------+-------------------------------+
+| ``if *x>3 {``             | ``ysW(``    | ``if ( x>3 ) {
+      `` |
+          +---------------------------+-------------+-------------------------------+ | ``my
+              $str = *whee !;
+      `` | ``vllllS '`` | ``my $str = ' whee !';``        | + ---------------------------+-------------+-------------------------------+
 
-- ``ys{motion}{mark}`` wrap the text object with ``{mark}``
-- ``cs{mark1}{mark2}`` change {mark1} to ``{mark2}``
-- ``ds{mark}`` delete ``{mark}``
+          - ``ys{motion} {
+        mark
+      }
+      `` wrap the text object with ``{ mark }
+      `` - ``cs{mark1} { mark2 }
+      `` change{mark1} to ``{ mark2 }
+      `` - ``ds { mark }
+      `` delete ``{ mark }``
 
 tabular
 =======
@@ -282,14 +284,6 @@ shortcuts are provided:
 - ``<leader>gi`` jump to files including the current file
 - ``<leader>gf`` jump to files under the cursor
 - ``<leader>gg`` jump to definition or reference under the cursor
-
-vim-clang-format
-================
-
-Use ``<leader>cf`` to format the whole/selected source.
-This shortcut is available for both normal and visual mode.
-
-A ``.clang-format`` file is needed. Place one in the project root.
 
 DoxygenToolkit
 ==============
@@ -382,7 +376,9 @@ DENYs
 - gtags outline source for Denite. Using outline means we don't know much about
   the name. Navigation is better than filtering. So, keep the QuickFix style,
   but drop the filtering style.
+  Just use ``<leader>gl`` .
 - run make in the build dir. Use ``make -C /path/to/makefile`` .
+  ucmake.vim auto set build dir for ``make`` .
 
 TODOs
 =====
