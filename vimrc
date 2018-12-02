@@ -13,7 +13,6 @@
     Plug 'honza/vim-snippets'   " Code snippets
     Plug 'airblade/vim-gitgutter'   " shows a git diff in the sign column
     Plug 'tpope/vim-fugitive'   " git wrapper
-    Plug 'rhysd/vim-clang-format'   " plugin for clang-format
     Plug 'vim-scripts/DoxygenToolkit.vim' " Simplify Doxygen documentation
     Plug 'vim-scripts/DrawIt'   " Ascii drawing
     Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
@@ -267,23 +266,34 @@
   inoremap " ""<Left>
   inoremap ' ''<Left>
   inoremap ` ``<Left>
+
+  " clang-format
+  function! FormatFile()
+    let l:lines="all"
+    py3f /usr/local/share/clang/clang-format.py
+  endfunction
+
+  if executable('clang-format')
+    " nnoremap <leader>cf :<C-u>ClangFormat<CR>
+    " vnoremap <leader>cf :ClangFormat<CR>
+    " CUSTOM: set full path of clangformat.py in below TWO lines.
+    noremap <C-K> :call FormatFile()<cr>
+    inoremap <C-K> <c-o>:py3f /usr/local/share/clang/clang-format.py<cr>
+  endif
+
 " }
 
 " Plugin Config {
   " --- tabular
-  if exists('g:tabular_loaded')
-    nnoremap <leader>a :Tabularize /
-    vnoremap <leader>a :Tabularize /
-  endif
+  nnoremap <leader>a :Tabularize /
+  vnoremap <leader>a :Tabularize /
 
   " --- ultisnips
-  if exists('did_plugin_ultisnips')
-    let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
-    " prevent conflict with YCM
-    let g:UltiSnipsExpandTrigger = '<c-j>'
-    let g:UltiSnipsJumpForwardTrigger = '<c-j>'
-    let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
-  endif
+  let g:UltiSnipsSnippetDirectories=["UltiSnips", "my_snippets"]
+  " prevent conflict with YCM
+  let g:UltiSnipsExpandTrigger = '<c-j>'
+  let g:UltiSnipsJumpForwardTrigger = '<c-j>'
+  let g:UltiSnipsJumpBackwardTrigger = '<c-k>'
 
   " --- vim-snippets
   let g:author=$USER
@@ -311,12 +321,6 @@
     nnoremap <leader>gg :GtagsCursor<CR>
   endif
 
-  " --- vim-clang-format
-  if exists('g:loaded_clang_format')
-    nnoremap <leader>cf :<C-u>ClangFormat<CR>
-    vnoremap <leader>cf :ClangFormat<CR>
-  endif
-
   " --- DoxygenToolkit
   let g:DoxygenToolkit_commentType="C++"
   let g:DoxygenToolkit_authorName=g:author
@@ -325,48 +329,44 @@
   let g:DoxygenToolkit_compactDoc = "yes"
 
   " --- YouCompleteMe
-  if exists( "g:loaded_youcompleteme" )
-    let g:ycm_semantic_triggers =  { 'c,cpp': ['re!\w{2}'], }
-    let g:ycm_key_invoke_completion='<C-\>'
-    nnoremap <leader>yg :YcmCompleter GoTo<CR>
-    nnoremap <leader>yf :YcmCompleter FixIt<CR>
-    nnoremap <leader>yd :YcmDiags<CR>
-  endif
+  let g:ycm_semantic_triggers =  { 'c,cpp': ['re!\w{2}'], }
+  let g:ycm_key_invoke_completion='<C-\>'
+  nnoremap <leader>yg :YcmCompleter GoTo<CR>
+  nnoremap <leader>yf :YcmCompleter FixIt<CR>
+  nnoremap <leader>yd :YcmDiags<CR>
 
   " --- denite
-  if exists('g:loaded_denite')
-    call denite#custom#var(
-        \ 'buffer',
-        \ 'date_format', '%Y-%m-%d %H:%M:%S')
-    if executable('rg') " use riggrep for file search and grep
-      call denite#custom#var('file/rec', 'command', ['rg', '--files'])
-      call denite#custom#var('grep', 'command', ['rg'])
-      call denite#custom#var('grep', 'default_opts',
-          \ ['--vimgrep', '--no-heading'])
-      call denite#custom#var('grep', 'recursive_opts', [])
-      call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-      call denite#custom#var('grep', 'separator', ['--'])
-      call denite#custom#var('grep', 'final_opts', [])
-    endif
-    call denite#custom#map(
-      \ 'insert',
-      \ '<C-j>',
-      \ '<denite:move_to_next_line>',
-      \ 'noremap'
-      \)
-    call denite#custom#map(
-      \ 'insert',
-      \ '<C-k>',
-      \ '<denite:move_to_previous_line>',
-      \ 'noremap'
-      \)
-    nnoremap <leader>df :DeniteBufferDir file/rec<CR>
-    nnoremap <leader>db :DeniteProjectDir buffer<CR>
-  
-    function! GetCoreBaseFileName(file)
-      let l:file=substitute(a:file, '[_-]\+test\c', '', 'g')
-      execute 'DeniteProjectDir -input=' . l:file . ' file/rec'
-    endfunction
-    nnoremap <leader>dr :call GetCoreBaseFileName(expand('%:t:r'))<CR>
+  call denite#custom#var(
+      \ 'buffer',
+      \ 'date_format', '%Y-%m-%d %H:%M:%S')
+  if executable('rg') " use riggrep for file search and grep
+    call denite#custom#var('file/rec', 'command', ['rg', '--files'])
+    call denite#custom#var('grep', 'command', ['rg'])
+    call denite#custom#var('grep', 'default_opts',
+        \ ['--vimgrep', '--no-heading'])
+    call denite#custom#var('grep', 'recursive_opts', [])
+    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
+    call denite#custom#var('grep', 'separator', ['--'])
+    call denite#custom#var('grep', 'final_opts', [])
   endif
+  call denite#custom#map(
+    \ 'insert',
+    \ '<C-j>',
+    \ '<denite:move_to_next_line>',
+    \ 'noremap'
+    \)
+  call denite#custom#map(
+    \ 'insert',
+    \ '<C-k>',
+    \ '<denite:move_to_previous_line>',
+    \ 'noremap'
+    \)
+  nnoremap <leader>df :DeniteBufferDir file/rec<CR>
+  nnoremap <leader>db :DeniteProjectDir buffer<CR>
+
+  function! GetCoreBaseFileName(file)
+    let l:file=substitute(a:file, '[_-]\+test\c', '', 'g')
+    execute 'DeniteProjectDir -input=' . l:file . ' file/rec'
+  endfunction
+  nnoremap <leader>dr :call GetCoreBaseFileName(expand('%:t:r'))<CR>
 " }

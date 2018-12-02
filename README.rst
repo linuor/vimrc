@@ -39,7 +39,8 @@ installed too,::
     export GTAGSLABEL='native-pygments'
     export GTAGSCONF='/usr/local/share/gtags/gtags.conf'
 
-Modify the vimrc file, such as adding email, just search "CUSTOM".
+Modify the vimrc file, provides a full path of clangformat.py,
+and informations such as author and email, just search "CUSTOM".
 
 *******
 Plugins
@@ -372,6 +373,8 @@ DONEs
 - 2018-05-26
     - template for new c/c++ header/source files, namespace, include guard, etc.
     - better automatic tag file manager.
+- 2018-12-2
+    - vim-clang-format too slow, use clangformat.py instead.
 
 DENYs
 =====
