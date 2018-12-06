@@ -33,7 +33,7 @@ Then run bash commands as below::
     ./install.sh
 
 Remember to alias vi to vim, and  export enviroment variables if pygments is
-installed too,::
+installed too::
 
     alias vi="vim"
     export GTAGSLABEL='native-pygments'
@@ -46,7 +46,7 @@ and informations such as author and email, just search "CUSTOM".
 Plugins
 *******
 
-Plugins as follow will be installed
+Plugins as follow will be installed:
 
 - `vim-commentary <https://github.com/tpope/vim-commentary>`_
   comment stuff out
@@ -88,8 +88,6 @@ Besides, another 2 plugins has already installed:
 - ``matchit.vim`` which released vim itself.
 - ``gtags.vim`` which installed with GNU global.
 
-For optional plugins, add to ``pack/my/opt/`` directory.
-
 *********
 Shortcuts
 *********
@@ -103,7 +101,7 @@ Shortcuts are defined as follow::
     " mute search high light before clear and redraw the screen
     nnoremap <silent> <C-L>
                 \ :nohlsearch<C-R>=has('diff')?'<Bar>diffupdate':''<CR><CR><C-L>
-    " hight tailing space
+    " hightlight tailing space
     nnoremap <leader>sp /\s\+$<CR>
     " undo in insert mode
     inoremap <C-U> <C-G>u<C-U>
@@ -162,7 +160,7 @@ Shortcuts are defined as follow::
 netrw
 =====
 
-netrw is released with every vim, we use it as default file explorer.
+netrw is released with every vim, we use it as the default file explorer.
 Use ``:E`` to activate it in the current window.
 
 - ``-`` Go up directory.
@@ -269,7 +267,7 @@ We use gtags-cscope to replace the build in cscope.
 Just use the ``:cscope`` as usual. Notice that ``:cs find d`` command is not
 implemented by gtags-cscope.
 
-``:Gtags`` is provide to invoke the global command. Also the the following
+``:Gtags`` can be used to invoke the global command. Also the the following
 shortcuts are provided:
 
 - ``<leader>gl`` list all the tags of the current file
