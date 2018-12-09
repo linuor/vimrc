@@ -119,7 +119,7 @@
   set number relativenumber   " Show line number with relative number
 
   set colorcolumn=80  " highligh coloum
-  set cursorline      " highlight current line
+  set nocursorline      " no highlight current line
 
   set cmdheight=2     " height of the command bar, avoid hit-enter prompts
 
