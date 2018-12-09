@@ -18,6 +18,7 @@
     Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
     Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
     Plug 'Valloric/YouCompleteMe'   " code-completion engine
+    Plug 'Valloric/ListToggle'  " toggle quick fix and location list
     Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
     Plug 'morhetz/gruvbox'      " color scheme
     Plug 'linuor/ucmake.vim'    " for cmake build system
@@ -248,9 +249,6 @@
   " retain visual selection after indention
   vnoremap < <gv
   vnoremap > >gv
-
-  " since QuickFix window always open, just map a shortcut for closing.
-  nnoremap <leader>qc :cclose<CR>
 
   " silent grep search
   nnoremap <leader>sh :silent grep<Space>

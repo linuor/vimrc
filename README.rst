@@ -74,6 +74,8 @@ Plugins as follow will be installed:
   rst table helper
 - `YouCompleteMe <https://github.com/Valloric/YouCompleteMe>`_
   code-completion engine
+- `ListToggle <https://github.com/Valloric/ListToggle>`_
+  toggle quick fix and location list
 - `denite.nvim <https://github.com/Shougo/denite.nvim>`_
   asynchronous unite all interfaces
 - `gruvbox <https://github.com/morhetz/gruvbox>`_
@@ -141,9 +143,6 @@ Shortcuts are defined as follow::
     " retain visual selection after indention
     vnoremap < <gv
     vnoremap > >gv
-
-    " since QuickFix window always open, just map a shortcut for closing.
-    nnoremap <leader>qc :cclose<CR>
 
     " silent grep search
     nnoremap <leader>sh :silent grep<Space>
@@ -313,7 +312,15 @@ YouCompleteMe
 
 The YouCompleteMe GoTo command is smarter than ``GtagsCursor`` which is mapped
 to ``<leader>gg`` .
-TODO: think about which is better.
+
+But in some case, YouCompleteMe can't jump to the definition,
+while ``<C-]>`` can.
+
+ListToggle
+==========
+
+ListToggle provides ``<leader>q`` and ``<leader>l`` to toggle quickfix and
+location list.
 
 denite
 ======
@@ -376,4 +383,5 @@ TODOs
 =====
 
 - language server protocol.
+- YouCompleteMe is a little lag while linting, ALE may be a alternation.
 
