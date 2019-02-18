@@ -18,8 +18,10 @@
     Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
     Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
     Plug 'Valloric/YouCompleteMe'   " code-completion engine
+    Plug 'neomake/neomake'      " auto lint and make in background
     Plug 'Valloric/ListToggle'  " toggle quick fix and location list
-    Plug 'Shougo/denite.nvim'   " asynchronous unite all interfaces
+    Plug 'junegunn/fzf'         " fuzzy finder
+    Plug 'junegunn/fzf.vim'     " sources for fzf
     Plug 'morhetz/gruvbox'      " color scheme
     Plug 'linuor/ucmake.vim'    " for cmake build system
     Plug 'linuor/ugtags.vim'    " for GNU global tag system
@@ -327,44 +329,17 @@
   let g:DoxygenToolkit_compactDoc = "yes"
 
   " --- YouCompleteMe
+  let g:ycm_show_diagnostics_ui = 0
   let g:ycm_semantic_triggers =  { 'c,cpp': ['re!\w{2}'], }
   let g:ycm_key_invoke_completion='<C-\>'
   nnoremap <leader>yg :YcmCompleter GoTo<CR>
   nnoremap <leader>yf :YcmCompleter FixIt<CR>
   nnoremap <leader>yd :YcmDiags<CR>
 
-  " --- denite
-  call denite#custom#var(
-      \ 'buffer',
-      \ 'date_format', '%Y-%m-%d %H:%M:%S')
-  if executable('rg') " use riggrep for file search and grep
-    call denite#custom#var('file/rec', 'command', ['rg', '--files'])
-    call denite#custom#var('grep', 'command', ['rg'])
-    call denite#custom#var('grep', 'default_opts',
-        \ ['--vimgrep', '--no-heading'])
-    call denite#custom#var('grep', 'recursive_opts', [])
-    call denite#custom#var('grep', 'pattern_opt', ['--regexp'])
-    call denite#custom#var('grep', 'separator', ['--'])
-    call denite#custom#var('grep', 'final_opts', [])
-  endif
-  call denite#custom#map(
-    \ 'insert',
-    \ '<C-j>',
-    \ '<denite:move_to_next_line>',
-    \ 'noremap'
-    \)
-  call denite#custom#map(
-    \ 'insert',
-    \ '<C-k>',
-    \ '<denite:move_to_previous_line>',
-    \ 'noremap'
-    \)
-  nnoremap <leader>df :DeniteBufferDir file/rec<CR>
-  nnoremap <leader>db :DeniteProjectDir buffer<CR>
+  " --- neomake
+  call neomake#configure#automake('nw', 100)
 
-  function! GetCoreBaseFileName(file)
-    let l:file=substitute(a:file, '[_-]\+test\c', '', 'g')
-    execute 'DeniteProjectDir -input=' . l:file . ' file/rec'
-  endfunction
-  nnoremap <leader>dr :call GetCoreBaseFileName(expand('%:t:r'))<CR>
+  " --- fzf
+  nnoremap <leader>f :Rg<CR>
+  nnoremap <leader>b :Buffers<CR>
 " }

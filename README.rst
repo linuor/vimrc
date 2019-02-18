@@ -74,10 +74,13 @@ Plugins as follow will be installed:
   rst table helper
 - `YouCompleteMe <https://github.com/Valloric/YouCompleteMe>`_
   code-completion engine
+- `neomake/neomake <https://github.com/neomake/neomake>`_
+  auto lint and make in background
 - `ListToggle <https://github.com/Valloric/ListToggle>`_
   toggle quick fix and location list
-- `denite.nvim <https://github.com/Shougo/denite.nvim>`_
-  asynchronous unite all interfaces
+- `junegunn/fzf <https://github.com/junegunn/fzf>`_ and
+  `junegunn/fzf.vim <https://github.com/junegunn/fzf.vim>`_ 
+  fuzzy finder and sources for fzf
 - `gruvbox <https://github.com/morhetz/gruvbox>`_
   color scheme
 - `ucmake.vim <https://github.com/linuor/ucmake.vim>`_
@@ -316,20 +319,24 @@ to ``<leader>gg`` .
 But in some case, YouCompleteMe can't jump to the definition,
 while ``<C-]>`` can.
 
+NeoMake
+=======
+
+auto lint.
+
 ListToggle
 ==========
 
 ListToggle provides ``<leader>q`` and ``<leader>l`` to toggle quickfix and
 location list.
 
-denite
-======
+fzf
+===
 
-- ``<leader>df`` to quickly recursively search file in the directory of the
-  current buffer.
-- ``<leader>db`` to quickly switch buffer.
-- ``<leader>dr`` to open files related to the current file.
-- ``<C-J>`` ``<C-K>`` to navigate in the Denite interface.
+- ``<leader>f`` to quickly search file in the current working directory with rg.
+- ``<leader>b`` to quickly search buffers.
+- ``<C-J>`` ``<C-K>`` to navigate in the fzf interface.
+- ``<C-V>`` and ``<C-X>`` to open with vsplit and split.
 
 Tips
 ----
@@ -368,6 +375,11 @@ DONEs
     - better automatic tag file manager.
 - 2018-12-2
     - vim-clang-format too slow, use clangformat.py instead.
+- 2019-02-18
+   - denite is too heavy, and break when update. Remove it and use ``fzf``
+     instead.
+   - YouCompleteMe is a little lag while linting, ALE may be a alternation.
+     ALE is not my style, use neomake instead.
 
 DENYs
 =====
@@ -383,5 +395,6 @@ TODOs
 =====
 
 - language server protocol.
-- YouCompleteMe is a little lag while linting, ALE may be a alternation.
-
+- add sources for fzf.
+- use neomake to replace ucmake.vim and ugtags.vim
+- neoformat may be useful for formating kinds of files.
