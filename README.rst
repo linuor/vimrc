@@ -6,26 +6,24 @@ linuor's vimrc
 
 Less configuration, more defaults.
 
-Mainly focus on C/C++ and restructuredText. Major languages such as Java,
-Python etc, are also supported theoretically, since the language related
-plugins are all support kinds of languages.
+Mainly focus on C++ and restructuredText.
 
 ***********
 Requirement
 ***********
 
-- vim with python3 support
+- vim 8.0 or later, with python3 support
 - git
 - `GNU global <https://www.gnu.org/software/global/>`_ ,
   `pygments <http://pygments.org/>`_ is recommanded.
 - `ripgrep <https://github.com/BurntSushi/ripgrep>`_
-- `clang-format <https://clang.llvm.org/docs/ClangFormat.html>`_
+- `clangd <https://clang.llvm.org/extra/clangd>`_ version 9.0.0 or later
 
 *******
 Install
 *******
 
-Firstly, install all the modules required such as git, clang-format, etc.
+Firstly, install all the modules required such as git, clangd, etc.
 Then run bash commands as below::
 
     git clone https://github.com/linuor/vimrc.git vimrc
@@ -38,8 +36,9 @@ installed too::
     alias vi="vim"
     export GTAGSLABEL='native-pygments'
     export GTAGSCONF='/usr/local/share/gtags/gtags.conf'
+    export FZF_DEFAULT_COMMAND='rg --files'
 
-Modify the vimrc file, provides a full path of clangformat.py,
+Modify the vimrc file, provides a full path of clang-format.py,
 and informations such as author and email, just search "CUSTOM".
 
 *******
@@ -72,15 +71,10 @@ Plugins as follow will be installed:
   Vim Outliner of Markers
 - `Unicode-RST-Tables <https://github.com/vim-scripts/Unicode-RST-Tables>`_
   rst table helper
-- `YouCompleteMe <https://github.com/Valloric/YouCompleteMe>`_
+- `coc.nvim <https://github.com/neoclide/coc.nvim>`_
   code-completion engine
-- `neomake/neomake <https://github.com/neomake/neomake>`_
-  auto lint and make in background
 - `ListToggle <https://github.com/Valloric/ListToggle>`_
   toggle quick fix and location list
-- `junegunn/fzf <https://github.com/junegunn/fzf>`_ and
-  `junegunn/fzf.vim <https://github.com/junegunn/fzf.vim>`_ 
-  fuzzy finder and sources for fzf
 - `gruvbox <https://github.com/morhetz/gruvbox>`_
   color scheme
 - `ucmake.vim <https://github.com/linuor/ucmake.vim>`_
@@ -90,7 +84,7 @@ Plugins as follow will be installed:
 
 Besides, another 2 plugins has already installed:
 
-- ``matchit.vim`` which released vim itself.
+- ``matchit.vim`` which released by vim.
 - ``gtags.vim`` which installed with GNU global.
 
 *********
@@ -147,9 +141,6 @@ Shortcuts are defined as follow::
     vnoremap < <gv
     vnoremap > >gv
 
-    " silent grep search
-    nnoremap <leader>sh :silent grep<Space>
-
     " auto close pairs
     inoremap ( ()<Left>
     inoremap [ []<Left>
@@ -158,6 +149,9 @@ Shortcuts are defined as follow::
     inoremap " ""<Left>
     inoremap ' ''<Left>
     inoremap ` ``<Left>
+
+    " always use :update not :write
+    nnoremap <leader>u :update<cr>
 
 netrw
 =====
@@ -256,11 +250,11 @@ A hunk text object is provided which works in visual and operator-pending modes.
 vim-fugitive
 ============
 
-- ``Gstatus`` to get ``git status`` info, and use ``-`` to add/reset files.
-- ``Gcommit`` to commit.
-- ``Gpush``   to push.
-- ``Gpull`` to pull.
-- ``Gdiff`` to diff.
+- ``:Gstatus`` to get ``git status`` info, and use ``-`` to add/reset files.
+- ``:Gcommit`` to commit.
+- ``:Gpush``   to push.
+- ``:Gpull`` to pull.
+- ``:Gdiff`` to diff.
 
 gtags
 =====
@@ -305,19 +299,22 @@ Unicode-RST-Tables
 - ``<leader><leader>c`` Creates a new restructuredText table.
 - ``<leader><leader>f`` Fix table columns in a table.
 
-YouCompleteMe
-=============
+coc.nvim
+========
 
-- ``<C-\>`` trigger the auto completion
-- ``<leader>yg`` goto definition or declearation
-- ``<leader>yd`` list all the diagnostic informations
-- ``<leader>yf`` auto Fix It
-
-The YouCompleteMe GoTo command is smarter than ``GtagsCursor`` which is mapped
-to ``<leader>gg`` .
-
-But in some case, YouCompleteMe can't jump to the definition,
-while ``<C-]>`` can.
+- ``<tab>`` trigger the auto completion in insert mode 
+- ``<leader>cd`` goto declaration
+- ``<leader>ci`` goto definition/implementation
+- ``<leader>cr`` goto reference
+- ``<leader>fs`` format the selected text in insert mode,
+  or the following text object.
+- ``<leader>fa`` format the whole buffer
+- ``<leader>fx`` apply the fix-it
+- ``<leader>rf`` refector
+- ``<leader>rn`` rename
+- ``<leader>ff`` file search list
+- ``<leader>fb`` buffer search list
+- ``<leader>sh`` grep search list
 
 NeoMake
 =======
@@ -330,27 +327,15 @@ ListToggle
 ListToggle provides ``<leader>q`` and ``<leader>l`` to toggle quickfix and
 location list.
 
-fzf
-===
-
-- ``<leader>f`` to quickly search file in the current working directory with rg.
-- ``<leader>b`` to quickly search buffers.
-- ``<C-J>`` ``<C-K>`` to navigate in the fzf interface.
-- ``<C-V>`` and ``<C-X>`` to open with vsplit and split.
-
 Tips
 ----
 
 - launch vim from the root of the project.
 - pass a list of files as arguments for vim, such as ``vim `git ls-files``` ,
   to open all the source files of the project.
-- to search files from the project root, use ``<leader>db`` to search buffers.
-- to recursively search files from the current location, use ``<leader>df`` .
-- to search relatedd files ( files have the same base name, such as ``foo.cpp``
-  ``foo.h``  ``foo_test.cpp`` , are related files), use ``<leader>dr`` .
-- see also Ycm's GoTo command( ``<leader>yg`` ), Gtags' P ( ``<leader>gf`` ),
-  vim's built in ``gf`` . These are used to goto the file explicitly, 
-  while ``<leader>gf`` is a fuzzy search.
+- to search files from the project root, use ``<leader>fb`` to search buffers.
+- to recursively search files from the current location, use ``<leader>ff`` .
+- use both coc.nvim list and gtags to jump across the project.
 
 ***************
 TODOs and DONEs
@@ -386,8 +371,7 @@ DENYs
 
 - gtags outline source for Denite. Using outline means we don't know much about
   the name. Navigation is better than filtering. So, keep the QuickFix style,
-  but drop the filtering style.
-  Just use ``<leader>gl`` .
+  but drop the filtering style. Just use ``<leader>gl`` .
 - run make in the build dir. Use ``make -C /path/to/makefile`` .
   ucmake.vim auto set build dir for ``make`` .
 

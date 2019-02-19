@@ -1,0 +1,25 @@
+{
+  "languageserver" : {
+    "clangd" : {
+      "command": "clangd",
+      "args": [
+        "--background-index",
+        "--clang-tidy",
+        "-j=4",
+        "--pch-storage=memory"
+      ],
+      "filetypes": [
+        "c",
+        "c.doxygen",
+        "cpp",
+        "cpp.doxygen",
+        "objc",
+        "objcpp"
+      ],
+      "rootPatterns": [
+        ".git/",
+        "compile_commands.json"
+      ]
+    }
+  }
+}

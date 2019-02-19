@@ -1,3 +1,4 @@
 .*
-temp
-plugged
+plugged/
+sessions/
+temp/

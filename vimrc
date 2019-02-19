@@ -17,11 +17,8 @@
     Plug 'vim-scripts/DrawIt'   " Ascii drawing
     Plug 'vim-voom/VOoM'        " Vim Outliner of Markers
     Plug 'vim-scripts/Unicode-RST-Tables' " restructuredText table helper
-    Plug 'Valloric/YouCompleteMe'   " code-completion engine
-    Plug 'neomake/neomake'      " auto lint and make in background
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
     Plug 'Valloric/ListToggle'  " toggle quick fix and location list
-    Plug 'junegunn/fzf'         " fuzzy finder
-    Plug 'junegunn/fzf.vim'     " sources for fzf
     Plug 'morhetz/gruvbox'      " color scheme
     Plug 'linuor/ucmake.vim'    " for cmake build system
     Plug 'linuor/ugtags.vim'    " for GNU global tag system
@@ -89,6 +86,7 @@
     set grepprg=rg\ --vimgrep\ --no-heading\ --column\ $*
     set grepformat=%f:%l:%c:%m,%f:%l:%m
   endif
+
 " }
 
 " UserInterface {
@@ -252,12 +250,6 @@
   vnoremap < <gv
   vnoremap > >gv
 
-  " silent grep search
-  nnoremap <leader>sh :silent grep<Space>
-
-  " change working directory to the current file for the current window only
-  " nnoremap <leader>cd :lcd %:p:h<CR>
-
   " auto close pairs
   inoremap ( ()<Left>
   inoremap [ []<Left>
@@ -267,20 +259,8 @@
   inoremap ' ''<Left>
   inoremap ` ``<Left>
 
-  " clang-format
-  function! FormatFile()
-    let l:lines="all"
-    py3f /usr/local/share/clang/clang-format.py
-  endfunction
-
-  if executable('clang-format')
-    " nnoremap <leader>cf :<C-u>ClangFormat<CR>
-    " vnoremap <leader>cf :ClangFormat<CR>
-    " CUSTOM: set full path of clangformat.py in below TWO lines.
-    noremap <C-K> :call FormatFile()<cr>
-    inoremap <C-K> <c-o>:py3f /usr/local/share/clang/clang-format.py<cr>
-  endif
-
+  " always use :update not :write
+  nnoremap <leader>u :update<CR>
 " }
 
 " Plugin Config {
@@ -328,18 +308,31 @@
   let g:DoxygenToolkit_compactOneLineDoc = "yes"
   let g:DoxygenToolkit_compactDoc = "yes"
 
-  " --- YouCompleteMe
-  let g:ycm_show_diagnostics_ui = 0
-  let g:ycm_semantic_triggers =  { 'c,cpp': ['re!\w{2}'], }
-  let g:ycm_key_invoke_completion='<C-\>'
-  nnoremap <leader>yg :YcmCompleter GoTo<CR>
-  nnoremap <leader>yf :YcmCompleter FixIt<CR>
-  nnoremap <leader>yd :YcmDiags<CR>
+  " --- coc.nvim
+  " use <tab> for trigger completion and navigate to the next complete item
+  function! s:check_back_space() abort
+    let col = col('.') - 1
+    return !col || getline('.')[col - 1]  =~ '\s'
+  endfunction
+  inoremap <silent><expr> <Tab>
+    \ pumvisible() ? "\<C-n>" :
+    \ <SID>check_back_space() ? "\<Tab>" :
+    \ coc#refresh()
+  inoremap <expr> <S-Tab> pumvisible() ? "\<C-p>" : "\<S-Tab>"
+  inoremap <silent><expr> <CR>
+    \ pumvisible() ? coc#_select_confirm() : "\<C-g>u\<CR>"
 
-  " --- neomake
-  call neomake#configure#automake('nw', 100)
+  nmap <leader>cd <Plug>(coc-declaration)
+  nmap <leader>ci <Plug>(coc-definition)
+  nmap <leader>cr <Plug>(coc-reference)
+	vmap <leader>fs <Plug>(coc-format-selected)
+	nmap <leader>fs <Plug>(coc-format-selected)
+	nmap <leader>fa <Plug>(coc-format)
+  nmap <leader>fx <Plug>(coc-fix-current)
+  nmap <leader>rf <Plug>(coc-refactor)
+  nmap <leader>rn <Plug>(coc-rename)
 
-  " --- fzf
-  nnoremap <leader>f :Rg<CR>
-  nnoremap <leader>b :Buffers<CR>
+  nnoremap <leader>ff :CocList files<CR>
+  nnoremap <leader>fb :CocList buffers<CR>
+  nnoremap <leader>sh :CocList grep<CR>
 " }

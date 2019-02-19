@@ -19,7 +19,7 @@ class Template(object):
 		self._buffer_name = buffer
 		self._project_name = None
 		self._namespace = None
-		self._include_grard = None
+		self._include_guard = None
 
 	def BufferName(self):
 		"""get the buffer name.
@@ -45,7 +45,7 @@ class Template(object):
 		if self._namespace == None:
 			p = ospath.dirname(ospath.relpath(vim.current.buffer.name))
 			f = p.split(os.sep)
-			self._namespace = [self.ProjectName()] + f
+			self._namespace = [self.ProjectName()] + [x for x in f if x != ""]
 		return self._namespace
 
 	def IncludeGuard(self):
@@ -53,13 +53,13 @@ class Template(object):
 		:returns: a upper-case string of include guard
 
 		"""
-		if self._include_grard == None:
+		if self._include_guard == None:
 			r = ""
 			for item in self.Namespace():
 				r += item.upper() + "_"
 			r += ospath.basename(self._buffer_name).replace(".", "_").upper()
-			self._include_grard = r
-		return self._include_grard
+			self._include_guard = r
+		return self._include_guard
 	
 	def NamespaceBegin(self):
 		"""get the opening part of namespaces
